@@ -1,5 +1,7 @@
 package br.com.srcomputador.entidade.bloco0;
 
+import br.com.srcomputador.entidade.Registro;
+
 /*
  * Objetivo descrever as unidades de medidas (UM) utilizadas no arquivo digital.
  * Não podem ser informados 2 (dois) ou mais registros com o mesmo código de UM

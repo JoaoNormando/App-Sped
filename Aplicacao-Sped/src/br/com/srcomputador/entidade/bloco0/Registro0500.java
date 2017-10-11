@@ -2,6 +2,8 @@ package br.com.srcomputador.entidade.bloco0;
 
 import java.util.Date;
 
+import br.com.srcomputador.entidade.Registro;
+
 /*
  * Este Registro tem como objetivo identificar as contas contábeis
  * utilizadas pelo contribuinte informante em sua Contabilidade Geral,

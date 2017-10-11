@@ -1,5 +1,7 @@
 package br.com.srcomputador.entidade.bloco0;
 
+import br.com.srcomputador.entidade.Registro;
+
 /*
  * Este Registro tem por objetivo codificar todas as informações
  * complementares dos documentos fiscais exigidas pela legislação fiscal.

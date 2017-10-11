@@ -1,5 +1,7 @@
 package br.com.srcomputador.entidade.bloco0;
 
+import br.com.srcomputador.entidade.Registro;
+
 /* 
  * Dados do contribuinte substituto 
  * ou responsável pelo ICMS destino do Sped-Fiscal.

@@ -2,6 +2,8 @@ package br.com.srcomputador.entidade.bloco0;
 
 import java.util.Calendar;
 
+import br.com.srcomputador.entidade.Registro;
+
 public class Registro0205 extends Registro{
 
 	private String descricaoItemAnterior;

@@ -1,5 +1,7 @@
 package br.com.srcomputador.entidade.bloco0;
 
+import br.com.srcomputador.entidade.Registro;
+
 public class Registro0900 extends Registro {
 
 	private int quantidadeLinhasBloco0;

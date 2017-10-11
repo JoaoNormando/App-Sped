@@ -1,8 +1,8 @@
-package br.com.srcomputador.entidade.bloco0;
+package br.com.srcomputador.entidade;
 
 public abstract class Registro {
 
-	private String registro;
+	protected String registro;
 
 	public String getRegistro() {
 		return registro;

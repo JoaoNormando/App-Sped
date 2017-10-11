@@ -2,6 +2,8 @@ package br.com.srcomputador.entidade.bloco0;
 
 import java.util.Date;
 
+import br.com.srcomputador.entidade.Registro;
+
 public class Registro0000 extends Registro{
 
 	private Pessoa pessoa;

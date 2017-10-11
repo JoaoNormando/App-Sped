@@ -1,5 +1,7 @@
 package br.com.srcomputador.entidade.bloco0;
 
+import br.com.srcomputador.entidade.Registro;
+
 /*
  * Este Registro tem por objetivo informar o código correspondente 
  * ao produto constante na Tabela da Agência Nacional de Petróleo (ANP).

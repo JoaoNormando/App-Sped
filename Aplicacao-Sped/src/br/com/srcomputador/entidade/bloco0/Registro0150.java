@@ -1,5 +1,7 @@
 package br.com.srcomputador.entidade.bloco0;
 
+import br.com.srcomputador.entidade.Registro;
+
 /*
  *  Trata da "Tabela de cadastro do 
  *  participante" do Sped-Fiscal.

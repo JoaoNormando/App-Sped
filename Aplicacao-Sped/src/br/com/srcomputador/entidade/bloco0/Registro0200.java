@@ -1,5 +1,7 @@
 package br.com.srcomputador.entidade.bloco0;
 
+import br.com.srcomputador.entidade.Registro;
+
 /*
  * O Registro 0200 tem por objetivo informar mercadorias, serviços,
  * produtos ou quaisquer outros itens concernentes às transações fiscais
