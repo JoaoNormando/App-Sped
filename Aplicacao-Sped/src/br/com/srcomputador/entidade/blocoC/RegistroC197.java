@@ -4,6 +4,8 @@ import br.com.srcomputador.entidade.Registro;
 
 public class RegistroC197 extends Registro {
 
+	private Doublew valor;
+	
 	private String codigoAjuste;
 	private String descricaoComplementar;
 	private String codigoItem;
@@ -69,5 +71,5 @@ public class RegistroC197 extends Registro {
 	public void setValorOutros(double valorOutros) {
 		this.valorOutros = valorOutros;
 	}
-
+	
 }
