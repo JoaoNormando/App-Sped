@@ -3,8 +3,6 @@ package br.com.srcomputador.entidade.blocoC;
 import br.com.srcomputador.entidade.Registro;
 
 public class RegistroC197 extends Registro {
-
-	private Doublew valor;
 	
 	private String codigoAjuste;
 	private String descricaoComplementar;
