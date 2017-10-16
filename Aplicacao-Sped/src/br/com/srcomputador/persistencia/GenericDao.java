@@ -29,7 +29,7 @@ public abstract class GenericDao<T, ID> {
 	
 	@SuppressWarnings("unchecked")
 	public List<T> listar(){
-		return em.createQuery("from Registro0000").getResultList();
+		return em.createQuery("from "+ classe.getName()).getResultList();
 	}
 	
 	public T buscarPeloId(ID id) {
