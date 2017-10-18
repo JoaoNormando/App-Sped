@@ -21,7 +21,7 @@ import br.com.srcomputador.persistencia.UsuarioDao;
 
 @RestController
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioDao dao;
 
@@ -44,14 +44,14 @@ public class UsuarioController {
 
 	@DeleteMapping(value = "/remove/{id}")
 	public ResponseEntity<Object> removerAluno(@PathVariable Long id) {
-		Usuario usuario = dao.buscarPeloId(id);
 
-		if (usuario == null) {
-			return new ResponseEntity<>("Usuario passado não encontrado", HttpStatus.NOT_FOUND);
+		try {
+			dao.removerPeloId(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (NullPointerException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-
-		dao.remover(usuario);
-		return new ResponseEntity<>(HttpStatus.OK);
+		
 	}
 
 	public ResponseEntity<Object> atualizarAluno(@PathVariable Long id, @RequestBody Usuario usuario) {
