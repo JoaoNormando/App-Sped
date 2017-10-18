@@ -21,7 +21,7 @@ import br.com.srcomputador.persistencia.UsuarioDao;
 
 @RestController
 public class UsuarioController {
-
+	
 	@Autowired
 	private UsuarioDao dao;
 

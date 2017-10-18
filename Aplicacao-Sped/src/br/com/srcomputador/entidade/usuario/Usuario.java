@@ -8,16 +8,19 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-public class Usuario {
+public class Usuario{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
+	@NotBlank
 	private String nome;
 	@CPF
 	private String cpf;
@@ -25,8 +28,11 @@ public class Usuario {
 	@Embedded
 	private Endereco endereco;
 	
+	@NotNull
+	@Email
 	private String email;
 	
+	@NotNull
 	@Size(min = 6)
 	private String senha;
 	

@@ -3,15 +3,26 @@ package br.com.srcomputador.entidade.usuario;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Embeddable
 public class Endereco {
 
+	@NotNull
+	@NotBlank
 	private String rua;
+	@NotNull
 	private String bairro;
+	@Min(value = 1)
 	private int numero;
+	
+	@NotNull
 	@Enumerated(EnumType.ORDINAL)
 	private Estado estado;
+	
 	private String complemento;
 
 	public String getRua() {
