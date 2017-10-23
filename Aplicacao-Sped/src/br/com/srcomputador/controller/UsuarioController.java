@@ -24,7 +24,7 @@ public class UsuarioController {
 
 	@Autowired
 	private UsuarioDao dao;
-
+	
 	@GetMapping("/usuarios")
 	public List<Usuario> getAll() {
 		return dao.listar();

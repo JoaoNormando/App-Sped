@@ -27,6 +27,16 @@ public abstract class GenericDao<T, ID> {
 		em.remove(entidade);
 	}
 	
+	@Transactional
+	public void removerPeloId(ID id) {
+		T usuario = this.buscarPeloId(id);
+		
+		if(usuario == null) {
+			throw new NullPointerException("Entidade não encontrada");
+		}		
+		em.remove(usuario);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<T> listar(){
 		return em.createQuery("from "+ classe.getName()).getResultList();

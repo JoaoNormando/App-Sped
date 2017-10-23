@@ -1,0 +1,9 @@
+package br.com.srcomputador.mfd.servico;
+
+public enum Registros {
+
+	REGISTRO_E01, REGISTRO_E02, REGISTRO_E14, REGISTRO_E15,
+	REGISTRO_E16, REGISTRO_E17, REGISTRO_E18, REGISTRO_E19,
+	REGISTRO_E20, REGISTRO_E21;
+	
+}

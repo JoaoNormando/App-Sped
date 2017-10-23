@@ -13,33 +13,33 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-public class Usuario{
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotNull
 	@NotBlank
 	private String nome;
 	@CPF
 	private String cpf;
-	
+
 	@Embedded
 	private Endereco endereco;
-	
+
 	@NotNull
 	@Email
 	private String email;
-	
+
 	@NotNull
 	@Size(min = 6)
 	private String senha;
-	
+
 	public Usuario() {
-		
+
 	}
-	
+
 	public Usuario(String nome, String cpf, Endereco endereco, String email, String senha) {
 		super();
 		this.nome = nome;
@@ -87,6 +87,14 @@ public class Usuario{
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
