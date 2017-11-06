@@ -23,7 +23,7 @@ public class GeracaoDataHora {
 		int minutos = Integer.parseInt(texto.substring(10, 12));
 		int segundos = Integer.parseInt(texto.substring(12, 14));
 		
-		calendar.set(ano, mes, dia, hora, minutos, segundos);
+		calendar.set(ano, mes-1, dia, hora, minutos, segundos);
 		return calendar;
 	}
 	
@@ -37,7 +37,7 @@ public class GeracaoDataHora {
 		int mes = Integer.parseInt(texto.substring(4, 6));
 		int dia = Integer.parseInt(texto.substring(6, 8));
 		
-		calendar.set(ano, mes, dia);
+		calendar.set(ano, mes-1, dia);
 		return calendar;
 	}
 	

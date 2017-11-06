@@ -2,6 +2,9 @@ package br.com.srcomputador.mfd.entidade;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -9,6 +12,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "RegistroE15")
 public class RegistroE15 extends Registro {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@Column(name = "NUMERO_USUARIO")
 	private int numeroDoUsuario;
@@ -54,7 +61,7 @@ public class RegistroE15 extends Registro {
 	@ManyToOne
 	@JoinColumn(name = "mfd_id")
 	private MFD mfd;
-	
+
 	public int getNumeroDoUsuario() {
 		return numeroDoUsuario;
 	}
@@ -213,6 +220,14 @@ public class RegistroE15 extends Registro {
 
 	public void setCasasDecimaisValorUnitario(int casasDecimaisValorUnitario) {
 		this.casasDecimaisValorUnitario = casasDecimaisValorUnitario;
+	}
+
+	public MFD getMfd() {
+		return mfd;
+	}
+
+	public void setMfd(MFD mfd) {
+		this.mfd = mfd;
 	}
 
 }

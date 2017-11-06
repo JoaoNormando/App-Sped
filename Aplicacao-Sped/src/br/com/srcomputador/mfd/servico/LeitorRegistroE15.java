@@ -1,8 +1,11 @@
 package br.com.srcomputador.mfd.servico;
 
+import org.springframework.stereotype.Service;
+
 import br.com.srcomputador.mfd.entidade.Registro;
 import br.com.srcomputador.mfd.entidade.RegistroE15;
 
+@Service
 public class LeitorRegistroE15 implements Leitor{
 
 	@Override
@@ -16,13 +19,13 @@ public class LeitorRegistroE15 implements Leitor{
 		e15.setTipoRegistro(arg.substring(0, 3));
 		e15.setNumeroFabricacao(arg.substring(3, 23));
 		e15.setMfAdicional(arg.substring(23, 24).charAt(0));
-		e15.setModelo(arg.substring(23, 44));
+		e15.setModelo(arg.substring(24, 44));
 		e15.setNumeroDoUsuario(Integer.parseInt(arg.substring(44, 46)));
 		e15.setNumeroDoCOO(Integer.parseInt(arg.substring(46, 52)));
 		e15.setNumeroDoContador(Integer.parseInt(arg.substring(52, 58)));
 		e15.setNumeroDoItem(Integer.parseInt(arg.substring(58, 61)));
 		e15.setCodigoDoProduto(arg.substring(61, 75));
-		e15.setDescricaoProduto(arg.substring(75, 175));
+		e15.setDescricaoProduto(arg.substring(75, 175).trim());
 		e15.setQuantidadeComercializada(Integer.parseInt(arg.substring(175, 182)));
 		e15.setUnidadeMedida(arg.substring(182, 185));
 		e15.setValorUnitario(Integer.parseInt(arg.substring(185, 193)));

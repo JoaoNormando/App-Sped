@@ -12,7 +12,7 @@ public class LeitorRegistroE20 implements Leitor{
 		e20.setTipoRegistro(arg.substring(0, 3));
 		e20.setNumeroFabricacao(arg.substring(3, 23));
 		e20.setMfAdicional(arg.substring(23, 24).charAt(0));
-		e20.setModelo(arg.substring(23, 44));
+		e20.setModelo(arg.substring(24, 44));
 		e20.setNumeroDoUsuario(Integer.parseInt(arg.substring(44, 46)));
 		e20.setNumeroDoCOO(Integer.parseInt(arg.substring(46, 52)));
 		e20.setNumeroDoGNF(Integer.parseInt(arg.substring(52, 58)));

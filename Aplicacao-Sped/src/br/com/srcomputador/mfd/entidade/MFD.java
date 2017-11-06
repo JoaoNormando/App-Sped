@@ -1,5 +1,6 @@
 package br.com.srcomputador.mfd.entidade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -15,8 +16,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name = "MFD")
+@Component
 public class MFD {
 
 	@Id
@@ -61,23 +65,23 @@ public class MFD {
 	})
 	@Embedded
 	private RegistroE02 e02;
-
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE14> e14;
+	private List<RegistroE14> e14 = new ArrayList<RegistroE14>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE15> e15;
+	private List<RegistroE15> e15 = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE16> e16;
+	private List<RegistroE16> e16 = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE17> e17;
+	private List<RegistroE17> e17 = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE18> e18;
+	private List<RegistroE18> e18 = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE19> e19;
+	private List<RegistroE19> e19 = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE20> e20;
+	private List<RegistroE20> e20 = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
-	private List<RegistroE21> e21;
+	private List<RegistroE21> e21 = new ArrayList<>();
 
 	public Long getId() {
 		return id;

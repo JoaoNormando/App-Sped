@@ -12,16 +12,12 @@ public class LeitorRegistroE19 implements Leitor{
 	
 	@Override
 	public Registro lerRegistro(String arg) throws StringIndexOutOfBoundsException {
-		
-		if(arg.length() < 190) {
-			throw new  StringIndexOutOfBoundsException();
-		}
-		
+		gerador = new GeracaoDataHora();		
 		RegistroE19 e19 = new RegistroE19();
 		e19.setTipoRegistro(arg.substring(0, 3));
 		e19.setNumeroFabricacao(arg.substring(3, 23));
 		e19.setMfAdicional(arg.substring(23, 24).charAt(0));
-		e19.setModelo(arg.substring(23, 44));
+		e19.setModelo(arg.substring(24, 44));
 		e19.setNumeroDoUsuario(Integer.parseInt(arg.substring(44, 46)));
 		e19.setNumeroDoCOO(Integer.parseInt(arg.substring(46, 52)));
 		e19.setNumeroDoGNF(Integer.parseInt(arg.substring(52, 58)));

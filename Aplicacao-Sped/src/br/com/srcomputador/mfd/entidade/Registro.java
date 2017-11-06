@@ -1,18 +1,10 @@
 package br.com.srcomputador.mfd.entidade;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@DiscriminatorColumn(name="", discriminatorType=DiscriminatorType.STRING)
+@MappedSuperclass
 public abstract class Registro {
-	
-	@Id
-	protected Long id;
 	
 	@Column(name = "TIPO_REGISTRO", length = 3)
 	protected String tipoRegistro;

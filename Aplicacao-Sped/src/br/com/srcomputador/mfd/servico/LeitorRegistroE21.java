@@ -12,7 +12,7 @@ public class LeitorRegistroE21 implements Leitor{
 		e21.setTipoRegistro(arg.substring(0, 3));
 		e21.setNumeroFabricacao(arg.substring(3, 23));
 		e21.setMfAdicional(arg.substring(23, 24).charAt(0));
-		e21.setModelo(arg.substring(23, 44));
+		e21.setModelo(arg.substring(24, 44));
 		e21.setNumeroDoUsuario(Integer.parseInt(arg.substring(44, 46)));
 		e21.setNumeroDoCOO(Integer.parseInt(arg.substring(46, 52)));
 		e21.setNumeroDoCCF(Integer.parseInt(arg.substring(52, 58)));

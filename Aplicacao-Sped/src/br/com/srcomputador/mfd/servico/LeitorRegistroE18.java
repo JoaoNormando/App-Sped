@@ -16,7 +16,7 @@ public class LeitorRegistroE18 implements Leitor{
 		e18.setTipoRegistro(arg.substring(0, 3));
 		e18.setNumeroFabricacao(arg.substring(3, 23));
 		e18.setMfAdicional(arg.substring(23, 24).charAt(0));
-		e18.setModelo(arg.substring(23, 44));
+		e18.setModelo(arg.substring(24, 44));
 		e18.setNumeroDoUsuario(Integer.parseInt(arg.substring(44, 46)));
 		e18.setNumeroDoCRZ(Integer.parseInt(arg.substring(46, 52)));
 		e18.setDescricaoTotalizador(arg.substring(52, 67));

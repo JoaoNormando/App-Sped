@@ -4,6 +4,9 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,6 +16,10 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "RegistroE14")
 public class RegistroE14 extends Registro {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@Column(name = "numero_usuario")
 	private int numeroDoUsuario;
@@ -168,6 +175,22 @@ public class RegistroE14 extends Registro {
 
 	public void setCnpjCpfAdquirente(String cnpjCpfAdquirente) {
 		this.cnpjCpfAdquirente = cnpjCpfAdquirente;
+	}
+
+	public String getNomeAdquirente() {
+		return nomeAdquirente;
+	}
+
+	public void setNomeAdquirente(String nomeAdquirente) {
+		this.nomeAdquirente = nomeAdquirente;
+	}
+
+	public MFD getMfd() {
+		return mfd;
+	}
+
+	public void setMfd(MFD mfd) {
+		this.mfd = mfd;
 	}
 
 }
