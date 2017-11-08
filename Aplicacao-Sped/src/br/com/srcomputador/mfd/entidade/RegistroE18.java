@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "RegistroE18")
+@Table(name = "MFD_RegistroE18")
 public class RegistroE18 extends Registro {
 
 	@Id

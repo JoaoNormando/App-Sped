@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "RegistroE14")
+@Table(name = "MFD_RegistroE14")
 public class RegistroE14 extends Registro {
 	
 	@Id
