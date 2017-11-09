@@ -14,10 +14,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @Import(PersistenceConfig.class)
 @ComponentScan(basePackages = {
+			"br.com.srcomputador.configuracao",
 			"br.com.srcomputador.controller",
 			"br.com.srcomputador.persistencia",
 			"br.com.srcomputador.servico",
-			"br.com.srcomputador.mfd"
+			"br.com.srcomputador.mfd",
+			"br.com.srcomputador.nfe"
 		})
 public class ContextConfig extends WebMvcConfigurerAdapter{
 

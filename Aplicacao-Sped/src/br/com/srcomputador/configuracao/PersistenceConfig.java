@@ -13,14 +13,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class PersistenceConfig {
-
-	private final String PACOTE_ENTIDADE = "br.com.srcomputador.entidade";
 	
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setPersistenceUnitName("PU-Sped");
-		emf.setPackagesToScan(this.PACOTE_ENTIDADE);
 		return emf;
 	}
 	
