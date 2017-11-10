@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,7 +55,7 @@ public class RegistroE14 extends Registro {
 	private String cnpjCpfAdquirente;
 
 	@ManyToOne
-	@JoinColumn(name = "mfd_id")
+	@JoinColumn(name = "mfd_id", foreignKey = @ForeignKey(name = "fk_mfd_registroE14"))
 	private MFD mfd;
 	
 	public int getNumeroDoUsuario() {

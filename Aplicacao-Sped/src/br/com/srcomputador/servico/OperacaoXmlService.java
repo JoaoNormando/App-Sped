@@ -11,15 +11,20 @@ import com.thoughtworks.xstream.XStream;
 public class OperacaoXmlService {
 
 	@Autowired
-	private XStream xStream;
+	private XStream xstream;
 	
 	
 	public Object consumirXml(File xml) {
-		return this.xStream.fromXML(xml);
+		return this.xstream.fromXML(xml);
 	}
 	
 	public Object consumirXml(String stringXml) {
-		return this.xStream.fromXML(stringXml);
+		return this.xstream.fromXML(stringXml);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void informarObjeto(String nomeTag, Class classe) {
+		this.xstream.alias(nomeTag, classe);
 	}
 	
 }

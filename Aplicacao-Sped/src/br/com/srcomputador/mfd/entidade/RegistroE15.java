@@ -2,6 +2,7 @@ package br.com.srcomputador.mfd.entidade;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,7 +60,7 @@ public class RegistroE15 extends Registro {
 	private int casasDecimaisValorUnitario;
 
 	@ManyToOne
-	@JoinColumn(name = "mfd_id")
+	@JoinColumn(name = "mfd_id", foreignKey = @ForeignKey(name = "fk_mfd_registroE15"))
 	private MFD mfd;
 
 	public int getNumeroDoUsuario() {
