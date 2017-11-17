@@ -1,0 +1,189 @@
+<nfeProc versao="3.10" xmlns="http://www.portalfiscal.inf.br/nfe">
+	<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+		<infNFe Id="NFe31160843708379006213550010004733201000000017"
+			versao="3.10">
+			<ide>
+				<cUF>31</cUF>
+				<cNF>00000001</cNF>
+				<natOp>VDA MERC.AD.TERC.ENTREG.FUTURA VF</natOp>
+				<indPag>0</indPag>
+				<mod>55</mod>
+				<serie>1</serie>
+				<nNF>473320</nNF>
+				<dhEmi>2016-08-27T13:08:15-03:00</dhEmi>
+				<tpNF>1</tpNF>
+				<idDest>1</idDest>
+				<cMunFG>3118601</cMunFG>
+				<tpImp>2</tpImp>
+				<tpEmis>1</tpEmis>
+				<cDV>7</cDV>
+				<tpAmb>1</tpAmb>
+				<finNFe>1</finNFe>
+				<indFinal>1</indFinal>
+				<indPres>2</indPres>
+				<procEmi>0</procEmi>
+				<verProc>NeoGrid NFe 1.55.1</verProc>
+			</ide>
+			<emit>
+				<CNPJ>43708379006213</CNPJ>
+				<xNome>FAST SHOP S.A.</xNome>
+				<xFant>FAST SHOP S.A.</xFant>
+				<enderEmit>
+					<xLgr>WILSON TAVARES RIBEIRO</xLgr>
+					<nro>1400</nro>
+					<xCpl>MOD.4 PAV.A</xCpl>
+					<xBairro>CHACARAS REUNID</xBairro>
+					<cMun>3118601</cMun>
+					<xMun>CONTAGEM</xMun>
+					<UF>MG</UF>
+					<CEP>32183680</CEP>
+					<cPais>1058</cPais>
+					<xPais>Brasil</xPais>
+					<fone>30033728</fone>
+				</enderEmit>
+				<IE>0623897800291</IE>
+				<CRT>3</CRT>
+			</emit>
+			<dest>
+				<CPF>08310835655</CPF>
+				<xNome>Thais Cristina Lopes de Araujo</xNome>
+				<enderDest>
+					<xLgr>R DR MARIO MAGALHAES 212 1101</xLgr>
+					<nro>_</nro>
+					<xBairro>ITAPOA</xBairro>
+					<cMun>3106200</cMun>
+					<xMun>BELO HORIZONTE</xMun>
+					<UF>MG</UF>
+					<CEP>31710360</CEP>
+					<cPais>1058</cPais>
+					<xPais>Brasil</xPais>
+					<fone>3186810489</fone>
+				</enderDest>
+				<indIEDest>9</indIEDest>
+				<email>thaisvilasboas@msn.com</email>
+			</dest>
+			<entrega>
+				<CPF>08310835655</CPF>
+				<xLgr>R DR MARIO MAGALHAES 212 1101</xLgr>
+				<nro>_</nro>
+				<xBairro>ITAPOA</xBairro>
+				<cMun>3106200</cMun>
+				<xMun>BELO HORIZONTE</xMun>
+				<UF>MG</UF>
+			</entrega>
+			<det nItem="1">
+				<prod>
+					<cProd>99TR64510890</cProd>
+					<cEAN>7891116070369</cEAN>
+					<xProd>JOGO ACO INOX PSERVIR 8PCS | 7891116070369</xProd>
+					<NCM>73239300</NCM>
+					<CEST>0000000</CEST>
+					<CFOP>5922</CFOP>
+					<uCom>PC</uCom>
+					<qCom>1.0000</qCom>
+					<vUnCom>276.7900</vUnCom>
+					<vProd>276.79</vProd>
+					<cEANTrib>7891116070369</cEANTrib>
+					<uTrib>PC</uTrib>
+					<qTrib>1.0000</qTrib>
+					<vUnTrib>276.7900</vUnTrib>
+					<indTot>1</indTot>
+				</prod>
+				<imposto>
+					<ICMS>
+						<ICMS40>
+							<orig>5</orig>
+							<CST>40</CST>
+						</ICMS40>
+					</ICMS>
+					<PIS>
+						<PISNT>
+							<CST>08</CST>
+						</PISNT>
+					</PIS>
+					<COFINS>
+						<COFINSNT>
+							<CST>08</CST>
+						</COFINSNT>
+					</COFINS>
+				</imposto>
+			</det>
+			<total>
+				<ICMSTot>
+					<vBC>0.00</vBC>
+					<vICMS>0.00</vICMS>
+					<vICMSDeson>0.00</vICMSDeson>
+					<vFCPUFDest>0.00</vFCPUFDest>
+					<vICMSUFDest>0.00</vICMSUFDest>
+					<vICMSUFRemet>0.00</vICMSUFRemet>
+					<vBCST>0.00</vBCST>
+					<vST>0.00</vST>
+					<vProd>276.79</vProd>
+					<vFrete>0.00</vFrete>
+					<vSeg>0.00</vSeg>
+					<vDesc>0.00</vDesc>
+					<vII>0.00</vII>
+					<vIPI>0.00</vIPI>
+					<vPIS>0.00</vPIS>
+					<vCOFINS>0.00</vCOFINS>
+					<vOutro>0.00</vOutro>
+					<vNF>276.79</vNF>
+				</ICMSTot>
+			</total>
+			<transp>
+				<modFrete>9</modFrete>
+				<transporta>
+					<CNPJ>43708379006213</CNPJ>
+					<xNome>FAST SHOP SACD CONTAG</xNome>
+					<IE>0623897800291</IE>
+					<xEnder>AV WILSON TAVARES RIBEIRO 1400 MOD 4 P</xEnder>
+					<xMun>CONTAGEM</xMun>
+					<UF>MG</UF>
+				</transporta>
+			</transp>
+			<infAdic>
+				<infCpl>Entrega 02/09/16 Periodo COMERCIAL Pedido: 6848745 Tabela:
+					LC Vendedor: V000986 Usuario: TEFSITE Val. Aproximado dos Tributos
+					- R$100,97 (36,48%). Fonte: IBPT. Obs: G: 000 00 N.Fiscal Simples
+					Faturamento Venda Merc. a ordem ou p/entrega futura, sem destaque
+					dos impostos,cujos serao destacados na NF. Simples Remessa
+					cf.ART.305,parte I, anexo IX do RICMS/MG Presente por conta e ordem
+					do presenteador: O808128-LUCIANA VILAS BOAS PACHECO venc: 26/09/16
+					vr: 276,79</infCpl>
+			</infAdic>
+		</infNFe>
+		<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+			<SignedInfo>
+				<CanonicalizationMethod
+					Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+				<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+				<Reference URI="#NFe31160843708379006213550010004733201000000017">
+					<Transforms>
+						<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+						<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+					</Transforms>
+					<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+					<DigestValue>7c//A6tQW06PLP1DSM01COrqnW4=</DigestValue>
+				</Reference>
+			</SignedInfo>
+			<SignatureValue>JI4gygqxRsExQEPrMsVmg4omxtiyCY6IDy8SDcu86losEg7Cut/frgnbeCPZzWoOhpY6ES1BGQ4hA3ftkQbvXarahI0dWxqKYZXKxqgEzRKihm5Hnoh4WuARyIM/LWtdu+5rUs9Uukz/thsm/wfSYrX6vzWu2UaVGnulztm6OTpaAjv23telhb/wQIRYOhkO6/GP9mNgeXoFLCF2QW+3S5JRCzjU7SIutkeU2+QODXYRqA80Mgh+zixzPFeb2daaLu2TR16i2xMKHw3IxP6Vnc/esBXpq+blt0TQtTiy+e06HvgbnTCJJlGtRI9K0XG4eRwxK0sLlrtue7hvccYhlg==</SignatureValue>
+			<KeyInfo>
+				<X509Data>
+					<X509Certificate>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</X509Certificate>
+				</X509Data>
+			</KeyInfo>
+		</Signature>
+	</NFe>
+	<protNFe versao="3.10">
+		<infProt Id="ID131162264007812">
+			<tpAmb>1</tpAmb>
+			<verAplic>14_0_8</verAplic>
+			<chNFe>31160843708379006213550010004733201000000017</chNFe>
+			<dhRecbto>2016-08-27T13:08:21-03:00</dhRecbto>
+			<nProt>131162264007812</nProt>
+			<digVal>7c//A6tQW06PLP1DSM01COrqnW4=</digVal>
+			<cStat>100</cStat>
+			<xMotivo>Autorizado o uso da NF-e</xMotivo>
+		</infProt>
+	</protNFe>
+</nfeProc>
