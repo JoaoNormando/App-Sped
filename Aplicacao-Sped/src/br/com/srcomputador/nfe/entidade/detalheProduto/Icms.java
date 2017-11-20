@@ -1,48 +1,68 @@
 package br.com.srcomputador.nfe.entidade.detalheProduto;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
-
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import javax.persistence.Transient;
 
 @Embeddable
 public class Icms {
-
-	@XStreamAlias("origem")
+	
+	@Transient
+	private final String TABELA = "icms_";
+	
+	@Column(name = TABELA + "orig")
 	private int orig;
-
-	@XStreamAlias("cst")
+	@Column(name = TABELA + "cst")
 	private int cst;
-
-	@XStreamAlias("modBc")
+	@Column (name = TABELA + "modBc")
 	private int modBc;
-
+	@Column (name = TABELA + "modBc_st")
 	private int modBcSt;
+	@Column (name = TABELA + "pmva_st")
 	private double pMvaSt;
+	@Column (name = TABELA + "pred_bc")
 	private double pRedBc;
+	@Column (name = TABELA + "pred_bc_st")
 	private double pRedBcSt;
+	@Column (name = TABELA + "picms_st")
 	private double pIcmsSt;
+	@Column (name = TABELA + "vicms_st")
 	private double vIcmsSt;
-
-	@XStreamAlias("vBC")
+	@Column (name = TABELA + "vbc")
 	private double vBc;
+	@Column (name = TABELA + "vbc_st")
 	private double vBcSt;
-	@XStreamAlias("")
+	@Column (name = TABELA + "picms")
 	private double pIcms;
+	@Column (name = TABELA + "vicms_st_ret")
 	private double vIcmsStRet;
-	@XStreamAlias("")
+	@Column (name = TABELA + "vicms")
 	private double vIcms;
+	@Column (name = TABELA + "vicms_deson")
 	private double vIcmsDeson;
+	@Column (name = TABELA + "motdes_icms")
 	private double motDesIcms;
+	@Column (name = TABELA + "vicms_op")
 	private double vIcmsOp;
+	@Column (name = TABELA + "pdif")
 	private double pDif;
+	@Column (name = TABELA + "vicms_dif")
 	private double vIcmsDif;
+	@Column (name = TABELA + "vbc_st_ret")
 	private double vBcStRet;
+	@Column (name = TABELA + "pbc_op")
 	private double pBcOp;
+	@Column (name = TABELA + "uf_st")
 	private String ufSt;
+	@Column (name = TABELA + "vbc_st_dest")
 	private double vBcStDest;
+	@Column (name = TABELA + "vicms_st_dest")
 	private double vIcmsStDest;
+	@Column (name = TABELA + "cso_sn")
 	private int cSoSn;
+	@Column (name = TABELA + "pcred_sn")
 	private double pCredSn;
+	@Column (name = TABELA + "vcred_icms_sn")
 	private double vCredIcmsSn;
 
 	public int getOrig() {

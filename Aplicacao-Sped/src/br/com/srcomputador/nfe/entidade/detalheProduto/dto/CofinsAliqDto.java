@@ -3,7 +3,7 @@ package br.com.srcomputador.nfe.entidade.detalheProduto.dto;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 @XStreamAlias("COFINSAliq")
-public class CofinsAliquotaDto {
+public class CofinsAliqDto {
 
 	@XStreamAlias("CST")
 	private int cst; // Código de Situação Tributária da COFINS

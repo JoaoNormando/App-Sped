@@ -41,6 +41,10 @@ public class Detalhamento {
 	@XStreamOmitField
 	private Imposto imposto;
 	
+	@Embedded
+	@XStreamAlias("impostoDevol")
+	private ImpostoDevolvido impostoDevol;
+	
 	@ManyToOne
 	@JoinColumn(name = "nfe_id", foreignKey = @ForeignKey(name = "fk_nfe_detalhamento"))
 	private NotaFiscalEletronica nfe;
@@ -91,6 +95,14 @@ public class Detalhamento {
 
 	public void setNfe(NotaFiscalEletronica nfe) {
 		this.nfe = nfe;
+	}
+
+	public ImpostoDevolvido getImpostoDevol() {
+		return impostoDevol;
+	}
+
+	public void setImpostoDevol(ImpostoDevolvido impostoDevol) {
+		this.impostoDevol = impostoDevol;
 	}
 	
 	

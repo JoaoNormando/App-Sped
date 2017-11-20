@@ -1,7 +1,9 @@
 package br.com.srcomputador.nfe.servico;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.srcomputador.configuracao.XStreamConfig;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Icms;
 import br.com.srcomputador.nfe.entidade.detalheProduto.dto.IcmsDto;
 import br.com.srcomputador.nfe.servico.icms.IdentificarIcms;
 import br.com.srcomputador.nfe.servico.icms.LeitorNFe;
@@ -37,9 +40,13 @@ public class LeitorIcmsTeste {
 	}
 
 	@Test
-	public void deveriaRetornarUmIcms00() {
+	public void deveriaRetornarUmIcms00() throws IllegalAccessException, InvocationTargetException {
 		IcmsDto icmsDto = NFe.getInfNfe().getDet().get(0).getImpostoDto().getIcms();
 		TiposIcms icms = identificadorIcms.identificar(icmsDto);
+		Icms icmsReal = new Icms();
+		BeanUtils.copyProperties(icmsReal, icmsDto.getIcms00());
+		Assert.assertEquals(0, icmsReal.getCst());
+		Assert.assertEquals(3, icmsReal.getModBc());
 		Assert.assertEquals(0, TiposIcms.ICMS00.compareTo(icms));
 	}
 

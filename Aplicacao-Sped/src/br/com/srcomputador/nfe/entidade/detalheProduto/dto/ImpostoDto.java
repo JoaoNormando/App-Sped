@@ -11,6 +11,8 @@ public class ImpostoDto {
 	private PisDto pis;
 	@XStreamAlias("COFINS")
 	private CofinsDto cofins;
+	@XStreamAlias("IPI")
+	private IpiDto ipi;
 	
 	public IcmsDto getIcms() {
 		return icms;
