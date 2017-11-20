@@ -1,31 +1,22 @@
+package br.com.srcomputador.nfe.entidade.detalheProduto.dto;
 
-package br.com.srcomputador.nfe.entidade.detalheProduto;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Transient;
+@XStreamAlias("COFINSOutr")
+public class CofinsOutrDto {
 
-import org.springframework.stereotype.Component;
-
-@Embeddable
-@Component
-public class Cofins {
-
-	@Transient
-	private final String TABELA = "cofins_";
-
-	@Column(name = TABELA + "cst")
-	private int cst;
-	@Column(name = TABELA + "vbc")
-	private double vBc;
-	@Column(name = TABELA + "pcofins")
-	private double pCofins;
-	@Column(name = TABELA + "qbc_prod")
-	private double qBcProd;
-	@Column(name = TABELA + "valiq_prod")
-	private double vAliqProd;
-	@Column(name = TABELA + "vcofins")
-	private double vCofins;
+	@XStreamAlias("CST")
+	private int cst; // Código de Situação Tributária da COFINS
+	@XStreamAlias("vBC")
+	private double vBc; // Valor da Base de Cálculo da COFINS
+	@XStreamAlias("pCOFINS")
+	private double pCofins; // Alíquota da COFINS (em percentual)
+	@XStreamAlias("qBCProd")
+	private double qBcProd; // Quantidade Vendida
+	@XStreamAlias("vAliqProd")
+	private double vAliqProd; // Alíquota da COFINS (em reais)
+	@XStreamAlias("vCOFINS")
+	private double vCofins; // Valor da COFINS
 
 	public int getCst() {
 		return cst;

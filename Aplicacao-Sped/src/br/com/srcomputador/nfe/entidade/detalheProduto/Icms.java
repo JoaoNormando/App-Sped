@@ -4,7 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
+import org.springframework.stereotype.Component;
+
 @Embeddable
+@Component
 public class Icms {
 	
 	@Transient

@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -49,6 +51,10 @@ public class Detalhamento {
 	@JoinColumn(name = "nfe_id", foreignKey = @ForeignKey(name = "fk_nfe_detalhamento"))
 	private NotaFiscalEletronica nfe;
 	
+	public Detalhamento() {
+		imposto = new Imposto();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -68,15 +74,16 @@ public class Detalhamento {
 	public Produto getProduto() {
 		return produto;
 	}
-
+	
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-
+	
 	public Imposto getImposto() {
 		return imposto;
 	}
-
+	
+	@Autowired
 	public void setImposto(Imposto imposto) {
 		this.imposto = imposto;
 	}

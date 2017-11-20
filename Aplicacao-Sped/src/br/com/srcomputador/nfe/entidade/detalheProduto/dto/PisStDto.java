@@ -1,27 +1,20 @@
-package br.com.srcomputador.nfe.entidade.detalheProduto;
+package br.com.srcomputador.nfe.entidade.detalheProduto.dto;
 
-import javax.persistence.Embeddable;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import org.springframework.stereotype.Component;
+@XStreamAlias("PISST")
+public class PisStDto {
 
-@Embeddable
-@Component
-public class Pis {
-
-	private int cst;
+	@XStreamAlias("vBC")
 	private double vBc;
+	@XStreamAlias("pPIS")
 	private double pPis;
-	private double vPis;
+	@XStreamAlias("qBCProd")
 	private double qBcProd;
+	@XStreamAlias("vAliqProd")
 	private double vAliqProd;
-
-	public int getCst() {
-		return cst;
-	}
-
-	public void setCst(int cst) {
-		this.cst = cst;
-	}
+	@XStreamAlias("vPIS")
+	private double vPis;
 
 	public double getvBc() {
 		return vBc;
@@ -39,14 +32,6 @@ public class Pis {
 		this.pPis = pPis;
 	}
 
-	public double getvPis() {
-		return vPis;
-	}
-
-	public void setvPis(double vPis) {
-		this.vPis = vPis;
-	}
-
 	public double getqBcProd() {
 		return qBcProd;
 	}
@@ -61,6 +46,14 @@ public class Pis {
 
 	public void setvAliqProd(double vAliqProd) {
 		this.vAliqProd = vAliqProd;
+	}
+
+	public double getvPis() {
+		return vPis;
+	}
+
+	public void setvPis(double vPis) {
+		this.vPis = vPis;
 	}
 
 }

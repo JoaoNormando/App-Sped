@@ -3,7 +3,11 @@ package br.com.srcomputador.nfe.entidade.detalheProduto;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 @Embeddable
+@Component
 public class Imposto {
 
 	@Embedded
@@ -19,6 +23,7 @@ public class Imposto {
 		return icms;
 	}
 
+	@Autowired
 	public void setIcms(Icms icms) {
 		this.icms = icms;
 	}
@@ -27,6 +32,7 @@ public class Imposto {
 		return pis;
 	}
 
+	@Autowired
 	public void setPis(Pis pis) {
 		this.pis = pis;
 	}
@@ -35,6 +41,7 @@ public class Imposto {
 		return cofins;
 	}
 
+	@Autowired
 	public void setCofins(Cofins cofins) {
 		this.cofins = cofins;
 	}
@@ -43,6 +50,7 @@ public class Imposto {
 		return ipi;
 	}
 
+	@Autowired
 	public void setIpi(Ipi ipi) {
 		this.ipi = ipi;
 	}

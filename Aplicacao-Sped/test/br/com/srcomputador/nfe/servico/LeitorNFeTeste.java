@@ -1,31 +1,55 @@
 package br.com.srcomputador.nfe.servico;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import br.com.srcomputador.configuracao.ImpostoConfig;
 import br.com.srcomputador.configuracao.XStreamConfig;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Cofins;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Icms;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Ipi;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Pis;
+import br.com.srcomputador.nfe.servico.cofins.LeitorCofinsDtoService;
 import br.com.srcomputador.nfe.servico.icms.LeitorNFe;
+import br.com.srcomputador.nfe.servico.imposto.LeitorImpostoService;
+import br.com.srcomputador.nfe.servico.pis.LeitorPisService;
 import br.com.srcomputador.servico.OperacaoXmlService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { LeitorNFe.class, OperacaoXmlService.class, XStreamConfig.class })
+@ContextConfiguration(classes = { LeitorNFe.class, OperacaoXmlService.class, XStreamConfig.class,
+		LeitorCofinsDtoService.class, ImpostoConfig.class, Cofins.class, Icms.class, Pis.class, Ipi.class,
+		LeitorImpostoService.class, LeitorPisService.class })
 public class LeitorNFeTeste {
 
 	@Autowired
 	private LeitorNFe leitorNFe;
 
-	@Test
-	public void deveriaLerOsDadosDeUmaNFe() {
+	private NotaFiscalEletronica nfe;
+
+	@Before
+	public void init() throws IllegalAccessException, InvocationTargetException {
 		File xml = new File("/home/joao/Área de Trabalho/aut@7649@20120125.xml");
-		NotaFiscalEletronica dadosNfe = leitorNFe.lerDadosNfe(xml);
-		Assert.assertTrue(dadosNfe != null);
+		this.nfe = leitorNFe.lerDadosNfe(xml);
 	}
-	
+
+	@Test
+	public void deveriaLerUmaNfe() {
+		Assert.assertTrue(nfe != null);
+	}
+
+	@Test
+	public void deveriaLerOCofinsDeUmaNFe() {
+		Cofins cofins = nfe.getInfNfe().getDet().get(0).getImposto().getCofins();
+		Assert.assertTrue(cofins != null);
+	}
+
 }
