@@ -1,4 +1,4 @@
-package br.com.srcomputador.nfe.servico.icms;
+package br.com.srcomputador.nfe.servico;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -7,7 +7,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Icms;
 import br.com.srcomputador.nfe.entidade.detalheProduto.dto.IcmsDto;
 
-public class LeitorIcms {
+public class LeitorIcmsService {
 
 	public Icms lerIcms(IcmsDto icmsDto) throws IllegalAccessException, InvocationTargetException {
 		Icms icms = new Icms();

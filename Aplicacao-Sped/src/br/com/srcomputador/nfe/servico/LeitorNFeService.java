@@ -1,4 +1,4 @@
-package br.com.srcomputador.nfe.servico.icms;
+package br.com.srcomputador.nfe.servico;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -10,18 +10,17 @@ import org.springframework.stereotype.Service;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Detalhamento;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Imposto;
-import br.com.srcomputador.nfe.servico.imposto.LeitorImpostoService;
 import br.com.srcomputador.servico.OperacaoXmlService;
 
 @Service
-public class LeitorNFe {
+public class LeitorNFeService {
 
 	private final OperacaoXmlService operacaoXml;
 
 	private final LeitorImpostoService leitorImposto;
 
 	@Autowired
-	public LeitorNFe(OperacaoXmlService operacaoXml, LeitorImpostoService leitorImposto) {
+	public LeitorNFeService(OperacaoXmlService operacaoXml, LeitorImpostoService leitorImposto) {
 		this.operacaoXml = operacaoXml;
 		this.leitorImposto = leitorImposto;
 	}
@@ -34,6 +33,7 @@ public class LeitorNFe {
 		for (Detalhamento d : det) {
 			Imposto impostoFinal = leitorImposto.lerImposto(d.getImpostoDto());
 			d.setImposto(impostoFinal);
+			d.setNfe(dadosNFe);
 		}
 
 		return dadosNFe;

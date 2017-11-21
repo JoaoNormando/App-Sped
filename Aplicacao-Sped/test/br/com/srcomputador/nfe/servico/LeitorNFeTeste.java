@@ -18,20 +18,16 @@ import br.com.srcomputador.nfe.entidade.detalheProduto.Cofins;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Icms;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Ipi;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Pis;
-import br.com.srcomputador.nfe.servico.cofins.LeitorCofinsDtoService;
-import br.com.srcomputador.nfe.servico.icms.LeitorNFe;
-import br.com.srcomputador.nfe.servico.imposto.LeitorImpostoService;
-import br.com.srcomputador.nfe.servico.pis.LeitorPisService;
 import br.com.srcomputador.servico.OperacaoXmlService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { LeitorNFe.class, OperacaoXmlService.class, XStreamConfig.class,
-		LeitorCofinsDtoService.class, ImpostoConfig.class, Cofins.class, Icms.class, Pis.class, Ipi.class,
+@ContextConfiguration(classes = { LeitorNFeService.class, OperacaoXmlService.class, XStreamConfig.class,
+		LeitorCofinsService.class, ImpostoConfig.class, Cofins.class, Icms.class, Pis.class, Ipi.class,
 		LeitorImpostoService.class, LeitorPisService.class })
 public class LeitorNFeTeste {
 
 	@Autowired
-	private LeitorNFe leitorNFe;
+	private LeitorNFeService leitorNFe;
 
 	private NotaFiscalEletronica nfe;
 

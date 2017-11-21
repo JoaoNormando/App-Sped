@@ -1,4 +1,4 @@
-package br.com.srcomputador.nfe.servico.imposto;
+package br.com.srcomputador.nfe.servico;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -7,17 +7,15 @@ import org.springframework.stereotype.Service;
 
 import br.com.srcomputador.nfe.entidade.detalheProduto.Imposto;
 import br.com.srcomputador.nfe.entidade.detalheProduto.dto.ImpostoDto;
-import br.com.srcomputador.nfe.servico.cofins.LeitorCofinsDtoService;
-import br.com.srcomputador.nfe.servico.pis.LeitorPisService;
 
 @Service
 public class LeitorImpostoService {
 
-	private LeitorCofinsDtoService leitorCofins;
+	private LeitorCofinsService leitorCofins;
 	private LeitorPisService leitorPis;
 	
 	@Autowired
-	public LeitorImpostoService(LeitorCofinsDtoService leitorCofins, LeitorPisService leitorPis) {
+	public LeitorImpostoService(LeitorCofinsService leitorCofins, LeitorPisService leitorPis) {
 		this.leitorCofins = leitorCofins;
 		this.leitorPis = leitorPis;
 	}

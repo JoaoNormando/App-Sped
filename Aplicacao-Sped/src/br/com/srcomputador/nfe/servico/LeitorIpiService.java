@@ -1,4 +1,4 @@
-package br.com.srcomputador.nfe.servico.ipi;
+package br.com.srcomputador.nfe.servico;
 
 import java.lang.reflect.InvocationTargetException;
 

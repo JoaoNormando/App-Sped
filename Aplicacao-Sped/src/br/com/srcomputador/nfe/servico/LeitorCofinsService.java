@@ -1,4 +1,4 @@
-package br.com.srcomputador.nfe.servico.cofins;
+package br.com.srcomputador.nfe.servico;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -9,7 +9,7 @@ import br.com.srcomputador.nfe.entidade.detalheProduto.Cofins;
 import br.com.srcomputador.nfe.entidade.detalheProduto.dto.CofinsDto;
 
 @Service
-public class LeitorCofinsDtoService {
+public class LeitorCofinsService {
 
 	/**
 	 * Retorna um objeto cofins totalmente populado, pronto para ser persistido no banco
