@@ -1,4 +1,4 @@
-package br.com.srcomputador.entidade.usuario;
+package br.com.srcomputador.usuario.entidade;
 
 /**
  * Todos os Estados do Brasil

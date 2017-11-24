@@ -1,5 +1,6 @@
 package br.com.srcomputador.nfe.entidade.detalheProduto;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -47,7 +48,7 @@ public class Detalhamento {
 	@XStreamAlias("impostoDevol")
 	private ImpostoDevolvido impostoDevol;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "nfe_id", foreignKey = @ForeignKey(name = "fk_nfe_detalhamento"))
 	private NotaFiscalEletronica nfe;
 	

@@ -2,6 +2,8 @@ package br.com.srcomputador.servico;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,25 +20,17 @@ public class OperacaoDiretorioServiceTeste {
 	private OperacaoDiretorioService operacao;	
 	
 	@Test
-	public void deveriaMoverOArquivoParaOLocalParametro() { 
+	public void deveriaMoverOArquivoParaOLocalParametro() throws IOException { 
 		File arquivo = new File("ArquivoDeTeste.txt");
 		try {
 			arquivo.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		File destino = new File("DiretorioArquivos");
-		operacao.moverArquivo(arquivo, destino);
-		
-		int quantidadeArquivos = destino.listFiles().length;
-		Assert.assertTrue(quantidadeArquivos > 0);
+		Path tempDirectory = Files.createTempDirectory("DiretorioArquivo");
+		boolean movido = operacao.moverArquivo(arquivo, new File(tempDirectory.toString()));
+		Assert.assertTrue(movido);
 	}
 	
-	@Test
-	public void deveriaLimparDiretorio() {
-		File destino = new File("DiretorioArquivos");
-		operacao.apagarArquivos(destino);
-		Assert.assertTrue(destino.listFiles().length == 0);
-	}
 	
 }

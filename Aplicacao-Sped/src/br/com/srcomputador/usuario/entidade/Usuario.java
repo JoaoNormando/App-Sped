@@ -1,6 +1,5 @@
-package br.com.srcomputador.entidade.usuario;
+package br.com.srcomputador.usuario.entidade;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +9,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 public class Usuario {
@@ -22,11 +20,6 @@ public class Usuario {
 	@NotNull
 	@NotBlank
 	private String nome;
-	@CPF
-	private String cpf;
-
-	@Embedded
-	private Endereco endereco;
 
 	@NotNull
 	@Email
@@ -40,11 +33,9 @@ public class Usuario {
 
 	}
 
-	public Usuario(String nome, String cpf, Endereco endereco, String email, String senha) {
+	public Usuario(String nome, String email, String senha) {
 		super();
 		this.nome = nome;
-		this.cpf = cpf;
-		this.endereco = endereco;
 		this.email = email;
 		this.senha = senha;
 	}
@@ -55,22 +46,6 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
 	}
 
 	public String getEmail() {

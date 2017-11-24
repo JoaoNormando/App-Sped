@@ -18,8 +18,8 @@ public class OperacaoDiretorioService {
 	 *            -> Local para onde o arquivo será movido
 	 * 
 	 */
-	public void moverArquivo(File arquivo, File destino) {
-		arquivo.renameTo(new File(destino + File.separator + arquivo.getName()));
+	public boolean moverArquivo(File arquivo, File destino) {
+		return arquivo.renameTo(new File(destino + File.separator + arquivo.getName()));
 	}
 
 	
@@ -31,7 +31,11 @@ public class OperacaoDiretorioService {
 		}
 		
 		arquivo.transferTo(new File(destino + File.separator + arquivo.getName()));
-		arquivo.transferTo(new File("DiretorioArquivos"));
+		File file = new File("DiretorioArquivos");
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		arquivo.transferTo(file);
 	}
 
 	/**

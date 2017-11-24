@@ -70,7 +70,7 @@ public class LeitorRegistroE19Teste {
 		// 2015 01 07
 		Calendar data = registro.getDataInicioEmissao();
 		Assert.assertEquals(data.get(Calendar.YEAR), 2015);
-		Assert.assertEquals(data.get(Calendar.MONTH), 01);
+		Assert.assertEquals(Calendar.JANUARY, data.get(Calendar.MONTH));
 		Assert.assertEquals(data.get(Calendar.DAY_OF_MONTH), 07);
 	}
 	

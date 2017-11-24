@@ -5,7 +5,6 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 
 import net.lingala.zip4j.exception.ZipException;
 
@@ -19,7 +18,6 @@ public class DescompactadorServiceTeste {
 		destino = new File("/home/joao/Área de Trabalho/teste");
 	}
 	
-	@Test
 	public void deveriaDescompactarOArquivo() {
 		File arquivo = new File("/home/joao/Área de Trabalho/100.zip");
 		

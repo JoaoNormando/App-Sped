@@ -1,4 +1,4 @@
-package br.com.srcomputador.entidade.usuario;
+package br.com.srcomputador.cliente.entidade;
 
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
@@ -7,6 +7,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import br.com.srcomputador.usuario.entidade.Estado;
 
 @Embeddable
 public class Endereco {

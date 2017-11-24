@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.srcomputador.configuracao.ImpostoConfig;
 import br.com.srcomputador.configuracao.XStreamConfig;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Cofins;
@@ -22,7 +21,7 @@ import br.com.srcomputador.servico.OperacaoXmlService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { LeitorNFeService.class, OperacaoXmlService.class, XStreamConfig.class,
-		LeitorCofinsService.class, ImpostoConfig.class, Cofins.class, Icms.class, Pis.class, Ipi.class,
+		LeitorCofinsService.class, Cofins.class, Icms.class, Pis.class, Ipi.class,
 		LeitorImpostoService.class, LeitorPisService.class })
 public class LeitorNFeTeste {
 

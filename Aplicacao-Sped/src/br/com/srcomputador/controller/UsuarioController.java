@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,24 +14,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.srcomputador.entidade.usuario.Usuario;
 import br.com.srcomputador.persistencia.UsuarioDao;
+import br.com.srcomputador.usuario.entidade.Usuario;
 
 @CrossOrigin
 @RestController
+@RequestMapping("usuario")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioDao dao;
 	
-	@GetMapping("/usuarios")
+	@CrossOrigin
+	@GetMapping
 	public List<Usuario> getAll() {
 		return dao.listar();
 	}
 
-	@PostMapping(value = "/novo", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	@PostMapping
 	public ResponseEntity<Object> criarUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
 
 		if (result.hasErrors()) {
@@ -44,8 +47,9 @@ public class UsuarioController {
 
 	}
 
-	@DeleteMapping(value = "/remove/{id}")
-	public ResponseEntity<Object> removerAluno(@PathVariable Long id) {
+	@DeleteMapping(value = "{id}")
+	@CrossOrigin
+	public ResponseEntity<Object> removerAluno(@PathVariable("id") Long id) {
 
 		try {
 			dao.removerPeloId(id);

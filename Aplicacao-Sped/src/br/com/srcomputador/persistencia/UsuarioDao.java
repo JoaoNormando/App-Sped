@@ -2,7 +2,7 @@ package br.com.srcomputador.persistencia;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.srcomputador.entidade.usuario.Usuario;
+import br.com.srcomputador.usuario.entidade.Usuario;
 
 @Repository
 public class UsuarioDao extends GenericDao<Usuario, Long>{

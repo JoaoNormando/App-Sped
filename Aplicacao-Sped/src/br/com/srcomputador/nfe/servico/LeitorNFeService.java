@@ -29,7 +29,7 @@ public class LeitorNFeService {
 		this.mapearObjetosNFe();
 		NotaFiscalEletronica dadosNFe = (NotaFiscalEletronica) this.operacaoXml.consumirXml(file);
 		List<Detalhamento> det = dadosNFe.getInfNfe().getDet();
-
+		
 		for (Detalhamento d : det) {
 			Imposto impostoFinal = leitorImposto.lerImposto(d.getImpostoDto());
 			d.setImposto(impostoFinal);

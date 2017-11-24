@@ -11,8 +11,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.srcomputador.entidade.usuario.Endereco;
-import br.com.srcomputador.entidade.usuario.Estado;
+import br.com.srcomputador.cliente.entidade.Endereco;
+import br.com.srcomputador.usuario.entidade.Estado;
 
 public class EnderecoTest {
 

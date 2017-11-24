@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 public abstract class GenericDao<T, ID> {
 
 	@PersistenceContext
-	private EntityManager em;
+	protected EntityManager em;
 	
 	private final Class<T> classe;
 	
@@ -18,8 +18,8 @@ public abstract class GenericDao<T, ID> {
 	}
 	
 	@Transactional
-	public void salvar(T entidade) {
-		em.merge(entidade);
+	public T salvar(T entidade) {
+		return em.merge(entidade);
 	}
 	
 	@Transactional

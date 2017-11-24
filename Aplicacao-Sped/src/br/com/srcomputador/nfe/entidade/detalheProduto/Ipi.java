@@ -1,6 +1,8 @@
 package br.com.srcomputador.nfe.entidade.detalheProduto;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -8,16 +10,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class Ipi {
 
+	@Transient
+	private final String TABELA = "ipi_";
+	
+	@Column(name = TABELA + "cl_enq")
 	private String clEnq;
+	@Column(name = TABELA + "cnpj")
 	private String cnpj;
+	@Column(name = TABELA + "cselo")
 	private String cSelo;
+	@Column(name = TABELA + "qselo")
 	private int qSelo;
+	@Column(name = TABELA + "ceqn")
 	private String cEnq;
+	@Column(name = TABELA + "cst")
 	private int cst;
+	@Column(name = TABELA + "vbc")
 	private double vBc;
+	@Column(name = TABELA + "p_ipi")
 	private double pIpi;
+	@Column(name = TABELA + "qunid")
 	private double qUnid;
+	@Column(name = TABELA + "vunid")
 	private double vUnid;
+	@Column(name = TABELA + "vipi")
 	private double vIpi;
 	
 	public String getClEnq() {
