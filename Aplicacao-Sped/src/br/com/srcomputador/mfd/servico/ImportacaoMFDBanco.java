@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.srcomputador.mfd.entidade.MFD;
 import br.com.srcomputador.mfd.persistencia.MfdDao;
-import br.com.srcomputador.servico.DescompactadorService;
+import br.com.srcomputador.servico.OperacaoZipService;
 import br.com.srcomputador.servico.OperacaoDiretorioService;
 import net.lingala.zip4j.exception.ZipException;
 
@@ -21,7 +21,7 @@ public class ImportacaoMFDBanco {
 	@Autowired
 	private MfdDao dao;
 	@Autowired
-	private DescompactadorService descompactador;
+	private OperacaoZipService descompactador;
 	@Autowired
 	private OperacaoDiretorioService operacaoDiretorio;
 	

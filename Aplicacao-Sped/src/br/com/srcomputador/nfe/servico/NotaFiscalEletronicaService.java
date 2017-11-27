@@ -14,7 +14,7 @@ import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 import br.com.srcomputador.nfe.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.persistencia.NotaFiscalEletronicaDao;
-import br.com.srcomputador.servico.DescompactadorService;
+import br.com.srcomputador.servico.OperacaoZipService;
 import net.lingala.zip4j.exception.ZipException;
 
 @Service
@@ -23,11 +23,11 @@ public class NotaFiscalEletronicaService {
 	private NotaFiscalEletronicaDao nfeDao;
 	private ImportacaoDao descricaoDao;
 	private LeitorNFeService leitorNFeService;
-	private DescompactadorService descompactadorService;
+	private OperacaoZipService descompactadorService;
 
 	@Autowired
 	public NotaFiscalEletronicaService(NotaFiscalEletronicaDao nfeDao, LeitorNFeService leitorNFeService,
-			DescompactadorService descompactadorService, ImportacaoDao descricaoDao) {
+			OperacaoZipService descompactadorService, ImportacaoDao descricaoDao) {
 		this.nfeDao = nfeDao;
 		this.leitorNFeService = leitorNFeService;
 		this.descompactadorService = descompactadorService;

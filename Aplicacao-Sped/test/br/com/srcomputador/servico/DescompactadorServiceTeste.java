@@ -2,37 +2,32 @@ package br.com.srcomputador.servico;
 
 import java.io.File;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 import net.lingala.zip4j.exception.ZipException;
 
 public class DescompactadorServiceTeste {
 
-	private DescompactadorService descompactador;
-	private File destino;
+	private OperacaoZipService descompactador;
+	private OperacaoDiretorioService operacaoDiretorioService;
 	@Before
 	public void setUp() {
-		descompactador = new DescompactadorService();
-		destino = new File("/home/joao/Área de Trabalho/teste");
+		descompactador = new OperacaoZipService();
+		this.operacaoDiretorioService = new OperacaoDiretorioService();
+	}
+
+	@Test
+	public void deveriaDescompactarAArvoreDeArquivosZipado() throws ZipException {
+		File arquivo = new File("/home/joao/Área de Trabalho/UltraPesado.zip");
+		File destino = new File("destino");
+		long tamanhoInicial = destino.getTotalSpace();
+		this.descompactador.descompactarArvoreDeDiretorio(arquivo, destino);
+		long tamanhoFinal = destino.getTotalSpace();
+		Assert.assertTrue(tamanhoFinal > tamanhoInicial);
+		this.operacaoDiretorioService.apagarArquivos(destino);
 	}
 	
-	public void deveriaDescompactarOArquivo() {
-		File arquivo = new File("/home/joao/Área de Trabalho/100.zip");
-		
-		try {
-			descompactador.descompactarArquivoZip(arquivo, destino);
-		} catch (ZipException e) {
-			e.printStackTrace();
-		}
-		int tamanho = destino.listFiles().length;
-		Assert.assertTrue(tamanho > 0);
-	}
-	
-	@After
-	public void limparDiretorio() {
-		
-	}
-	
+
 }

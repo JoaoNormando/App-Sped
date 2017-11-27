@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +24,7 @@ import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.entidade.ModulosImportacao;
 import br.com.srcomputador.nfe.rest.dtorequest.RequestImportacao;
 import br.com.srcomputador.nfe.servico.ImportacaoService;
-
+import net.lingala.zip4j.exception.ZipException;
 
 @RestController
 @RequestMapping("importacao/nfe")
@@ -30,13 +32,13 @@ public class ImportacaoNFeRest {
 
 	private ImportacaoService importacaoService;
 	private ClienteService clienteService;
-	
+
 	@Autowired
 	public ImportacaoNFeRest(ImportacaoService importacaoService, ClienteService clienteService) {
 		this.importacaoService = importacaoService;
 		this.clienteService = clienteService;
 	}
-	
+
 	@GetMapping
 	public List<RequestImportacao> listarImportacoes() {
 		List<Importacao> lista = this.importacaoService.listarImportacoes(ModulosImportacao.NFE);
@@ -49,24 +51,24 @@ public class ImportacaoNFeRest {
 		}
 		return listaRequest;
 	}
-	
-	
+
 	@PostMapping
-	public ResponseEntity<?> importar(@RequestParam("descricao") String descricao, 
-			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente) {
-		
-		if(multiPart.length == 0)
+	public ResponseEntity<?> importar(@RequestParam("descricao") String descricao,
+			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente, HttpServletRequest request) {
+
+		if (multiPart.length == 0)
 			return ResponseEntity.badRequest().body(new MensagemErro("Deve existir algum arquivo para importação"));
-		
+
 		Cliente cliente = this.clienteService.recuperarPeloId(idCliente);
-		
-		if(cliente == null) {
+
+		if (cliente == null) {
 			return ResponseEntity.badRequest().body(new MensagemErro("Cliente informado nao encontrado"));
 		}
-		
+		String path = request.getServletContext().getRealPath("/");
 		try {
-			this.importacaoService.salvar(descricao, multiPart, ModulosImportacao.NFE, cliente);
-		} catch (IllegalStateException | IllegalAccessException | InvocationTargetException | IOException e) {
+			this.importacaoService.salvarImportacao(descricao, multiPart, cliente, path);
+		} catch (IllegalStateException | IllegalAccessException | InvocationTargetException | IOException
+				| ZipException e) {
 			e.printStackTrace();
 			return ResponseEntity.notFound().build();
 		} catch (ConteudoVazioException e) {
