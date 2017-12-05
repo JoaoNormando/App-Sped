@@ -13,11 +13,15 @@ public class LeitorImpostoService {
 
 	private LeitorCofinsService leitorCofins;
 	private LeitorPisService leitorPis;
+	private LeitorIcmsService leitorIcms;
+	private LeitorIpiService leitorIpi;
 	
 	@Autowired
-	public LeitorImpostoService(LeitorCofinsService leitorCofins, LeitorPisService leitorPis) {
+	public LeitorImpostoService(LeitorCofinsService leitorCofins, LeitorPisService leitorPis, LeitorIcmsService leitorIcms, LeitorIpiService leitorIpi) {
 		this.leitorCofins = leitorCofins;
 		this.leitorPis = leitorPis;
+		this.leitorIcms = leitorIcms;
+		this.leitorIpi = leitorIpi;
 	}
 	
 	/**
@@ -28,6 +32,8 @@ public class LeitorImpostoService {
 		Imposto imposto = new Imposto();
 		imposto.setCofins(leitorCofins.lerCofins(impostoDto.getCofins()));
 		imposto.setPis(leitorPis.lerPis(impostoDto.getPis()));
+		imposto.setIcms(leitorIcms.lerIcms(impostoDto.getIcms()));
+		imposto.setIpi(leitorIpi.lerIpi(impostoDto.getIpi()));
 		return imposto;
 	}
 		

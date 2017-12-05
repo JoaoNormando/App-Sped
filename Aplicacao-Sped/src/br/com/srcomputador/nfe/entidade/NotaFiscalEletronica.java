@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import br.com.srcomputador.entidade.Importacao;
 
@@ -36,10 +34,10 @@ public class NotaFiscalEletronica {
 	@JoinColumn(name = "id_descricao", foreignKey = @ForeignKey(name = "fk_descricao_nfe"))
 	private Importacao importacao;
 
-	@Transient
-	@XStreamAlias("Signature")
-	@XStreamOmitField
-	private int signature;
+//	@Transient
+//	@XStreamAlias("Signature")
+//	@XStreamOmitField
+//	private int signature;
 
 	public Long getId() {
 		return id;
@@ -63,14 +61,6 @@ public class NotaFiscalEletronica {
 
 	public void setImportacao(Importacao importacao) {
 		this.importacao = importacao;
-	}
-
-	public int getSignature() {
-		return signature;
-	}
-
-	public void setSignature(int signature) {
-		this.signature = signature;
 	}
 
 }

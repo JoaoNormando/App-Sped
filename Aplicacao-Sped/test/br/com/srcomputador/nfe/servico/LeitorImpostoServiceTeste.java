@@ -24,7 +24,7 @@ import br.com.srcomputador.servico.OperacaoXmlService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { LeitorImpostoService.class, LeitorNFeService.class, LeitorCofinsService.class,
 		OperacaoXmlService.class, XStreamConfig.class, Imposto.class, Cofins.class, Ipi.class, Icms.class,
-		Pis.class, LeitorPisService.class })
+		Pis.class, LeitorPisService.class, LeitorIcmsService.class, LeitorIpiService.class })
 public class LeitorImpostoServiceTeste {
 
 	@Autowired
@@ -59,7 +59,7 @@ public class LeitorImpostoServiceTeste {
 
 	@Test
 	public void deveriaLerUmIcms() {
-
+		Assert.assertTrue(imposto.getIcms() != null);
 	}
 
 	@Test
@@ -67,4 +67,9 @@ public class LeitorImpostoServiceTeste {
 		Assert.assertTrue(imposto.getPis().getCst() == 1);
 	}
 
+	@Test
+	public void deveriaLerUmIpi() {
+		Assert.assertTrue(imposto.getIpi() != null);
+	}
+	
 }

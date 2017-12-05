@@ -17,6 +17,7 @@ public class NotaFiscalEletronicaDao extends GenericDao<NotaFiscalEletronica, Lo
 		super(NotaFiscalEletronica.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Transactional
 	public void removerPelaDescricao(String descricao) {
 		System.out.println("Descricao: "+ descricao);

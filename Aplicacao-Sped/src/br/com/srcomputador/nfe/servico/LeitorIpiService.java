@@ -12,25 +12,27 @@ import br.com.srcomputador.nfe.entidade.detalheProduto.dto.IpiDto;
 public class LeitorIpiService {
 
 	/**
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * */
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 */
 	public Ipi lerIpi(IpiDto ipiDto) throws IllegalAccessException, InvocationTargetException {
-		
-		Ipi ipi = new Ipi();
-		BeanUtils.copyProperties(ipi, ipiDto);
-		
-		if(ipiDto.getIpiNt() != null) {
-			BeanUtils.copyProperties(ipi, ipiDto.getIpiNt());
+		if (ipiDto != null) {
+			Ipi ipi = new Ipi();
+			BeanUtils.copyProperties(ipi, ipiDto);
+
+			if (ipiDto.getIpiNt() != null) {
+				BeanUtils.copyProperties(ipi, ipiDto.getIpiNt());
+				return ipi;
+			}
+
+			if (ipiDto.getIpiTrib() != null) {
+				BeanUtils.copyProperties(ipi, ipiDto.getIpiTrib());
+				return ipi;
+			}
+
 			return ipi;
 		}
-		
-		if(ipiDto.getIpiTrib() != null) {
-			BeanUtils.copyProperties(ipi, ipiDto.getIpiTrib());
-			return ipi;
-		}
-		
-		return ipi;
+		return null;
 	}
-	
+
 }

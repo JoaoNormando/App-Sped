@@ -42,5 +42,5 @@ public class LeitorNFeService {
 	private void mapearObjetosNFe() {
 		operacaoXml.informarObjeto("NFe", NotaFiscalEletronica.class);
 	}
-
+	
 }

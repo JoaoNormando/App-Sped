@@ -15,18 +15,30 @@ import br.com.srcomputador.cliente.rest.AtualizacaoRestDto;
 import br.com.srcomputador.cliente.rest.ClienteEnderecoRestDto;
 import br.com.srcomputador.cliente.rest.GetClienteRestDto;
 import br.com.srcomputador.cliente.rest.PostClienteRestDto;
+import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
+import br.com.srcomputador.nfe.rest.dtorequest.ImportacaoClienteRequest;
 
 @Service
 public class ClienteService {
 
 	private ClienteDao dao;
+	private ImportacaoDao importacaoDao;
 	
 	@Autowired
-	public ClienteService (ClienteDao dao) {
+	public ClienteService (ClienteDao dao, ImportacaoDao importacaoDao) {
 		this.dao = dao;
+		this.importacaoDao = importacaoDao;
 	}
 	
-	public List<GetClienteRestDto> listar() throws IllegalAccessException, InvocationTargetException {
+	public List<Cliente> listar() {
+		return this.dao.listar();
+	}
+	
+	public List<ImportacaoClienteRequest> listarImportacoesDoCliente(Cliente cliente){
+		return this.importacaoDao.listarImportacaoRequestPeloCliente(cliente);
+	}
+	
+	public List<GetClienteRestDto> listarPeloRequest() throws IllegalAccessException, InvocationTargetException {
 		List<Cliente> lista = this.dao.listar();
 		List<GetClienteRestDto> listaRest = new ArrayList<>();
 		for(Cliente c : lista) {

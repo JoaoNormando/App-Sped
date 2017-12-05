@@ -5,6 +5,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import br.com.srcomputador.configuracao.HSSFWorkbookConfig;
+import br.com.srcomputador.servico.relatorio.OperacaoRelatorioService;
+import br.com.srcomputador.servico.relatorio.RelatorioExcelService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RelatorioExcelService.class, OperacaoRelatorioService.class, HSSFWorkbookConfig.class})

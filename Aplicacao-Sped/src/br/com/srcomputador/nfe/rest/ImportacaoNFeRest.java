@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,18 +24,19 @@ import br.com.srcomputador.cliente.service.ClienteService;
 import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.entidade.ModulosImportacao;
 import br.com.srcomputador.nfe.rest.dtorequest.RequestImportacao;
-import br.com.srcomputador.nfe.servico.ImportacaoService;
+import br.com.srcomputador.nfe.servico.ImportacaoNFeService;
 import net.lingala.zip4j.exception.ZipException;
 
+@CrossOrigin
 @RestController
 @RequestMapping("importacao/nfe")
 public class ImportacaoNFeRest {
 
-	private ImportacaoService importacaoService;
+	private ImportacaoNFeService importacaoService;
 	private ClienteService clienteService;
 
 	@Autowired
-	public ImportacaoNFeRest(ImportacaoService importacaoService, ClienteService clienteService) {
+	public ImportacaoNFeRest(ImportacaoNFeService importacaoService, ClienteService clienteService) {
 		this.importacaoService = importacaoService;
 		this.clienteService = clienteService;
 	}
@@ -52,6 +54,7 @@ public class ImportacaoNFeRest {
 		return listaRequest;
 	}
 
+	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<?> importar(@RequestParam("descricao") String descricao,
 			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente, HttpServletRequest request) {

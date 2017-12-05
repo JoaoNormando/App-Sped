@@ -22,7 +22,7 @@ import br.com.srcomputador.servico.OperacaoXmlService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { LeitorNFeService.class, OperacaoXmlService.class, XStreamConfig.class,
 		LeitorCofinsService.class, Cofins.class, Icms.class, Pis.class, Ipi.class,
-		LeitorImpostoService.class, LeitorPisService.class })
+		LeitorImpostoService.class, LeitorPisService.class, LeitorIcmsService.class })
 public class LeitorNFeTeste {
 
 	@Autowired
@@ -45,6 +45,12 @@ public class LeitorNFeTeste {
 	public void deveriaLerOCofinsDeUmaNFe() {
 		Cofins cofins = nfe.getInfNfe().getDet().get(0).getImposto().getCofins();
 		Assert.assertTrue(cofins != null);
+	}
+	
+	@Test
+	public void deveriaLerOIcmsDeUmaNFe() {
+		Icms icms = nfe.getInfNfe().getDet().get(0).getImposto().getIcms();
+		Assert.assertTrue(icms != null);
 	}
 
 }

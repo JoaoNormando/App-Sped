@@ -1,6 +1,7 @@
 package br.com.srcomputador.nfe.servico;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.entidade.ModulosImportacao;
+import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
-import br.com.srcomputador.nfe.persistencia.ImportacaoDao;
+import br.com.srcomputador.nfe.entidade.ProcessoNFe;
 import br.com.srcomputador.nfe.rest.ConteudoVazioException;
 import br.com.srcomputador.nfe.rest.dtorequest.RequestImportacao;
 import br.com.srcomputador.servico.DefinirTipoArquivoService;
@@ -24,23 +26,28 @@ import br.com.srcomputador.servico.TipoArquivo;
 import net.lingala.zip4j.exception.ZipException;
 
 @Service
-public class ImportacaoService {
+public class ImportacaoNFeService {
 
 	private ImportacaoDao dao;
 	private LeitorNFeService leitorNFeService;
 	private OperacaoZipService descompactadorService;
 	private DefinirTipoArquivoService definirTipoArquivo;
 	private OperacaoDiretorioService operacaoDiretorioService;
+	private DetectarArquivoService detectarArquivoService;
+	private LeitorProcNFeService leitorProcNFeService;
 
 	@Autowired
-	public ImportacaoService(ImportacaoDao dao, LeitorNFeService leitorNFeService,
+	public ImportacaoNFeService(ImportacaoDao dao, LeitorNFeService leitorNFeService,
 			OperacaoZipService descompactadorService, DefinirTipoArquivoService definirTipoArquivo,
-			OperacaoDiretorioService operacaoDiretorioService) {
+			OperacaoDiretorioService operacaoDiretorioService, DetectarArquivoService detectarArquivoService,
+			LeitorProcNFeService leitorProcNFeService) {
 		this.dao = dao;
 		this.leitorNFeService = leitorNFeService;
 		this.descompactadorService = descompactadorService;
 		this.definirTipoArquivo = definirTipoArquivo;
 		this.operacaoDiretorioService = operacaoDiretorioService;
+		this.detectarArquivoService = detectarArquivoService;
+		this.leitorProcNFeService = leitorProcNFeService;
 	}
 
 	public List<Importacao> listarImportacoes(ModulosImportacao modulo) {
@@ -83,19 +90,33 @@ public class ImportacaoService {
 	}
 
 	private void salvar(File[] listaArquivos, Importacao importacao, Cliente cliente)
-			throws ZipException, IllegalAccessException, InvocationTargetException {
+			throws ZipException, IllegalAccessException, InvocationTargetException, FileNotFoundException {
 
 		for (File arquivo : listaArquivos) {
 
 			if (!arquivo.isDirectory()) {
 
 				if (this.definirTipoArquivo.definirTipoArquivo(arquivo).compareTo(TipoArquivo.XML) == 0) {
-					NotaFiscalEletronica nfe = this.leitorNFeService.lerDadosNfe(arquivo);
+					ModulosImportacao modulo = this.detectarArquivoService.detectar(arquivo);
+					NotaFiscalEletronica nfe;
+					if (modulo != null) {
+						try {
+							if (modulo.equals(ModulosImportacao.NFE)) {
+								nfe = this.leitorNFeService.lerDadosNfe(arquivo);
+								nfe.setImportacao(importacao);
+							} else {
+								ProcessoNFe procNfe = this.leitorProcNFeService.lerDadosProcNfe(arquivo);
+								nfe = procNfe.getNfe();
+								nfe.setImportacao(importacao);
+							}
 
-					if (nfe.getInfNfe().getEmit().getCnpj().equals(cliente.getCnpj())) {
-						importacao.getListaNfe().add(nfe);
+							if (nfe.getInfNfe().getEmit().getCnpj().equals(cliente.getCnpj())) {
+								importacao.getListaNfe().add(nfe);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
-
 				}
 
 			} else {

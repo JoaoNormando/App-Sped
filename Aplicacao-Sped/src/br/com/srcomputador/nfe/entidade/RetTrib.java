@@ -1,6 +1,8 @@
 package br.com.srcomputador.nfe.entidade;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -8,18 +10,28 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 @XStreamAlias("retTrib")
 public class RetTrib {
 
+	@Transient
+	private final String TABELA = "retTrib_";
+	
+	@Column(name = TABELA + "vRet_pis")
 	@XStreamAlias("vRetPIS")
 	private double vRetPIS; // Valor Retido de PIS
+	@Column(name = TABELA + "vRet_cofins")
 	@XStreamAlias("vRetCOFINS")
 	private double vRetCofins; // Valor Retido de COFINS
+	@Column(name = TABELA + "vRet_csll")
 	@XStreamAlias("vRetCSLL")
 	private double vRetCsll; // Valor Retido de CSLL
+	@Column(name = TABELA + "vbc_irrf")
 	@XStreamAlias("vBCIRRF")
 	private double vBcIrrf; // Base de Cálculo do IRRF
+	@Column(name = TABELA + "v_irrf")
 	@XStreamAlias("vIRRF")
 	private double vIrrf; // Valor Retido do IRRF
+	@Column(name = TABELA + "vbc_retPrev")
 	@XStreamAlias("vBCRetPrev")
 	private double vBcRetPrev; // Base de Cálculo da Retenção da Previdência Social
+	@Column(name = TABELA + "v_retPrev")
 	@XStreamAlias("vRetPrev")
 	private double vRetPrev; // Valor da Retenção da Previdência Social
 

@@ -13,7 +13,7 @@ public class Produto {
 	private String cProd; // Código do produto ou serviço
 	@Column(name = "produto_cEAN")
 	@XStreamAlias("cEAN")
-	private int cEan; // GTIN do produto, antigo código EAN ou código de barras
+	private String cEan; // GTIN do produto, antigo código EAN ou código de barras
 	@Column(length = 120, name = "produto_descricao")
 	@XStreamAlias("xProd")
 	private String xProd; // Descrição do produto ou serviço
@@ -43,7 +43,7 @@ public class Produto {
 	private double vProd; // Valor Total Bruto dos Produtos ou Serviços
 	@Column(name = "produto_cEan_tri")
 	@XStreamAlias("cEANTrib")
-	private int cEanTrib; // GTIN da unidade tributável, antigo código EAN ou código de barras
+	private String cEanTrib; // GTIN da unidade tributável, antigo código EAN ou código de barras
 	@Column(name = "produto_unidade_tributavel")
 	@XStreamAlias("uTrib")
 	private String uTrib; // Unidade Tributável
@@ -65,6 +65,12 @@ public class Produto {
 	@Column(name = "produto_ind_total")
 	@XStreamAlias("indTot")
 	private int indTot; // ndica se valor do Item (vProd) entra no valor total da NF-e (vProd)
+	@Column(name = "produto_xPed", length = 15)
+	@XStreamAlias("xPed")
+	private String xPed;
+	@Column(name = "n_item_ped")
+	@XStreamAlias("nItemPed")
+	private int nItemPed;
 
 	public String getcProd() {
 		return cProd;
@@ -74,11 +80,11 @@ public class Produto {
 		this.cProd = cProd;
 	}
 
-	public int getcEan() {
+	public String getcEan() {
 		return cEan;
 	}
 
-	public void setcEan(int cEan) {
+	public void setcEan(String cEan) {
 		this.cEan = cEan;
 	}
 
@@ -154,11 +160,11 @@ public class Produto {
 		this.vProd = vProd;
 	}
 
-	public int getcEanTrib() {
+	public String getcEanTrib() {
 		return cEanTrib;
 	}
 
-	public void setcEanTrib(int cEanTrib) {
+	public void setcEanTrib(String cEanTrib) {
 		this.cEanTrib = cEanTrib;
 	}
 
@@ -216,6 +222,22 @@ public class Produto {
 
 	public void setIndTot(int indTot) {
 		this.indTot = indTot;
+	}
+
+	public String getxPed() {
+		return xPed;
+	}
+
+	public void setxPed(String xPed) {
+		this.xPed = xPed;
+	}
+
+	public int getnItemPed() {
+		return nItemPed;
+	}
+
+	public void setnItemPed(int nItemPed) {
+		this.nItemPed = nItemPed;
 	}
 
 }

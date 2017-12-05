@@ -20,7 +20,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 			"br.com.srcomputador.servico",
 			"br.com.srcomputador.mfd",
 			"br.com.srcomputador.nfe",
-			"br.com.srcomputador.cliente"
+			"br.com.srcomputador.cliente",
+			"br.com.srcomputador"
 		})
 public class ContextConfig extends WebMvcConfigurerAdapter{
 	@Bean
@@ -40,7 +41,7 @@ public class ContextConfig extends WebMvcConfigurerAdapter{
 	public CommonsMultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		multipartResolver.setDefaultEncoding("utf-8");
-		multipartResolver.setMaxUploadSize(5000000);
+		multipartResolver.setMaxUploadSize(500000000); // 500 MB 
 		return multipartResolver;
 	}
 	

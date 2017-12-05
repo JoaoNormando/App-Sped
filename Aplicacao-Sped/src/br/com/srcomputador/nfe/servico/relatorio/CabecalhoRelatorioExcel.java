@@ -1,4 +1,4 @@
-package br.com.srcomputador.entidade;
+package br.com.srcomputador.nfe.servico.relatorio;
 
 import java.util.List;
 

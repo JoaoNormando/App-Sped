@@ -24,7 +24,8 @@ public abstract class GenericDao<T, ID> {
 	
 	@Transactional
 	public void remover(T entidade) {
-		em.remove(entidade);
+		T entidadeMergede = em.merge(entidade);
+		em.remove(entidadeMergede);
 	}
 	
 	@Transactional

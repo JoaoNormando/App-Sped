@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
@@ -26,10 +30,11 @@ public class Importacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 100)
+	@Column(length = 100, unique = true)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "importacao", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "importacao", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<NotaFiscalEletronica> listaNfe;
 
 	@ManyToOne

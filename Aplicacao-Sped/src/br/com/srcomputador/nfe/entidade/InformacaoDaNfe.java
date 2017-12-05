@@ -8,12 +8,10 @@ import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import br.com.srcomputador.nfe.entidade.detalheProduto.Detalhamento;
 
@@ -38,7 +36,7 @@ public class InformacaoDaNfe {
 	@XStreamAlias("dest")
 	private Destinatario dest;
 	
-	@OneToMany(mappedBy = "nfe", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "nfe", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@XStreamAlias("det")
 	@XStreamImplicit(itemFieldName = "prod")
 	private List<Detalhamento> det;
@@ -47,20 +45,36 @@ public class InformacaoDaNfe {
 	@XStreamAlias("total")
 	private Total total;
 	
-	@Transient
-	@XStreamAlias("transp")
-	@XStreamOmitField()
-	private int transporte;
-	
-	@Transient
-	@XStreamAlias("cobr")
-	@XStreamOmitField
-	private int cobr;
-	
-	@Transient
-	@XStreamAlias("infAdic")
-	@XStreamOmitField
-	private int infAdic;
+//	@Transient
+//	@XStreamAlias("transp")
+//	@XStreamOmitField()
+//	private int transporte;
+//	
+//	@Transient
+//	@XStreamAlias("cobr")
+//	@XStreamOmitField
+//	private int cobr;
+//	
+//	@Transient
+//	@XStreamAlias("infAdic")
+//	@XStreamOmitField
+//	private int infAdic;
+//	
+//	@Transient
+//	@XStreamAlias("compra")
+//	@XStreamOmitField
+//	private int compra;
+//	
+////	@Transient
+////	@XStreamAlias("retirada")
+////	@XStreamOmitField
+////	private int retirada;
+//	
+//	
+//	@Transient
+//	@XStreamAlias("entrega")
+//	@XStreamOmitField
+//	private int entrega;
 	
 	public String getIdentificadorDaNfe() {
 		return chaveAcesso;

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.srcomputador.entidade.Importacao;
+import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
-import br.com.srcomputador.nfe.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.persistencia.NotaFiscalEletronicaDao;
 import br.com.srcomputador.servico.OperacaoZipService;
 import net.lingala.zip4j.exception.ZipException;

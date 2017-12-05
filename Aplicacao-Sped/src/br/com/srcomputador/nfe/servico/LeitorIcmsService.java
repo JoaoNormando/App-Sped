@@ -3,10 +3,12 @@ package br.com.srcomputador.nfe.servico;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.stereotype.Service;
 
 import br.com.srcomputador.nfe.entidade.detalheProduto.Icms;
 import br.com.srcomputador.nfe.entidade.detalheProduto.dto.IcmsDto;
 
+@Service
 public class LeitorIcmsService {
 
 	public Icms lerIcms(IcmsDto icmsDto) throws IllegalAccessException, InvocationTargetException {

@@ -1,4 +1,4 @@
-	package br.com.srcomputador.nfe.entidade;
+package br.com.srcomputador.nfe.entidade;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -38,30 +38,33 @@ public class IdentificacaoDaNfe {
 	@Temporal(TemporalType.TIMESTAMP)
 	@XStreamAlias(value = "dhEmi")
 	private Calendar dhEmi; // Data e hora de emissão do Documento Fiscal
-	
-	//Campo relacionado a data de emissão do Documento Fiscal da versão desatualizada da NFe
+
+	// Campo relacionado a data de emissão do Documento Fiscal da versão
+	// desatualizada da NFe
 	@Column(name = "ide_d_emi")
 	@Temporal(TemporalType.DATE)
 	@XStreamAlias(value = "dEmi")
 	private Calendar dEmi; // Data e hora de emissão do Documento Fiscal
-	
+
 	@Column(name = "ide_dh_saida_entrada")
 	@Temporal(TemporalType.TIMESTAMP)
 	@XStreamAlias("dhSaiEnt")
 	private Calendar dhSaiEnt; // Data e hora de Saída ou da Entrada da Mercadoria/Produto
-	
-	// Campo relacionado a data de saida do Documento fiscal da versão desatualizada da NFe
+
+	// Campo relacionado a data de saida do Documento fiscal da versão desatualizada
+	// da NFe
 	@Column(name = "ide_d_saida_entrada")
 	@Temporal(TemporalType.DATE)
 	@XStreamAlias("dSaiEnt")
 	private Calendar dSaiEnt; // Data e hora de Saída ou da Entrada da Mercadoria/Produto
-	
-	// Campo relacionado a data de saida do Documento fiscal da versão desatualizada da NFe
+
+	// Campo relacionado a data de saida do Documento fiscal da versão desatualizada
+	// da NFe
 	@Column(name = "ide_h_saida_entrada")
 	@Temporal(TemporalType.TIME)
 	@XStreamAlias("hSaiEnt")
 	private Date hSaiEnt; // Data e hora de Saída ou da Entrada da Mercadoria/Produto
-	
+
 	@Column(length = 1, name = "ide_tipo_operacao")
 	@XStreamAlias("tpNF")
 	private int tpNf; // Tipo de Operação
@@ -89,12 +92,12 @@ public class IdentificacaoDaNfe {
 	@Column(name = "ide_ind_final")
 	@XStreamAlias("indFinal")
 	private int indFinal; // Indica operação com Consumidor final
-	
+
 	@Column(name = "ide_ind_pres")
 	@XStreamAlias("indPres")
 	private int indPres; // Indicador de presença do comprador no estabelecimento comercial no momento da
 							// operação
-	
+
 	@Column(name = "ide_proc_emi")
 	@XStreamAlias("procEmi")
 	private int procEmi; // Processo de emissão da NF-e
@@ -109,6 +112,11 @@ public class IdentificacaoDaNfe {
 	@XStreamAlias("xJust")
 	private String xJust; // Justificativa da entrada em contingência
 
+//	@Transient
+//	@XStreamAlias("NFref")
+//	@XStreamOmitField
+//	private int NFref;
+	
 	public int getcUf() {
 		return cUf;
 	}
@@ -316,5 +324,5 @@ public class IdentificacaoDaNfe {
 	public void sethSaiEnt(Date hSaiEnt) {
 		this.hSaiEnt = hSaiEnt;
 	}
-	
+
 }

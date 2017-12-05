@@ -4,11 +4,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.cliente.service.ClienteService;
 import br.com.srcomputador.nfe.rest.MensagemErro;
+import br.com.srcomputador.nfe.rest.dtorequest.ImportacaoClienteRequest;
 
+@CrossOrigin
 @RestController
 @RequestMapping("cliente")
 public class ClienteRest {
@@ -32,12 +37,19 @@ public class ClienteRest {
 	public ClienteRest(ClienteService clienteService) {
 		this.clienteService = clienteService;
 	}
-
+	@CrossOrigin
 	@GetMapping
 	public List<GetClienteRestDto> getClientes() throws IllegalAccessException, InvocationTargetException {
-		return this.clienteService.listar();
+		return this.clienteService.listarPeloRequest();
 	}
 
+	@GetMapping("{id}/importacoes")
+	public ResponseEntity<?> recuperarImportacoesPeloCliente(@PathVariable("id") Long id) {
+		Cliente cliente = this.clienteService.recuperarPeloId(id);
+		List<ImportacaoClienteRequest> lista = this.clienteService.listarImportacoesDoCliente(cliente);
+		return ResponseEntity.ok(lista);
+	}
+	
 	@GetMapping("{id}")
 	public ResponseEntity<?> getClienteById(@PathVariable("id") Long id)
 			throws IllegalAccessException, InvocationTargetException {
@@ -47,7 +59,8 @@ public class ClienteRest {
 		}
 		return ResponseEntity.ok(cliente);
 	}
-
+	
+	@CrossOrigin
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<?> criarCliente(@RequestBody @Validated PostClienteRestDto post) {
 		try {
@@ -67,7 +80,11 @@ public class ClienteRest {
 			return new ResponseEntity<>(new MensagemErro("Cliente não encontrado"), HttpStatus.NOT_FOUND);
 		}
 
+		if(!cliente.getImportacoes().isEmpty()) {
+			return new ResponseEntity<>(new MensagemErro("O cliente não pode ser removido devido a suas dependencias"), HttpStatus.CONFLICT);
+		}
 		this.clienteService.excluirPeloId(id);
+
 		return ResponseEntity.noContent().build();
 	}
 

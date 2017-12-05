@@ -4,10 +4,14 @@ import java.util.List;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import br.com.srcomputador.entidade.Importacao;
 
@@ -24,7 +28,8 @@ public class Cliente {
 	@Embedded
 	private Endereco endereco;
 	
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Importacao> importacoes;
 	
 	public Long getId() {

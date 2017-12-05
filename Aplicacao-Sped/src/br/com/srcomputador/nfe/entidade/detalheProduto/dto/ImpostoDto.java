@@ -13,7 +13,7 @@ public class ImpostoDto {
 	private CofinsDto cofins;
 	@XStreamAlias("IPI")
 	private IpiDto ipi;
-	
+
 	public IcmsDto getIcms() {
 		return icms;
 	}
@@ -37,6 +37,13 @@ public class ImpostoDto {
 	public void setCofins(CofinsDto cofins) {
 		this.cofins = cofins;
 	}
-	
-	
+
+	public IpiDto getIpi() {
+		return ipi;
+	}
+
+	public void setIpi(IpiDto ipi) {
+		this.ipi = ipi;
+	}
+
 }
