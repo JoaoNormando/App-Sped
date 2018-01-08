@@ -110,9 +110,9 @@ public class ImportacaoNFeService {
 								nfe.setImportacao(importacao);
 							}
 
-							if (nfe.getInfNfe().getEmit().getCnpj().equals(cliente.getCnpj())) {
-								importacao.getListaNfe().add(nfe);
-							}
+							// if (nfe.getInfNfe().getEmit().getCnpj().equals(cliente.getCnpj())) {
+							importacao.getListaNfe().add(nfe);
+							// }
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

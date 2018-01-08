@@ -33,7 +33,7 @@ public class Importacao {
 	@Column(length = 100, unique = true)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "importacao", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "importacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<NotaFiscalEletronica> listaNfe;
 

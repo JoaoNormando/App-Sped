@@ -42,6 +42,10 @@ public class RelatorioExcelService {
 	}
 
 	public void removerArquivo() throws IOException {
+		int num = this.workbook.getNumberOfSheets();
+		for(int i = 0; i< num; i++) {
+			this.workbook.removeSheetAt(0);
+		}
 		this.workbook.close();
 	}
 	

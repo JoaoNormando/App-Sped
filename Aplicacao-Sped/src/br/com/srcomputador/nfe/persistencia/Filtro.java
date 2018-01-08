@@ -7,6 +7,15 @@ public class Filtro {
 	private Cliente cliente;
 	private String descricao;
 
+	public Filtro() {
+	}
+	
+	public Filtro(Cliente cliente, String descricao) {
+		super();
+		this.cliente = cliente;
+		this.descricao = descricao;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}

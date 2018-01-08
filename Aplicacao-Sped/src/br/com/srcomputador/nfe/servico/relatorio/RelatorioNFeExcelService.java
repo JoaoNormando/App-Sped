@@ -47,6 +47,10 @@ public class RelatorioNFeExcelService {
 		this.dadosInfoComplementares = dadosInfoComplementares;
 	}
 
+	public void gerarRelatorio02(Filtro filtro) {
+		
+	}
+	
 	public File gerarRelatorio(Filtro filtro) throws IOException {
 		Importacao importacao = dao.listarImportacoesPeloFiltro(filtro);
 		
