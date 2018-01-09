@@ -1,4 +1,4 @@
-package br.com.srcomputador.controller;
+package br.com.srcomputador.rest;
 
 import java.util.List;
 

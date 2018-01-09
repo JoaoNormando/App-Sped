@@ -1,4 +1,4 @@
-package br.com.srcomputador.controller;
+package br.com.srcomputador.rest;
 
 import org.springframework.stereotype.Controller;
 
