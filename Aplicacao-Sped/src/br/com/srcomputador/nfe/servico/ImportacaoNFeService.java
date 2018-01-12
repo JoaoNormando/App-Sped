@@ -84,7 +84,7 @@ public class ImportacaoNFeService {
 		}
 		this.operacaoDiretorioService.apagarArquivos(destino);
 		if (importacao.getListaNfe().isEmpty()) {
-			throw new ConteudoVazioException("Arquivos importados sem conteudo v√°lido");
+			throw new ConteudoVazioException("Arquivos importados sem conteudo v·lido");
 		}
 		this.dao.salvar(importacao);
 	}

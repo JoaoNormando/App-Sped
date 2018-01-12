@@ -19,11 +19,11 @@ public class DadosIdeNFe {
 		cabecalhoRelatorioExcel.setTitulo("Dados da NF-e");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("N¬∫ NF");
-				add("S√©rie");
+				add("N∫ NF");
+				add("SÈrie");
 				add("Modelo");
-				add("Data de emiss√£o");
-				add("Data Sa√≠da/Entrada");
+				add("Data de emiss„oo");
+				add("Data SaÌda/Entrada");
 				add("Valor Total da Nota Fiscal");
 			}
 		});
@@ -59,13 +59,13 @@ public class DadosIdeNFe {
 		if(dataEmissao != null)
 			dados.add(String.valueOf(transformarData(dataEmissao)));
 		else
-			dados.add("Dado da Identifica√ß√£o da nota n√£o encontrado");
+			dados.add("Dado da IdentificaÁ„o da nota n„o encontrado");
 		
 		
 		if(dataSaidaEntrada != null)
 			dados.add(String.valueOf(transformarData(dataSaidaEntrada)));
 		else 
-			dados.add("Dado da Identifica√ß√£o da nota n√£o encontrado");
+			dados.add("Dado da IdentificaÁ„o da nota n„o encontrado");
 		
 		dados.add(String.valueOf(valorNotaFiscal));
 		

@@ -28,7 +28,7 @@ public class ImportacaoDao extends GenericDao<Importacao, Long>{
 	}
 
 	public Importacao listarImportacoesPeloFiltro(Filtro filtro){
-		Query query = this.em.createQuery("from Importacao as i join fetch i.cliente as c where i.cliente = :cliente and i.descricao = :descricao");
+		Query query = this.em.createQuery("from Importacao as i join fetch i.cliente as c where c = :cliente and i.descricao = :descricao");
 		query.setParameter("cliente", filtro.getCliente());
 		query.setParameter("descricao", filtro.getDescricao());
 		Importacao importacao = (Importacao) query.getSingleResult();

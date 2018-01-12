@@ -1,14 +1,12 @@
 package br.com.srcomputador.cliente.rest;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 public class PostClienteRestDto {
 
 	@NotBlank
 	private String razaoSocial;
-	@NotBlank
-	@CNPJ
+
 	private String cnpj;
 	private String nomeFantasia;
 	private ClienteEnderecoRestDto endereco;

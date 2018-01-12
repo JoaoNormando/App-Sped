@@ -61,7 +61,7 @@ public class ImportacaoNFeRest {
 
 		if (multiPart.length == 0)
 			return ResponseEntity.badRequest().body(new MensagemErro("Deve existir algum arquivo para importação"));
-
+		
 		Cliente cliente = this.clienteService.recuperarPeloId(idCliente);
 
 		if (cliente == null) {

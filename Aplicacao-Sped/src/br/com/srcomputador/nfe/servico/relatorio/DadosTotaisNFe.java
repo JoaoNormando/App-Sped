@@ -17,15 +17,15 @@ public class DadosTotaisNFe {
 		cabecalhoRelatorioExcel.setTitulo("Totais");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Base de CÃ¡lculo ICMS");
+				add("Base de cálculo ICMS");
 				add("Valor do ICMS");
 				add("Valor do ICMS Desonerado");
-				add("Base de CÃ¡lculo ICMS ST");
-				add("Valor ICMS SubstituiÃ§Ã£o");
+				add("Base de cálculo ICMS ST");
+				add("Valor ICMS Substituição");
 				add("Valor Total dos Produtos");
 				add("Valor do Frete");
 				add("Valor do Seguro");
-				add("Outras Despesas AcessÃ³rias");
+				add("Outras Despesas Acessórias");
 				add("Valor Total do IPI");
 				add("Valor Total da Nfe");
 				add("Valor Total dos Descontos");

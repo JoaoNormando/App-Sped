@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import com.jayway.restassured.path.json.JsonPath;
 
-import br.com.srcomputador.entidade.usuario.Endereco;
-import br.com.srcomputador.entidade.usuario.Estado;
-import br.com.srcomputador.entidade.usuario.Usuario;
+import br.com.srcomputador.cliente.entidade.Endereco;
+import br.com.srcomputador.usuario.entidade.Estado;
+import br.com.srcomputador.usuario.entidade.Usuario;
 
 public class UsuarioControllerTest {
 
@@ -25,9 +25,7 @@ public class UsuarioControllerTest {
 		endereco.setRua("Palmeiras");
 
 		fulano = new Usuario();
-		fulano.setCpf("12345");
 		fulano.setEmail("fulano@email.com");
-		fulano.setEndereco(endereco);
 		fulano.setNome("Fulano da Silva");
 		fulano.setSenha("senha@123");
 	}

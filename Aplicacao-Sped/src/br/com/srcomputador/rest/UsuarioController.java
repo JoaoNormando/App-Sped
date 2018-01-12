@@ -1,5 +1,6 @@
 package br.com.srcomputador.rest;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -36,14 +37,14 @@ public class UsuarioController {
 
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<Object> criarUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
+	public ResponseEntity<?> criarUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return new ResponseEntity<>("Confira se os campos foram preenchidos corretamente", HttpStatus.BAD_REQUEST);
 		}
 
-		dao.salvar(usuario);
-		return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+		usuario = dao.salvar(usuario);
+		return ResponseEntity.created(URI.create("usuario/" + usuario.getId())).build();
 
 	}
 

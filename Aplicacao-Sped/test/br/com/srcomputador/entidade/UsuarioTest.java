@@ -11,7 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.srcomputador.entidade.usuario.Usuario;
+import br.com.srcomputador.usuario.entidade.Usuario;
 
 public class UsuarioTest {
 
@@ -28,7 +28,6 @@ public class UsuarioTest {
 	public void usuarioConfig() {
 		usuario = new Usuario();
 		usuario.setNome("Fulano da Silva");
-		usuario.setCpf("07836211088");
 		usuario.setSenha("Fulano@123");
 		usuario.setEmail("fulano.silva@srtecnologia.com");
 	}
@@ -39,12 +38,6 @@ public class UsuarioTest {
 		Assert.assertTrue(erros.isEmpty());
 	}
 
-	@Test
-	public void deveGerarErroDeCpfInvalido() {
-		usuario.setCpf("1");
-		Set<ConstraintViolation<Usuario>> erros = this.validator.validate(usuario);
-		Assert.assertFalse(erros.isEmpty());
-	}
 	
 	@Test
 	public void deveGerarErroDeNomeNulo() {
