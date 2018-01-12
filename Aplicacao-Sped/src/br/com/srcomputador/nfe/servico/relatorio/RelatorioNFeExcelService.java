@@ -77,8 +77,8 @@ public class RelatorioNFeExcelService {
 		HSSFSheet folhaRelatorioProduto = this.relatorioExcelService.criarFolha("Relatorio Produto", listaCabecalhoProduto);
 		
 		int indice = 2;
-		
-		lista.forEach(elemento -> {
+		for(Detalhamento elemento : lista) {
+			
 			HSSFRow row = folhaRelatorioProduto.createRow(indice);
 			NotaFiscalEletronica nfe = elemento.getNfe();
 			int indiceColuna = this.escreverNaFolha(row, 0, this.dadosIdeNFe.relatorioIdeDaNFe(nfe));
@@ -94,7 +94,10 @@ public class RelatorioNFeExcelService {
 			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosIpi.relatorioIpi(elemento));
 			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosPis.relatorioPis(elemento));
 			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosCofins.relatorioCofins(elemento));
-		});
+			indice++;
+			
+		}
+
 		
 		return this.relatorioExcelService.gerarRelatorio("Relatorio");
 	}

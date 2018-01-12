@@ -11,6 +11,8 @@ import br.com.srcomputador.nfe.entidade.detalheProduto.Ipi;
 @Service
 public class DadosIpi {
 
+	private final String mensagemCampoNulo = "O campo não possui nenhum valor.";
+	
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoIpi() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
@@ -37,9 +39,28 @@ public class DadosIpi {
 	public List<String> relatorioIpi(Detalhamento detalhamento) {
 		List<String> lista = new ArrayList<>();
 		Ipi ipi = detalhamento.getImposto().getIpi();
-		lista.add(ipi.getClEnq());
-		lista.add(ipi.getcEnq());
-		lista.add(ipi.getcSelo());
+		
+		if(ipi == null) {
+			for(int i = 0; i < this.getCabecalhoIpi().getCampos().size(); i++)
+				lista.add(this.mensagemCampoNulo);
+			return lista;
+		}
+		
+		if(ipi.getClEnq() != null)
+			lista.add(ipi.getClEnq());
+		else
+			lista.add(this.mensagemCampoNulo);
+		
+		if(ipi.getcEnq() != null)
+			lista.add(ipi.getcEnq());
+		else 
+			lista.add(this.mensagemCampoNulo);
+		
+		if(ipi.getcEnq() != null)
+			lista.add(ipi.getcSelo());
+		else 
+			lista.add(this.mensagemCampoNulo);
+		
 		lista.add(String.valueOf(ipi.getqSelo()));
 		lista.add(String.valueOf(ipi.getCst()));
 		lista.add(String.valueOf(ipi.getqUnid()));

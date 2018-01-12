@@ -20,7 +20,7 @@ import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.cliente.persistencia.ClienteDao;
 import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
-import br.com.srcomputador.nfe.rest.dtorequest.FiltroRelatorioNFeRequest;
+import br.com.srcomputador.nfe.persistencia.FiltroRelatorio;
 import br.com.srcomputador.nfe.servico.RelatorioService;
 
 @RestController
@@ -47,9 +47,13 @@ public class RelatorioNFeRest {
 		if(cliente == null || importacao == null) {
 			return ResponseEntity.badRequest().build();
 		}
-		FiltroRelatorioNFeRequest filtro = new FiltroRelatorioNFeRequest(idImportacao, idCliente);
+//		FiltroRelatorioNFeRequest filtro = new FiltroRelatorioNFeRequest(idImportacao, idCliente);
+		FiltroRelatorio filtroRelatorio = new FiltroRelatorio();
+		filtroRelatorio.setCliente(cliente);
+		filtroRelatorio.setImportacao(importacao);
 		try {
-			File relatorio = this.relatorioService.gerarRelatorio(filtro);
+//			File relatorio = this.relatorioService.gerarRelatorio(filtro);
+			File relatorio = this.relatorioService.gerarRelatorio(filtroRelatorio);
 			this.relatorioService.fecharArquivo();
 			Path path = Paths.get(relatorio.getAbsolutePath());
 			ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
