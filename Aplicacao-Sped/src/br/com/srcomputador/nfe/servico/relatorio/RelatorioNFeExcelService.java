@@ -10,20 +10,18 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Detalhamento;
 import br.com.srcomputador.nfe.persistencia.DetalhamentoDao;
-import br.com.srcomputador.nfe.persistencia.Filtro;
 import br.com.srcomputador.nfe.persistencia.FiltroRelatorio;
+import br.com.srcomputador.nfe.persistencia.NotaFiscalEletronicaDao;
 import br.com.srcomputador.servico.relatorio.RelatorioExcelService;
 
 @Service
 public class RelatorioNFeExcelService {
 
 	private RelatorioExcelService relatorioExcelService;
-	private ImportacaoDao dao;
 	private DadosIdeNFe dadosIdeNFe;
 	private DadosEmitenteNFe dadosEmitenteNFe;
 	private DadosChaveDeAcesso dadosChaveDeAcesso;
@@ -38,14 +36,15 @@ public class RelatorioNFeExcelService {
 	private DadosCofins dadosCofins;
 	private DadosIcms dadosIcms;
 	private DadosIpi dadosIpi;
+	private NotaFiscalEletronicaDao nfeDao;
 
 	@Autowired
 	public RelatorioNFeExcelService(RelatorioExcelService service, ImportacaoDao dao, DadosIdeNFe dadosIdeNFe,
 			DadosEmitenteNFe dadosEmitenteNFe, DadosChaveDeAcesso dadosChaveDeAcesso,
 			DadosDestinatarioNFe dadosDestinatarioNFe, DadosEmissaoNFe dadosEmissaoNFe,
-			DadosSituacaoAtual dadosSituacaoAtual, DadosTotaisNFe dadosTotaisNFe, DadosInformacoesComplementares dadosInfoComplementares, DetalhamentoDao detalhamentoDao, DadosProdutoServicoNFe dadosProdutoServicoNFe, DadosPis dadosPis, DadosCofins dadosCofins, DadosIcms dadosIcms, DadosIpi dadosIpi) {
+			DadosSituacaoAtual dadosSituacaoAtual, DadosTotaisNFe dadosTotaisNFe, DadosInformacoesComplementares dadosInfoComplementares, DetalhamentoDao detalhamentoDao, DadosProdutoServicoNFe dadosProdutoServicoNFe, DadosPis dadosPis, DadosCofins dadosCofins, DadosIcms dadosIcms, DadosIpi dadosIpi, NotaFiscalEletronicaDao nfeDao) {
+
 		this.relatorioExcelService = service;
-		this.dao = dao;
 		this.dadosIdeNFe = dadosIdeNFe;
 		this.dadosEmitenteNFe = dadosEmitenteNFe;
 		this.dadosChaveDeAcesso = dadosChaveDeAcesso;
@@ -60,6 +59,7 @@ public class RelatorioNFeExcelService {
 		this.dadosCofins = dadosCofins;
 		this.dadosIcms = dadosIcms;
 		this.dadosIpi = dadosIpi;
+		this.nfeDao = nfeDao;
 		
 	}
 
@@ -72,12 +72,32 @@ public class RelatorioNFeExcelService {
 	}
 	
 	public File gerarRelatorio02(FiltroRelatorio filtro) throws IOException {
-		List<Detalhamento> lista = this.detalhamentoDao.recuperarTodosOsElementos(filtro);
+		List<NotaFiscalEletronica> listaNfe = this.nfeDao.recuperarTodosOsElementosComFiltragem(filtro);
+		List<CabecalhoRelatorioExcel> listaCabecalho = this.criarListaDeCabecalhoTotais();
+		HSSFSheet folhaRelatorioTotal = this.relatorioExcelService.criarFolha("Relatorio Total", listaCabecalho);
+		
+		int indice = 2;
+		for(NotaFiscalEletronica nfe : listaNfe) {
+			HSSFRow row = folhaRelatorioTotal.createRow(indice);
+			int indiceColuna = this.escreverNaFolha(row, 0, this.dadosIdeNFe.relatorioIdeDaNFe(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosChaveDeAcesso.getRelatorioChaveDeAcesso(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosEmitenteNFe.relatorioEmitenteNFe(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosDestinatarioNFe.getDadosDestinatarioNFe(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosEmissaoNFe.getDadosEmissao(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosSituacaoAtual.getDadosSitualAtual(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosEmitenteNFe.relatorioEmitenteAdicional(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosDestinatarioNFe.getDadosDestinatarioNFeAdicional(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosTotaisNFe.getDadosTotais(nfe));
+			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosInfoComplementares.getInformacoesComplementares(nfe));
+			indice++;
+		}
+		
+		List<Detalhamento> listaDetalhamento = this.detalhamentoDao.recuperarTodosOsElementos(filtro);
 		List<CabecalhoRelatorioExcel> listaCabecalhoProduto = this.criarListaDeCabecalhoProdutos();
 		HSSFSheet folhaRelatorioProduto = this.relatorioExcelService.criarFolha("Relatorio Produto", listaCabecalhoProduto);
 		
-		int indice = 2;
-		for(Detalhamento elemento : lista) {
+		indice = 2;
+		for(Detalhamento elemento : listaDetalhamento) {
 			
 			HSSFRow row = folhaRelatorioProduto.createRow(indice);
 			NotaFiscalEletronica nfe = elemento.getNfe();
@@ -102,75 +122,6 @@ public class RelatorioNFeExcelService {
 		return this.relatorioExcelService.gerarRelatorio("Relatorio");
 	}
 	
-	public File gerarRelatorio(Filtro filtro) throws IOException {
-		Importacao importacao = dao.listarImportacoesPeloFiltro(filtro);
-		
-		List<CabecalhoRelatorioExcel> listaCabecalho = this.criarListaDeCabecalhoTotais();
-		HSSFSheet folhaRelatorioTotal = this.relatorioExcelService.criarFolha("Relatorio Total", listaCabecalho);
-		
-		List<CabecalhoRelatorioExcel> listaCabecalhoProduto = this.criarListaDeCabecalhoProdutos();
-		HSSFSheet folhaRelatorioProduto = this.relatorioExcelService.criarFolha("Relatorio Produto", listaCabecalhoProduto);
-
-		int indice = 2;
-		for (NotaFiscalEletronica nfe : importacao.getListaNfe()) {
-
-			HSSFRow linhaTotal = folhaRelatorioTotal.createRow(indice);
-			HSSFRow linhaProduto = folhaRelatorioProduto.createRow(indice);
-			
-			int coluna = 0;
-			for (String s : this.dadosIdeNFe.relatorioIdeDaNFe(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosChaveDeAcesso.getRelatorioChaveDeAcesso(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosEmitenteNFe.relatorioEmitenteNFe(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosDestinatarioNFe.getDadosDestinatarioNFe(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosEmissaoNFe.getDadosEmissao(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosSituacaoAtual.getDadosSitualAtual(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosEmitenteNFe.relatorioEmitenteAdicional(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosDestinatarioNFe.getDadosDestinatarioNFeAdicional(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				linhaProduto.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for (String s : this.dadosTotaisNFe.getDadosTotais(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			for(String s : this.dadosInfoComplementares.getInformacoesComplementares(nfe)) {
-				linhaTotal.createCell(coluna).setCellValue(s);
-				coluna++;
-			}
-			indice++;
-
-		}
-		return this.relatorioExcelService.gerarRelatorio("Relatorio Final");
-	}
 
 	private List<CabecalhoRelatorioExcel> criarListaDeCabecalhoTotais() {
 		List<CabecalhoRelatorioExcel> listaCabecalho = new ArrayList<>();

@@ -3,6 +3,7 @@ package br.com.srcomputador.nfe.persistencia;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -20,13 +21,18 @@ public class NotaFiscalEletronicaDao extends GenericDao<NotaFiscalEletronica, Lo
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public void removerPelaDescricao(String descricao) {
-		System.out.println("Descricao: "+ descricao);
 		Query query = this.em.createQuery("from NotaFiscalEletronica nfe where nfe.descricaoImportacao = :desc");
 		List<NotaFiscalEletronica> lista = query.setParameter("desc", descricao).getResultList();
-		System.out.println(lista.size());
 		for(NotaFiscalEletronica n : lista) {
 			this.remover(n);
 		}
+	}
+	
+	public List<NotaFiscalEletronica> recuperarTodosOsElementosComFiltragem(FiltroRelatorio filtro) {
+		TypedQuery<NotaFiscalEletronica> typedQuery = this.em.createQuery("from NotaFiscalEletronica as nfe where nfe.importacao = :importacao and nfe.importacao.cliente = :cliente", NotaFiscalEletronica.class);
+		typedQuery.setParameter("importacao", filtro.getImportacao());
+		typedQuery.setParameter("cliente", filtro.getCliente());
+		return typedQuery.getResultList();
 	}
 	
 }

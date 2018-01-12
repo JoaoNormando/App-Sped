@@ -47,12 +47,10 @@ public class RelatorioNFeRest {
 		if(cliente == null || importacao == null) {
 			return ResponseEntity.badRequest().build();
 		}
-//		FiltroRelatorioNFeRequest filtro = new FiltroRelatorioNFeRequest(idImportacao, idCliente);
 		FiltroRelatorio filtroRelatorio = new FiltroRelatorio();
 		filtroRelatorio.setCliente(cliente);
 		filtroRelatorio.setImportacao(importacao);
 		try {
-//			File relatorio = this.relatorioService.gerarRelatorio(filtro);
 			File relatorio = this.relatorioService.gerarRelatorio(filtroRelatorio);
 			this.relatorioService.fecharArquivo();
 			Path path = Paths.get(relatorio.getAbsolutePath());

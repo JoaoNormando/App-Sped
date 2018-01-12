@@ -55,10 +55,11 @@ public class InformacaoDaNfe {
 //	@XStreamOmitField
 //	private int cobr;
 //	
-//	@Transient
-//	@XStreamAlias("infAdic")
-//	@XStreamOmitField
-//	private int infAdic;
+
+	@Embedded
+	@Column(columnDefinition = "text")
+	@XStreamAlias("infAdic")
+	private InformacaoAdicional infAdic;
 //	
 //	@Transient
 //	@XStreamAlias("compra")
@@ -130,6 +131,14 @@ public class InformacaoDaNfe {
 
 	public void setTotal(Total total) {
 		this.total = total;
+	}
+
+	public InformacaoAdicional getInfAdic() {
+		return infAdic;
+	}
+
+	public void setInfAdic(InformacaoAdicional infAdic) {
+		this.infAdic = infAdic;
 	}
 	
 	

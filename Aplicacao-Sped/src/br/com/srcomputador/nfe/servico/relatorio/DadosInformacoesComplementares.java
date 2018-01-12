@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import br.com.srcomputador.nfe.entidade.InformacaoAdicional;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 
 @Service
@@ -13,10 +14,10 @@ public class DadosInformacoesComplementares {
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getDadosCabecalho() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
-		cabecalhoRelatorioExcel.setTitulo("InformaÃ§Ãµes adicionais");
+		cabecalhoRelatorioExcel.setTitulo("Informações adicionais");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("InformaÃ§Ãµes Complementares de Interesse do Contribuinte");
+				add("Informações Complementares de Interesse do Contribuinte");
 			}
 		});
 		return cabecalhoRelatorioExcel;
@@ -24,7 +25,14 @@ public class DadosInformacoesComplementares {
 	
 	public List<String> getInformacoesComplementares(NotaFiscalEletronica nfe){
 		List<String> lista = new ArrayList<>();
-		lista.add("");
+		InformacaoAdicional informacaoAdicional = nfe.getInfNfe().getInfAdic();
+		
+		if(informacaoAdicional == null || informacaoAdicional.getInfCpl() == null) {
+			lista.add("Informação complementar não encontrada na nota");
+			return lista;
+		}
+		
+		lista.add(informacaoAdicional.getInfCpl());
 		return lista;
 	}
 	

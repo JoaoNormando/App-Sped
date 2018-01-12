@@ -17,8 +17,8 @@ public class DadosEmitenteNFe {
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
 				add("CNPJ/CPF");
-				add("Nome/Raz√£o Social");
-				add("Inscri√ß√£o Estadual");
+				add("Nome/Raz„o Social");
+				add("InscriÁ„o Estadual");
 				add("UF");
 			}
 		});
@@ -48,8 +48,8 @@ public class DadosEmitenteNFe {
 		cabecalhoRelatorioExcel.setTitulo("Dados do Emitente");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Munic√≠pio");
-				add("C√≥digo de Regime Tribut√°rio");
+				add("MunicÌpio");
+				add("CÛdigo de Regime Tribut·rio");
 				
 			}
 		});

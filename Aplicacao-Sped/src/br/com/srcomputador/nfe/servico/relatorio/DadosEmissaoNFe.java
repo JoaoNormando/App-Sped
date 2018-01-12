@@ -13,11 +13,11 @@ public class DadosEmissaoNFe {
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoDadosEmissao() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
-		cabecalhoRelatorioExcel.setTitulo("Emiss√£o");
+		cabecalhoRelatorioExcel.setTitulo("Emiss„o");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Natureza da opera√ß√£o");
-				add("Tipo da opera√ß√£o");
+				add("Natureza da operaÁ„o");
+				add("Tipo da operaÁ„o");
 			}
 		});
 		return cabecalhoRelatorioExcel;
