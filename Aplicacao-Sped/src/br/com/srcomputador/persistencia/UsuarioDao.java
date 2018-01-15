@@ -22,4 +22,11 @@ public class UsuarioDao extends GenericDao<Usuario, Long>{
 		return usuarioEncontrado;
 	}
 	
+	public Usuario recuperarPeloEmailESenha(String email, String senha) throws NoResultException{
+		TypedQuery<Usuario> typedQuery = this.em.createQuery("from Usuario u where u.email = :email and u.senha = :senha", Usuario.class);
+		typedQuery.setParameter("email", email);
+		typedQuery.setParameter("senha", senha);
+		return typedQuery.getSingleResult();
+	}
+	
 }

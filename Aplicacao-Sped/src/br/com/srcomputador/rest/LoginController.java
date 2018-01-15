@@ -1,13 +1,12 @@
 package br.com.srcomputador.rest;
 
-import javax.persistence.NoResultException;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.srcomputador.persistencia.UsuarioDao;
@@ -24,15 +23,20 @@ public class LoginController {
 		this.usuarioDao = usuarioDao;
 	}
 	
-//	@PostMapping
-//	public ResponseEntity<?> efetuarLogin(@RequestParam("usuario") String usuario, @RequestParam("senha") String senha) {
-//		try {
-//			Usuario usuarioRecuperado = this.usuarioDao.recuperarPeloUsuarioESenha(usuario, senha);
-//			return ResponseEntity.ok(usuarioRecuperado);
-//		} catch (NoResultException e) {
-//			e.printStackTrace();
-//			return ResponseEntity.notFound().build();
-//		}
-//	}
+	@CrossOrigin
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<?> efetuarLogin(@RequestBody UsuarioLoginModel usuario) {
+		try{
+			Usuario usuarioModel = this.usuarioDao.recuperarPeloEmailESenha(usuario.getEmail(), usuario.getSenha());
+			if(usuarioModel == null) {
+				return ResponseEntity.notFound().build();
+			}
+			return ResponseEntity.ok(usuarioModel);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.notFound().build();
+		}
+		
+	}
 	
 }

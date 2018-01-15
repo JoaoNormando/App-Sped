@@ -34,7 +34,7 @@ public class UsuarioController {
 	public List<Usuario> getAll() {
 		return dao.listar();
 	}
-
+	
 	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<?> criarUsuario(@Valid @RequestBody Usuario usuario, BindingResult result) {
@@ -50,7 +50,7 @@ public class UsuarioController {
 
 	@DeleteMapping(value = "{id}")
 	@CrossOrigin
-	public ResponseEntity<Object> removerAluno(@PathVariable("id") Long id) {
+	public ResponseEntity<Object> removerUsuario(@PathVariable("id") Long id) {
 
 		try {
 			dao.removerPeloId(id);
@@ -61,7 +61,7 @@ public class UsuarioController {
 		
 	}
 
-	public ResponseEntity<Object> atualizarAluno(@PathVariable Long id, @RequestBody Usuario usuario) {
+	public ResponseEntity<Object> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
 
 		Usuario usuarioEncontrado = dao.buscarPeloId(id);
 		if (usuarioEncontrado == null) {
@@ -71,4 +71,5 @@ public class UsuarioController {
 		dao.salvar(usuarioEncontrado);
 		return new ResponseEntity<>(usuario, HttpStatus.OK);
 	}
+	
 }
