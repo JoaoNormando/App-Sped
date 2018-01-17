@@ -71,7 +71,12 @@ public class ImportacaoNFeService {
 			file.transferTo(f);
 
 			TipoArquivo tipoArquivo = this.definirTipoArquivo.definirTipoArquivo(f);
-
+			String nomeDoArquivo = file.getOriginalFilename().toLowerCase();
+			
+			if(!nomeDoArquivo.endsWith("zip") && !nomeDoArquivo.endsWith("xml")) {
+				continue;
+			}
+			
 			if (tipoArquivo.compareTo(TipoArquivo.ZIP) == 0) {
 				this.descompactadorService.descompactarArvoreDeDiretorio(f, destino);
 				File[] listaArquivos = destino.listFiles();
@@ -110,9 +115,9 @@ public class ImportacaoNFeService {
 								nfe.setImportacao(importacao);
 							}
 
-							// if (nfe.getInfNfe().getEmit().getCnpj().equals(cliente.getCnpj())) {
-							importacao.getListaNfe().add(nfe);
-							// }
+//							if (nfe.getInfNfe().getEmit().getCnpj().equals(cliente.getCnpj())) {
+								importacao.getListaNfe().add(nfe);
+//							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

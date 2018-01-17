@@ -18,8 +18,8 @@ public class DadosCofins {
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
 				add("CST COFINS");
-				add("Base de Cálculo COFINS");
-				add("Alíquota COFINS");
+				add("Base de Calculo COFINS");
+				add("Aliquota COFINS");
 				add("Valor COFINS");
 
 			}

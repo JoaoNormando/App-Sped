@@ -13,17 +13,19 @@ import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 @Service
 public class DadosIdeNFe {
 	
+	private final String MSG_ERRO = "Dado da Identificacao da nota nao encontrado";
+	
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel cabecalhoIdeDaNFe() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
 		cabecalhoRelatorioExcel.setTitulo("Dados da NF-e");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Nº NF");
-				add("Série");
+				add("N NF");
+				add("Serie");
 				add("Modelo");
-				add("Data de emissãoo");
-				add("Data Saída/Entrada");
+				add("Data de emissao");
+				add("Data Saida/Entrada");
 				add("Valor Total da Nota Fiscal");
 			}
 		});
@@ -59,13 +61,13 @@ public class DadosIdeNFe {
 		if(dataEmissao != null)
 			dados.add(String.valueOf(transformarData(dataEmissao)));
 		else
-			dados.add("Dado da Identificação da nota não encontrado");
+			dados.add(this.MSG_ERRO);
 		
 		
 		if(dataSaidaEntrada != null)
 			dados.add(String.valueOf(transformarData(dataSaidaEntrada)));
 		else 
-			dados.add("Dado da Identificação da nota não encontrado");
+			dados.add(this.MSG_ERRO);
 		
 		dados.add(String.valueOf(valorNotaFiscal));
 		

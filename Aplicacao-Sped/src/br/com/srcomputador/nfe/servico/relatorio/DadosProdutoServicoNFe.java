@@ -14,16 +14,16 @@ public class DadosProdutoServicoNFe {
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoProdutosServicosNFe() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
-		cabecalhoRelatorioExcel.setTitulo("Dados dos produtos e serviços");
+		cabecalhoRelatorioExcel.setTitulo("Dados dos produtos e servicos");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Nº Item");
-				add("Código Produto");
-				add("Descrição do Produto");
-				add("Código NCM");
+				add("N Item");
+				add("Codigo Produto");
+				add("Descricao do Produto");
+				add("Codigo NCM");
 				add("CFOP");
 				add("Quantidade");
-				add("Valor Unitário");
+				add("Valor Unitario");
 				add("Valor Produto");
 			}
 		});

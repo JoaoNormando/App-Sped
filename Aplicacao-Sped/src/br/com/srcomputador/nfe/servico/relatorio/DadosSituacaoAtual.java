@@ -13,10 +13,10 @@ public class DadosSituacaoAtual {
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoSituacaoAtual() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
-		cabecalhoRelatorioExcel.setTitulo("Situação Atual");
+		cabecalhoRelatorioExcel.setTitulo("Situacao Atual");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Situação Atual");
+				add("Situcao Atual");
 			}
 		});
 		return cabecalhoRelatorioExcel;

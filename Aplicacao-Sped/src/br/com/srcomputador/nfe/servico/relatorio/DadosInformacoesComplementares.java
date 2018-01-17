@@ -14,10 +14,10 @@ public class DadosInformacoesComplementares {
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getDadosCabecalho() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
-		cabecalhoRelatorioExcel.setTitulo("Informações adicionais");
+		cabecalhoRelatorioExcel.setTitulo("Informacoes adicionais");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Informações Complementares de Interesse do Contribuinte");
+				add("Informacoes Complementares de Interesse do Contribuinte");
 			}
 		});
 		return cabecalhoRelatorioExcel;
@@ -28,7 +28,7 @@ public class DadosInformacoesComplementares {
 		InformacaoAdicional informacaoAdicional = nfe.getInfNfe().getInfAdic();
 		
 		if(informacaoAdicional == null || informacaoAdicional.getInfCpl() == null) {
-			lista.add("Informação complementar não encontrada na nota");
+			lista.add("Informacao complementar nao encontrada na nota");
 			return lista;
 		}
 		

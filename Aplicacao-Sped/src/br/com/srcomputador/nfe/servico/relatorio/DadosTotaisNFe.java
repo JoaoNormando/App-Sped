@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.srcomputador.nfe.entidade.IcmsTotal;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Detalhamento;
 
 @Service
 public class DadosTotaisNFe {
@@ -17,15 +18,15 @@ public class DadosTotaisNFe {
 		cabecalhoRelatorioExcel.setTitulo("Totais");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Base de cálculo ICMS");
+				add("Base de calculo ICMS");
 				add("Valor do ICMS");
 				add("Valor do ICMS Desonerado");
-				add("Base de cálculo ICMS ST");
+				add("Base de calculo ICMS ST");
 				add("Valor ICMS Substituição");
 				add("Valor Total dos Produtos");
 				add("Valor do Frete");
 				add("Valor do Seguro");
-				add("Outras Despesas Acessórias");
+				add("Outras Despesas Acessorias");
 				add("Valor Total do IPI");
 				add("Valor Total da Nfe");
 				add("Valor Total dos Descontos");

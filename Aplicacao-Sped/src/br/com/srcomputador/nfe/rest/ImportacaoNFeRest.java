@@ -5,9 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.cliente.service.ClienteService;
@@ -55,10 +55,10 @@ public class ImportacaoNFeRest {
 	}
 
 	@CrossOrigin
-	@PostMapping
+	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> importar(@RequestParam("descricao") String descricao,
-			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente, HttpServletRequest request) {
-
+			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente, MultipartHttpServletRequest request) {
+		
 		if (multiPart.length == 0)
 			return ResponseEntity.badRequest().body(new MensagemErro("Deve existir algum arquivo para importação"));
 		
@@ -67,6 +67,7 @@ public class ImportacaoNFeRest {
 		if (cliente == null) {
 			return ResponseEntity.badRequest().body(new MensagemErro("Cliente informado nao encontrado"));
 		}
+		
 		String path = request.getServletContext().getRealPath("/");
 		try {
 			this.importacaoService.salvarImportacao(descricao, multiPart, cliente, path);

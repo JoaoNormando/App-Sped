@@ -4,18 +4,36 @@ import br.com.srcomputador.usuario.entidade.Estado;
 
 public class ClienteEnderecoRestDto {
 
-	private String rua;
+	private String cep;
+	private String municipio;
+	private String logradouro;
 	private String bairro;
 	private int numero;
 	private Estado estado;
 	private String complemento;
 
-	public String getRua() {
-		return rua;
+	public String getCep() {
+		return cep;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getBairro() {

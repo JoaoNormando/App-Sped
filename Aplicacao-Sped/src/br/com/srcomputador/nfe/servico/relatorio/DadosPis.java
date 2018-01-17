@@ -18,8 +18,8 @@ public class DadosPis {
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
 				add("CST PIS");
-				add("Base de Cálculo PIS");
-				add("Alíquota PIS");
+				add("Base de Calculo PIS");
+				add("Aliquota PIS");
 				add("Valor PIS");
 
 			}

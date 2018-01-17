@@ -18,18 +18,18 @@ public class DadosIcms {
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
 				add("Origem da Mercadoria");
-				add("Tributação do ICMS");
-				add("Modalidade Definição da BC ICMS Normal");
-				add("Base de Cálculo ICMS Normal");
-				add("Alíquota do ICMS Normal");
+				add("Tributacao do ICMS");
+				add("Modalidade Definicao da BC ICMS Normal");
+				add("Base de Calculo ICMS Normal");
+				add("Aliquota do ICMS Normal");
 				add("Valor do ICMS Normal");
 		
-				add("Base de Cálculo do ICMS ST");
-				add("Alíquota do ICMS ST");
+				add("Base de Calculo do ICMS ST");
+				add("Aliquota do ICMS ST");
 				add("Valor do ICMS ST");
-				add("Percentual Redução de BC do ICMS ST");
+				add("Percentual Reducao de BC do ICMS ST");
 				add("Percentual do MVA do ICMS ST");
-				add("Modalidade Definição da BC ICMS ST");
+				add("Modalidade Definicao da BC ICMS ST");
 
 			}
 		});

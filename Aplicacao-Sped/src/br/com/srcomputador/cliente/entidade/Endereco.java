@@ -3,17 +3,15 @@ package br.com.srcomputador.cliente.entidade;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.srcomputador.usuario.entidade.Estado;
 
 @Embeddable
 public class Endereco {
 
-	private String rua;	
+	private String cep;
+	private String logradouro;
+	private String municipio;
 	private String bairro;
 	private int numero;
 	
@@ -22,12 +20,28 @@ public class Endereco {
 	
 	private String complemento;
 
-	public String getRua() {
-		return rua;
+	public String getCep() {
+		return cep;
 	}
 
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
 	}
 
 	public String getBairro() {
@@ -62,4 +76,6 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 
+	
+	
 }

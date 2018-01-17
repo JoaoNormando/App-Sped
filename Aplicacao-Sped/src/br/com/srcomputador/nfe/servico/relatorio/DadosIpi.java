@@ -11,7 +11,7 @@ import br.com.srcomputador.nfe.entidade.detalheProduto.Ipi;
 @Service
 public class DadosIpi {
 
-	private final String mensagemCampoNulo = "O campo não possui nenhum valor.";
+	private final String mensagemCampoNulo = "O campo nao possui nenhum valor.";
 	
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoIpi() {
@@ -20,14 +20,14 @@ public class DadosIpi {
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
 				add("Classe de Enquadramento");
-				add("Código Enquadramento");
-				add("Código do Selo");
+				add("Codigo Enquadramento");
+				add("Codigo do Selo");
 				add("Quantidade Selo");
 				add("CST");
-				add("Qtd Total Unidade Padrão");
+				add("Qtd Total Unidade Padrao");
 				add("Valor por Unidade");
-				add("Base de Cálculo IPI");
-				add("Alíquota IPI");
+				add("Base de Calculo IPI");
+				add("Aliquota IPI");
 				add("Valor IPI");
 
 

@@ -13,14 +13,14 @@ public class DadosDestinatarioNFe {
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoDestinatario() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
-		cabecalhoRelatorioExcel.setTitulo("Destinatário");
+		cabecalhoRelatorioExcel.setTitulo("Destinatario");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
 				add("CNPJ/CPF");
-				add("Nome/Razão Social");
-				add("Inscrição Estadual");
+				add("Nome/Razao Social");
+				add("Inscricao Estadual");
 				add("UF");
-				add("Destino da Operação");
+				add("Destino da Operacao");
 				add("Consumidor final");
 			}
 		});
@@ -48,13 +48,13 @@ public class DadosDestinatarioNFe {
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoDestinatarioAdicional() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
-		cabecalhoRelatorioExcel.setTitulo("Dados do Destinatário");
+		cabecalhoRelatorioExcel.setTitulo("Dados do Destinatario");
 		cabecalhoRelatorioExcel.setCampos(new ArrayList<String>() {
 			{
-				add("Município");
-				add("País");
+				add("Municipio");
+				add("Pais");
 				add("Indicador IE");
-				add("Inscrição SUFRAMA");
+				add("Inscricao SUFRAMA");
 			}
 		});
 		return cabecalhoRelatorioExcel;

@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -55,7 +53,7 @@ public class ClienteRest {
 			throws IllegalAccessException, InvocationTargetException {
 		GetClienteRestDto cliente = this.clienteService.recuperarClienteRestPeloId(id);
 		if (cliente == null) {
-			return new ResponseEntity<>(new MensagemErro("Cliente n√£o encontrado"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MensagemErro("Cliente n„o encontrado"), HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.ok(cliente);
 	}
@@ -77,11 +75,11 @@ public class ClienteRest {
 		Cliente cliente = this.clienteService.recuperarPeloId(id);
 
 		if (cliente == null) {
-			return new ResponseEntity<>(new MensagemErro("Cliente n√£o encontrado"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MensagemErro("Cliente n„o encontrado"), HttpStatus.NOT_FOUND);
 		}
 
 		if(!cliente.getImportacoes().isEmpty()) {
-			return new ResponseEntity<>(new MensagemErro("O cliente n√£o pode ser removido devido a suas dependencias"), HttpStatus.CONFLICT);
+			return new ResponseEntity<>(new MensagemErro("O cliente n„o pode ser removido devido a suas dependencias"), HttpStatus.CONFLICT);
 		}
 		this.clienteService.excluirPeloId(id);
 

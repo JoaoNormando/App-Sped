@@ -81,6 +81,8 @@ public class ClienteService {
 		cliente.setCnpj(post.getCnpj());
 		cliente.setNomeFantasia(post.getNomeFantasia());
 		cliente.setRazaoSocial(post.getRazaoSocial());
+		cliente.setEmail(post.getEmail());
+		cliente.setTelefone(post.getTelefone());
 		cliente.setEndereco(endereco);
 		return dao.salvar(cliente);
 	}

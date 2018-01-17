@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import br.com.srcomputador.entidade.Importacao;
 
@@ -21,10 +23,16 @@ public class Cliente {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String razaoSocial;
 
+	@CNPJ
 	private String cnpj;
 	private String nomeFantasia;
+	private String razaoSocial;
+	
+	@Email
+	private String email;
+	private String telefone;
+	
 	@Embedded
 	private Endereco endereco;
 	
@@ -70,6 +78,22 @@ public class Cliente {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public List<Importacao> getImportacoes() {
