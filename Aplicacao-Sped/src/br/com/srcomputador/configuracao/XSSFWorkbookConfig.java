@@ -1,15 +1,15 @@
 package br.com.srcomputador.configuracao;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HSSFWorkbookConfig {
+public class XSSFWorkbookConfig {
 
 	@Bean
-	public HSSFWorkbook workbook() {
-		return new HSSFWorkbook();
+	public XSSFWorkbook workbook() {
+		return new XSSFWorkbook();
 	}
 	
 }

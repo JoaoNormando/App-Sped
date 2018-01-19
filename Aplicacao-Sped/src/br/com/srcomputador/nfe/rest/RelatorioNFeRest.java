@@ -57,8 +57,8 @@ public class RelatorioNFeRest {
 			ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
 			return ResponseEntity
 					.ok()
-					.header("Content-Disposition:","attachment; filename=\"Relatorio.xls\"")
-					.contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+					.header("Content-Disposition:","attachment; filename=\"Relatorio.xlsx\"")
+					.contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
 					.body(resource);
 		} catch (IOException e) {
 			e.printStackTrace();

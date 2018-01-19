@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +63,7 @@ public class RelatorioNFeExcelService {
 		
 	}
 
-	private int escreverNaFolha(HSSFRow row, int indiceColuna, List<String> dados) {
+	private int escreverNaFolha(XSSFRow row, int indiceColuna, List<String> dados) {
 		for(String conteudo : dados) {
 			row.createCell(indiceColuna).setCellValue(conteudo);
 			indiceColuna++;
@@ -74,11 +74,11 @@ public class RelatorioNFeExcelService {
 	public File gerarRelatorio02(FiltroRelatorio filtro) throws IOException {
 		List<NotaFiscalEletronica> listaNfe = this.nfeDao.recuperarTodosOsElementosComFiltragem(filtro);
 		List<CabecalhoRelatorioExcel> listaCabecalho = this.criarListaDeCabecalhoTotais();
-		HSSFSheet folhaRelatorioTotal = this.relatorioExcelService.criarFolha("Relatorio Total", listaCabecalho);
+		XSSFSheet folhaRelatorioTotal = this.relatorioExcelService.criarFolha("Relatorio Total", listaCabecalho);
 		
 		int indice = 2;
 		for(NotaFiscalEletronica nfe : listaNfe) {
-			HSSFRow row = folhaRelatorioTotal.createRow(indice);
+			XSSFRow row = folhaRelatorioTotal.createRow(indice);
 			int indiceColuna = this.escreverNaFolha(row, 0, this.dadosIdeNFe.relatorioIdeDaNFe(nfe));
 			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosChaveDeAcesso.getRelatorioChaveDeAcesso(nfe));
 			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosEmitenteNFe.relatorioEmitenteNFe(nfe));
@@ -94,12 +94,12 @@ public class RelatorioNFeExcelService {
 		
 		List<Detalhamento> listaDetalhamento = this.detalhamentoDao.recuperarTodosOsElementos(filtro);
 		List<CabecalhoRelatorioExcel> listaCabecalhoProduto = this.criarListaDeCabecalhoProdutos();
-		HSSFSheet folhaRelatorioProduto = this.relatorioExcelService.criarFolha("Relatorio Produto", listaCabecalhoProduto);
+		XSSFSheet folhaRelatorioProduto = this.relatorioExcelService.criarFolha("Relatorio Produto", listaCabecalhoProduto);
 		
 		indice = 2;
 		for(Detalhamento elemento : listaDetalhamento) {
 			
-			HSSFRow row = folhaRelatorioProduto.createRow(indice);
+			XSSFRow row = folhaRelatorioProduto.createRow(indice);
 			NotaFiscalEletronica nfe = elemento.getNfe();
 			int indiceColuna = this.escreverNaFolha(row, 0, this.dadosIdeNFe.relatorioIdeDaNFe(nfe));
 			indiceColuna = this.escreverNaFolha(row, indiceColuna, this.dadosEmitenteNFe.relatorioEmitenteNFe(nfe));

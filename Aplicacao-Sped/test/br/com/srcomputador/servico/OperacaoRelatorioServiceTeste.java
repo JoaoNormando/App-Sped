@@ -4,11 +4,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import br.com.srcomputador.configuracao.HSSFWorkbookConfig;
+import br.com.srcomputador.configuracao.XSSFWorkbookConfig;
 import br.com.srcomputador.servico.relatorio.OperacaoRelatorioService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {OperacaoRelatorioService.class, HSSFWorkbookConfig.class})
+@ContextConfiguration(classes = {OperacaoRelatorioService.class, XSSFWorkbookConfig.class})
 public class OperacaoRelatorioServiceTeste {
 //
 //	@Autowired
