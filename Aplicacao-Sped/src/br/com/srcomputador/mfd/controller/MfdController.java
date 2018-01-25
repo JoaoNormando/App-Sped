@@ -18,13 +18,13 @@ import br.com.srcomputador.mfd.servico.ImportacaoMFDBanco;
 import net.lingala.zip4j.exception.ZipException;
 
 @RestController
-@RequestMapping("/mfd")
+@RequestMapping("mfd")
 public class MfdController {
 	
 	@Autowired
 	private ImportacaoMFDBanco importacao;
 	
-	@PostMapping("/uploadFileZip")
+	@PostMapping("uploadFileZip")
 	public ResponseEntity<String> uploadFileZip(@RequestParam("uploadedFile") MultipartFile file, HttpServletRequest request) {
 		
 		if(!file.isEmpty()) {
@@ -40,7 +40,7 @@ public class MfdController {
 		return new ResponseEntity<String>("Não foi possivel realizar o upload do arquivo, verifique a integridade!", HttpStatus.BAD_REQUEST);
 	}
 	
-	@PostMapping("/uploadFiles")
+	@PostMapping("uploadFiles")
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile [] files){
 		
 		if(files.length > 0) {

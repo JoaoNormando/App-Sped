@@ -1,9 +1,14 @@
 package br.com.srcomputador.nfe.persistencia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -33,6 +38,25 @@ public class NotaFiscalEletronicaDao extends GenericDao<NotaFiscalEletronica, Lo
 		typedQuery.setParameter("importacao", filtro.getImportacao());
 		typedQuery.setParameter("cliente", filtro.getCliente());
 		return typedQuery.getResultList();
+	}
+	
+	public List<NotaFiscalEletronica> recuperarPeloFiltro(FiltroRelatorio filtro) {
+		
+		CriteriaBuilder builder = this.em.getCriteriaBuilder();
+		CriteriaQuery<NotaFiscalEletronica> query = builder.createQuery(NotaFiscalEletronica.class);
+		Root<NotaFiscalEletronica> fromNFe = query.from(NotaFiscalEletronica.class);
+		List<Predicate> predicados = new ArrayList<Predicate>();
+		
+		predicados.add(builder.equal(fromNFe.get("importacao"), filtro.getImportacao()));
+		predicados.add(builder.equal(fromNFe.get("importacao").get("cliente"), filtro.getCliente()));
+		
+		if(filtro.getDataInicial() != null && filtro.getDataFinal() != null) {
+			predicados.add(builder.between(fromNFe.get("infNfe").get("ide").get("dhEmi"), filtro.getDataInicial(), filtro.getDataFinal()));			
+		}
+		
+		query.select(fromNFe).where(predicados.toArray(new Predicate[]{}));
+		return em.createQuery(query).getResultList();
+		
 	}
 	
 }

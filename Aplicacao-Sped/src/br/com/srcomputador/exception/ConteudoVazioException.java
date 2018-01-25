@@ -1,4 +1,4 @@
-package br.com.srcomputador.nfe.rest;
+package br.com.srcomputador.exception;
 
 public class ConteudoVazioException extends RuntimeException {
 	

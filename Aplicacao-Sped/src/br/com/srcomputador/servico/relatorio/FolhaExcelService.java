@@ -2,16 +2,16 @@ package br.com.srcomputador.servico.relatorio;
 
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import br.com.srcomputador.nfe.servico.relatorio.CabecalhoRelatorioExcel;
@@ -19,20 +19,20 @@ import br.com.srcomputador.nfe.servico.relatorio.CabecalhoRelatorioExcel;
 @Service
 public class FolhaExcelService {
 
-	private XSSFSheet criarFolha(XSSFWorkbook wb, String nomeFolha) {
+	private HSSFSheet criarFolha(HSSFWorkbook wb, String nomeFolha) {
 		return wb.createSheet(nomeFolha);
 	}
 
-	public XSSFSheet criarFolha(XSSFWorkbook wb, String nomeFolha, List<CabecalhoRelatorioExcel> listaCabecalho) {
-		XSSFSheet folha = this.criarFolha(wb, nomeFolha);
-		XSSFCellStyle celulaDeEstilo = this.criarCelulaDeEstilo(wb);
+	public HSSFSheet criarFolha(HSSFWorkbook wb, String nomeFolha, List<CabecalhoRelatorioExcel> listaCabecalho) {
+		HSSFSheet folha = this.criarFolha(wb, nomeFolha);
+		HSSFCellStyle celulaDeEstilo = this.criarCelulaDeEstilo(wb);
 
 		if (listaCabecalho == null) {
 			return folha;
 		}
-		XSSFRow linhaTitulo = folha.createRow(0);
+		HSSFRow linhaTitulo = folha.createRow(0);
 		this.realizarMergeCabecalho(listaCabecalho, folha, linhaTitulo, celulaDeEstilo);
-		XSSFRow linhaCamposCabecalho = folha.createRow(1);
+		HSSFRow linhaCamposCabecalho = folha.createRow(1);
 		int indiceColuna = 0;
 
 		indiceColuna = popularCamposCabecalho(listaCabecalho, linhaCamposCabecalho, indiceColuna, celulaDeEstilo);
@@ -41,14 +41,14 @@ public class FolhaExcelService {
 
 	}
 
-	private int popularCamposCabecalho(List<CabecalhoRelatorioExcel> listaCabecalho, XSSFRow linhaCamposCabecalho,
-			int indiceColuna, XSSFCellStyle celulaDeEstilo) {
-		XSSFSheet folha = linhaCamposCabecalho.getSheet();
+	private int popularCamposCabecalho(List<CabecalhoRelatorioExcel> listaCabecalho, HSSFRow linhaCamposCabecalho,
+			int indiceColuna, HSSFCellStyle celulaDeEstilo) {
+		HSSFSheet folha = linhaCamposCabecalho.getSheet();
 		int j = 0;
 		for (int i = 0; i < listaCabecalho.size(); i++) {
 
 			for (String s : listaCabecalho.get(i).getCampos()) {
-				XSSFCell cell = linhaCamposCabecalho.createCell(indiceColuna);
+				HSSFCell cell = linhaCamposCabecalho.createCell(indiceColuna);
 				cell.setCellStyle(celulaDeEstilo);
 				cell.setCellValue(s);
 				indiceColuna++;
@@ -60,8 +60,8 @@ public class FolhaExcelService {
 		return indiceColuna;
 	}
 
-	private void realizarMergeCabecalho(List<CabecalhoRelatorioExcel> listaCabecalho, XSSFSheet folha,
-			XSSFRow linhaTitulo, XSSFCellStyle celulaDeEstilo) {
+	private void realizarMergeCabecalho(List<CabecalhoRelatorioExcel> listaCabecalho, HSSFSheet folha,
+			HSSFRow linhaTitulo, HSSFCellStyle celulaDeEstilo) {
 		int mergeInicial = 0;
 		int mergeFinal = 0;
 		for (CabecalhoRelatorioExcel cabecalho : listaCabecalho) {
@@ -72,17 +72,17 @@ public class FolhaExcelService {
 						mergeInicial, mergeFinal - 1));
 			}
 
-			XSSFCell celula = linhaTitulo.createCell(mergeInicial);
+			HSSFCell celula = linhaTitulo.createCell(mergeInicial);
 			celula.setCellValue(cabecalho.getTitulo());
 			celula.setCellStyle(celulaDeEstilo);
 			mergeInicial += cabecalho.getCampos().size();
 		}
 	}
 
-	private XSSFCellStyle criarCelulaDeEstilo(XSSFWorkbook wb) {
-		XSSFCellStyle celula = wb.createCellStyle();
+	private HSSFCellStyle criarCelulaDeEstilo(HSSFWorkbook wb) {
+		HSSFCellStyle celula = wb.createCellStyle();
 
-		XSSFFont fonte = wb.createFont();
+		HSSFFont fonte = wb.createFont();
 		fonte.setColor(IndexedColors.WHITE.getIndex());
 		fonte.setBold(true);
 		celula.setFillForegroundColor(IndexedColors.BLACK.getIndex());

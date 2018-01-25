@@ -10,13 +10,18 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import br.com.srcomputador.entidade.Importacao;
 
 @Entity
 @Table(name = "MFD")
@@ -27,8 +32,7 @@ public class MFD {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@AttributeOverrides({ 
-			@AttributeOverride(name = "tipoRegistro", column = @Column(name = "E01_tipo_registro")),
+	@AttributeOverrides({ @AttributeOverride(name = "tipoRegistro", column = @Column(name = "E01_tipo_registro")),
 			@AttributeOverride(name = "numeroFabricacao", column = @Column(name = "E01_NUMERO_FABRICACAO")),
 			@AttributeOverride(name = "mfAdicional", column = @Column(name = "E01_MF_ADICIONAL")),
 			@AttributeOverride(name = "modelo", column = @Column(name = "E01_MODELO")),
@@ -44,13 +48,11 @@ public class MFD {
 			@AttributeOverride(name = "dataInicial", column = @Column(name = "E01_data_inicial")),
 			@AttributeOverride(name = "dataFinal", column = @Column(name = "E01_data_final")),
 			@AttributeOverride(name = "versaoBiblioteca", column = @Column(name = "E01_versao_biblioteca")),
-			@AttributeOverride(name = "versaoAtoCotepe", column = @Column(name = "E01_versao_ato_cotepe"))
-	})
+			@AttributeOverride(name = "versaoAtoCotepe", column = @Column(name = "E01_versao_ato_cotepe")) })
 	@Embedded
 	private RegistroE01 e01;
 
-	@AttributeOverrides({
-			@AttributeOverride(name = "tipoRegistro", column = @Column(name = "E02_TIPO_REGISTRO")),
+	@AttributeOverrides({ @AttributeOverride(name = "tipoRegistro", column = @Column(name = "E02_TIPO_REGISTRO")),
 			@AttributeOverride(name = "numeroFabricacao", column = @Column(name = "E02_NUMERO_FABRICACAO")),
 			@AttributeOverride(name = "mfAdicional", column = @Column(name = "E02_MF_ADICIONAL")),
 			@AttributeOverride(name = "modelo", column = @Column(name = "E02_MODELO")),
@@ -61,11 +63,10 @@ public class MFD {
 			@AttributeOverride(name = "dataHoraCadastro", column = @Column(name = "E02_data_hora_cadastro")),
 			@AttributeOverride(name = "valorCro", column = @Column(name = "E02_valor_cro")),
 			@AttributeOverride(name = "valorGt", column = @Column(name = "E02_valor_gt")),
-			@AttributeOverride(name = "numeroDoUsuario", column = @Column(name = "E02_numero_usuario"))
-	})
+			@AttributeOverride(name = "numeroDoUsuario", column = @Column(name = "E02_numero_usuario")) })
 	@Embedded
 	private RegistroE02 e02;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
 	private List<RegistroE14> e14 = new ArrayList<RegistroE14>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
@@ -82,6 +83,10 @@ public class MFD {
 	private List<RegistroE20> e20 = new ArrayList<>();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "mfd", fetch = FetchType.LAZY)
 	private List<RegistroE21> e21 = new ArrayList<>();
+
+	@ManyToOne
+	@JoinColumn(name = "id_importacao", foreignKey = @ForeignKey(name = "fk_importacao_mfd"))
+	private Importacao importacao;
 
 	public Long getId() {
 		return id;
@@ -169,6 +174,14 @@ public class MFD {
 
 	public void setE21(List<RegistroE21> e21) {
 		this.e21 = e21;
+	}
+
+	public Importacao getImportacao() {
+		return importacao;
+	}
+
+	public void setImportacao(Importacao importacao) {
+		this.importacao = importacao;
 	}
 
 }

@@ -18,6 +18,10 @@ public class DefinirTipoArquivoService {
 			return TipoArquivo.XML;
 		}
 		
+		if(nome.endsWith(".txt")) {
+			return TipoArquivo.TXT;
+		}
+		
 		return null;
 	}
 	

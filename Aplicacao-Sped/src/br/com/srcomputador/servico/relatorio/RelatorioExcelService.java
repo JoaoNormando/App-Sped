@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,31 +16,31 @@ import br.com.srcomputador.nfe.servico.relatorio.CabecalhoRelatorioExcel;
 public class RelatorioExcelService {
 
 	private FolhaExcelService folhaExcelService;
-	private XSSFWorkbook workbook;
+	private HSSFWorkbook workbook;
 	
 	@Autowired
-	public RelatorioExcelService(FolhaExcelService folhaExcelService, XSSFWorkbook workbook) {
+	public RelatorioExcelService(FolhaExcelService folhaExcelService, HSSFWorkbook workbook) {
 		this.folhaExcelService = folhaExcelService;
 		this.workbook = workbook;
 	}
 	
-	public XSSFSheet criarFolha(String nomeFolha) {
+	public HSSFSheet criarFolha(String nomeFolha) {
 		return this.folhaExcelService.criarFolha(this.workbook, nomeFolha, null);
 	}
 
-	public XSSFSheet criarFolha(String nomeFolha, List<CabecalhoRelatorioExcel> listaCabecalho) {
+	public HSSFSheet criarFolha(String nomeFolha, List<CabecalhoRelatorioExcel> listaCabecalho) {
 		return this.folhaExcelService.criarFolha(this.workbook, nomeFolha, listaCabecalho);
 	}
 	
 	public File gerarRelatorio(String relatorioNome) throws IOException {
 		File file = new File(relatorioNome + ".xlsx");
-		FileOutputStream outputStream = new FileOutputStream(file);
-		this.workbook.write(outputStream);
-		outputStream.close();
+		if(file.exists()) file.delete();
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		this.workbook.write(fileOutputStream);
 		return file;
 	}
 	
-	public XSSFSheet recuperarFolha(String nome) {
+	public HSSFSheet recuperarFolha(String nome) {
 		return this.workbook.getSheet(nome);
 	}
 

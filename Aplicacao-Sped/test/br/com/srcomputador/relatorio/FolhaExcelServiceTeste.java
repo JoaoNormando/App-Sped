@@ -1,14 +1,17 @@
 package br.com.srcomputador.relatorio;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Repeat;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -24,15 +27,16 @@ public class FolhaExcelServiceTeste {
 	@Autowired
 	private RelatorioExcelService excelService;
 	
-	@Test
+//	@Test
 	public void deveriaCriarUmaFolha() throws IOException {
 		String nomeDaFolha = "Relatorio 01";
 		this.excelService.criarFolha(nomeDaFolha);
-		XSSFSheet folha = this.excelService.recuperarFolha(nomeDaFolha);
+		HSSFSheet folha = this.excelService.recuperarFolha(nomeDaFolha);
 		Assert.assertEquals(nomeDaFolha, folha.getSheetName());
 	}
 	
 	@Test
+	@Repeat(value = 5)
 	public void deveriaCriarUmCabecalho() throws IOException {
 		List<CabecalhoRelatorioExcel> lista = new ArrayList<>();
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel01 = new CabecalhoRelatorioExcel();
@@ -62,6 +66,13 @@ public class FolhaExcelServiceTeste {
 		lista.add(cabecalhoRelatorioExcel02);
 		this.excelService.criarFolha("Relatorio Produto", lista);
 		this.excelService.gerarRelatorio("Relatorio");
+	}
+	
+	@After
+	public void removerArquivo() throws IOException {
+		this.excelService.removerArquivo();
+		File file = new File("Relatorio.xlsx");
+		if(file.exists()) file.delete();
 	}
 	
 	

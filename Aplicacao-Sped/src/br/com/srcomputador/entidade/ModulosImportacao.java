@@ -2,7 +2,7 @@ package br.com.srcomputador.entidade;
 
 public enum ModulosImportacao {
 
-	NFE("Nota Fiscal Eletrônica"), MFD("Memória Fita Detalhe"), PROC_NFE("Processo de Nota Fiscal Eletrônica");
+	NFE("Nota Fiscal Eletronica"), MFD("Memoria Fita Detalhe"), PROC_NFE("Processo de Nota Fiscal Eletronica");
 
 	private ModulosImportacao(String descricao) {
 		this.descricao = descricao;

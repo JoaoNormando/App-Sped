@@ -33,7 +33,7 @@ public abstract class GenericDao<T, ID> {
 		T usuario = this.buscarPeloId(id);
 		
 		if(usuario == null) {
-			throw new NullPointerException("Entidade n√£o encontrada");
+			throw new NullPointerException("Entidade n„o encontrada");
 		}		
 		em.remove(usuario);
 	}

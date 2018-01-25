@@ -20,6 +20,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import br.com.srcomputador.cliente.entidade.Cliente;
+import br.com.srcomputador.mfd.entidade.MFD;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 
 @Entity
@@ -29,21 +30,24 @@ public class Importacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(length = 100, unique = true)
 	private String descricao;
-	
+
 	@OneToMany(mappedBy = "importacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<NotaFiscalEletronica> listaNfe;
 
+	@OneToMany(mappedBy = "importacao", cascade = CascadeType.ALL)
+	private List<MFD> listaMFD;
+
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Cliente cliente;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private ModulosImportacao modulo;
-	
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -55,13 +59,21 @@ public class Importacao {
 	public List<NotaFiscalEletronica> getListaNfe() {
 		return listaNfe;
 	}
-	
+
 	public void setListaNfe(List<NotaFiscalEletronica> listaNfe) {
 		this.listaNfe = listaNfe;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public List<MFD> getListaMFD() {
+		return listaMFD;
+	}
+
+	public void setListaMFD(List<MFD> listaMFD) {
+		this.listaMFD = listaMFD;
 	}
 
 	public Cliente getCliente() {
@@ -83,5 +95,5 @@ public class Importacao {
 	public void setModulo(ModulosImportacao modulo) {
 		this.modulo = modulo;
 	}
-	
+
 }

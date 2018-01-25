@@ -1,5 +1,6 @@
 package br.com.srcomputador.nfe.persistencia;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class NotaFiscalEletronicaDaoTeste {
 	@Autowired
 	private ClienteDao clienteDao;
 	
-	@Test
+//	@Test
 	public void deveriaRealizarUmaConsultaNoBanco() {
 		Importacao importacao = this.importacaoDao.buscarPeloId(17L);
 		Cliente cliente = this.clienteDao.buscarPeloId(1L);
@@ -37,6 +38,13 @@ public class NotaFiscalEletronicaDaoTeste {
 		filtroRelatorio.setCliente(cliente);
 		List<NotaFiscalEletronica> lista = this.nfeDao.recuperarTodosOsElementosComFiltragem(filtroRelatorio);
 		Assert.assertTrue(lista != null);
+	}
+	
+	@Test
+	public void deveriaRealizarUmaConsultaComBaseNoFiltroPassado() {
+		FiltroRelatorio filtroRelatorio = new FiltroRelatorio();
+		filtroRelatorio.setDataInicial(Calendar.getInstance());
+		this.nfeDao.recuperarPeloFiltro(filtroRelatorio);
 	}
 	
 }
