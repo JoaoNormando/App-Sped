@@ -6,6 +6,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class ImportacaoMFDRest {
 		this.importacaoService = importacaoService;
 	}
 	
+	@CrossOrigin
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.OK)
 	public void importar(@RequestParam("arquivo") MultipartFile[] arquivos, @RequestParam("descricao") String descricao,
