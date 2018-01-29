@@ -12,4 +12,10 @@ public class RelatorioMFDTest {
 		relatorio.gerarRelatorio();
 	}
 	
+	@Test
+	public void deveriaEscreverNoRelatorio() {
+		RelatorioMFD relatorio = new RelatorioMFD();
+
+	}
+	
 }

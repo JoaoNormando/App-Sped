@@ -22,7 +22,7 @@ import org.apache.poi.xssf.usermodel.extensions.XSSFCellBorder.BorderSide;
 
 public class Relatorio {
 	
-	private XSSFWorkbook workbook;
+	protected XSSFWorkbook workbook;
 	private XSSFCellStyle estiloCabecalho;
 	private int numeroLinha = 0;
 	
@@ -86,7 +86,17 @@ public class Relatorio {
 	}
 	
 	protected void defineEstiloCabecalho() {
+
+		definirCabecalhoTitulo();
+		definirCabecalhoSubitutlo();
 		
+		// Alinhamento do texto
+		this.estiloCabecalho.setVerticalAlignment(VerticalAlignment.CENTER);
+		this.estiloCabecalho.setAlignment(HorizontalAlignment.CENTER);
+		
+	}
+
+	private void definirCabecalhoTitulo() {
 		// Cor da letra no texto
 		XSSFFont font = this.workbook.createFont();
 		XSSFColor corLetra = new XSSFColor(Color.WHITE);
@@ -98,7 +108,9 @@ public class Relatorio {
 		XSSFColor color = new XSSFColor(Color.BLACK);
 		this.estiloCabecalho.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		this.estiloCabecalho.setFillBackgroundColor(color);
+	}
 
+	private void definirCabecalhoSubitutlo() {
 		// Subtitulo
 		
 		// Cor da letra no texto subtitulo
@@ -124,11 +136,9 @@ public class Relatorio {
 		this.estiloSubtitulo.setBorderLeft(BorderStyle.MEDIUM);
 		
 		// Fim subtitulo
-		
-		
-		// Alinhamento do texto
-		this.estiloCabecalho.setVerticalAlignment(VerticalAlignment.CENTER);
-		this.estiloCabecalho.setAlignment(HorizontalAlignment.CENTER);
-		
 	}
+
+
+
+
 }

@@ -7,6 +7,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 public class RelatorioMFD extends Relatorio {
 
+	private final String NOME_FOLHA = "Relatorio";
+	
 	public File gerarRelatorio() throws IOException {
 		this.criarCabecalho();
 		this.defineEstiloCabecalho();
@@ -15,7 +17,7 @@ public class RelatorioMFD extends Relatorio {
 	}
 	
 	public void criarCabecalho() {
-		XSSFSheet folha = this.criaFolha("Relatorio");
+		XSSFSheet folha = this.criaFolha(this.NOME_FOLHA);
 		this.geraCabecalho(folha, this.getCabecalhoE01());
 		this.geraCabecalho(folha, this.getCabecalhoE02());
 		this.geraCabecalho(folha, this.getCabecalhoE14());
@@ -86,5 +88,12 @@ public class RelatorioMFD extends Relatorio {
 			.adicionarTexto("Cancelamento de Acréscimo no Item");
 		return cabecalhoE15;
 	}
+
+	public void escreve() {
+		
+		
+	}
 	
+
+
 }
