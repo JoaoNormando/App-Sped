@@ -51,8 +51,70 @@ public class RelatorioMfdDTO {
 	private int quantidadeCanceladaE15;
 	private double valorCanceladoE15;
 	private double valorCanceladoAcrescimoE15;
-
 	// FIM Dados do relatorio do registro E15
+	
+	
+	
+
+	public RelatorioMfdDTO(
+			
+			String tipoRegistroE01, String numeroFabricacaoE01, char mfAdicionalE01, String tipoEcfE01,
+			String marcaE01, String modeloE01, int numeroEcfE01, String cnpjUsuarioE01, int crzInicialE01,
+			int crzFinalE01, Calendar dataInicialE01, Calendar dataFinalE01, 
+			
+			String cnpjE02, String inscricaoEstadualE02, String nomeContribuinteE02,
+			
+			String tipoRegistroE14,	Calendar dataInicioEmissaoE14, double valorTotalDoDocumentoE14, 
+			double valorDoDescontoE14, double valorAcrescimoPercAplicadoE14, double valorTotalLiquidoE14,
+			char indicadorDeCancelamentoE14, double valorCancelamentoE14,
+			
+			String tipoRegistroE15, int numeroDoItemE15, String codigoDoProdutoE15,
+			String descricaoProdutoE15, int quantidadeComercializadaE15, String unidadeMedidaE15, int valorUnitarioE15,
+			double valorDescontoE15, double valorAcrescimoE15, double valorTotalLiquidoE15,
+			String codTotalizadorParcialE15, int quantidadeCanceladaE15, double valorCanceladoE15,
+			double valorCanceladoAcrescimoE15
+			)
+	{
+		super();
+		this.tipoRegistroE01 = tipoRegistroE01;
+		this.numeroFabricacaoE01 = numeroFabricacaoE01;
+		this.mfAdicionalE01 = mfAdicionalE01;
+		this.tipoEcfE01 = tipoEcfE01;
+		this.marcaE01 = marcaE01;
+		this.modeloE01 = modeloE01;
+		this.numeroEcfE01 = numeroEcfE01;
+		this.cnpjUsuarioE01 = cnpjUsuarioE01;
+		this.crzInicialE01 = crzInicialE01;
+		this.crzFinalE01 = crzFinalE01;
+		this.dataInicialE01 = dataInicialE01;
+		this.dataFinalE01 = dataFinalE01;
+		this.cnpjE02 = cnpjE02;
+		this.inscricaoEstadualE02 = inscricaoEstadualE02;
+		this.nomeContribuinteE02 = nomeContribuinteE02;
+		this.tipoRegistroE14 = tipoRegistroE14;
+		this.dataInicioEmissaoE14 = dataInicioEmissaoE14;
+		this.valorTotalDoDocumentoE14 = valorTotalDoDocumentoE14;
+		this.valorDoDescontoE14 = valorDoDescontoE14;
+		this.valorAcrescimoPercAplicadoE14 = valorAcrescimoPercAplicadoE14;
+		this.valorTotalLiquidoE14 = valorTotalLiquidoE14;
+		this.indicadorDeCancelamentoE14 = indicadorDeCancelamentoE14;
+		this.valorCancelamentoE14 = valorCancelamentoE14;
+		this.tipoRegistroE15 = tipoRegistroE15;
+		this.numeroDoItemE15 = numeroDoItemE15;
+		this.codigoDoProdutoE15 = codigoDoProdutoE15;
+		this.descricaoProdutoE15 = descricaoProdutoE15;
+		this.quantidadeComercializadaE15 = quantidadeComercializadaE15;
+		this.unidadeMedidaE15 = unidadeMedidaE15;
+		this.valorUnitarioE15 = valorUnitarioE15;
+		this.valorDescontoE15 = valorDescontoE15;
+		this.valorAcrescimoE15 = valorAcrescimoE15;
+		this.valorTotalLiquidoE15 = valorTotalLiquidoE15;
+		this.codTotalizadorParcialE15 = codTotalizadorParcialE15;
+		this.quantidadeCanceladaE15 = quantidadeCanceladaE15;
+		this.valorCanceladoE15 = valorCanceladoE15;
+		this.valorCanceladoAcrescimoE15 = valorCanceladoAcrescimoE15;
+	}
+	
 	public String getTipoRegistroE01() {
 		return tipoRegistroE01;
 	}
