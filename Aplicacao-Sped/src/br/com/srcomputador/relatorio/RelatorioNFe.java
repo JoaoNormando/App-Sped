@@ -55,6 +55,6 @@ public class RelatorioNFe extends Relatorio{
 		this.geraCabecalho(folhaProduto, this.relatorioProduto.getCabecalhoPis());
 		this.geraCabecalho(folhaProduto, this.relatorioProduto.getCabecalhoCofins());
 	}
-	
+
 	
 }
