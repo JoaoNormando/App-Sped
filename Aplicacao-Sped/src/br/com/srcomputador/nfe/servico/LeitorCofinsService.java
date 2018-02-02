@@ -22,7 +22,7 @@ public class LeitorCofinsService {
 	 * @throws InvocationTargetException
 	 * */
 	public Cofins lerCofins(CofinsDto cofinsDto) throws IllegalAccessException, InvocationTargetException {
-		
+
 		Cofins cofins = new Cofins();
 		
 		if(cofinsDto.getCofinsAliq() != null) {

@@ -58,7 +58,8 @@ public class Relatorio {
 		
 		if(cabecalho.getTitulo() != null && !cabecalho.getTitulo().isEmpty()) {
 			finalMerge += cabecalho.ok().size();
-			folha.addMergedRegion(new CellRangeAddress(0, 0, inicioMerge, finalMerge));
+			if(cabecalho.ok().size() > 1)
+				folha.addMergedRegion(new CellRangeAddress(0, 0, inicioMerge, finalMerge));
 			
 			XSSFCell celula = linha.createCell(inicioMerge);
 			celula.setCellStyle(estiloCabecalho);
@@ -74,9 +75,15 @@ public class Relatorio {
 		}
 		
 		inicioMerge = finalMerge + 1;
-		
 	}
 
+	protected void limparIndices() {
+		this.linha = null;
+		this.linhaSubtitulo = null;
+		this.inicioMerge = 0;
+		this.finalMerge = -1;
+	}
+	
 	protected XSSFSheet recuperarFolha(String nomeFolha) {
 		return this.workbook.getSheet(nomeFolha);
 	}

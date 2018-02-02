@@ -28,11 +28,11 @@ public class LeitorRegistroE15 implements Leitor{
 		e15.setDescricaoProduto(arg.substring(75, 175).trim());
 		e15.setQuantidadeComercializada(Integer.parseInt(arg.substring(175, 182)));
 		e15.setUnidadeMedida(arg.substring(182, 185));
-		e15.setValorUnitario(Integer.parseInt(arg.substring(185, 193)));
-		e15.setValorDesconto(Double.parseDouble(arg.substring(193, 201)));
+		e15.setValorUnitario(Integer.parseInt(arg.substring(185, 192)));
+		e15.setValorDesconto(Double.parseDouble(arg.substring(192, 201)));
 		e15.setValorAcrescimo(Double.parseDouble(arg.substring(201, 209)));
-		e15.setValorTotalLiquido(Double.parseDouble(arg.substring(209, 223)));
-		e15.setCodTotalizadorParcial(arg.substring(223, 230));
+		e15.setValorTotalLiquido(Double.parseDouble(arg.substring(209, 224)));
+		e15.setCodTotalizadorParcial(arg.substring(224, 230));
 		e15.setIndicadorDeCancelamento(arg.substring(230, 231).charAt(0));
 		e15.setQuantidadeCancelada(Integer.parseInt(arg.substring(231, 238)));
 		e15.setValorCancelado(Double.parseDouble(arg.substring(238, 251)));

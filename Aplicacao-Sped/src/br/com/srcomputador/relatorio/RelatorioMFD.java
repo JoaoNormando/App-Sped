@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,14 +63,14 @@ public class RelatorioMFD extends Relatorio {
 	private int escreverRegistroE01(RelatorioMfdDTO mfd, XSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(mfd.getTipoRegistroE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getNumeroFabricacaoE01(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getMfAdicionalE01()), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getMfAdicionalE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getTipoEcfE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getMarcaE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getModeloE01(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getNumeroEcfE01()), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getNumeroEcfE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getCnpjUsuarioE01(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getCrzInicialE01()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getCrzFinalE01()), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getCrzInicialE01(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getCrzFinalE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(this.conversorData.transformarData(mfd.getDataInicialE01()), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(this.conversorData.transformarData(mfd.getDataFinalE01()), linha, coluna);
 		return coluna;
@@ -109,12 +111,12 @@ public class RelatorioMFD extends Relatorio {
 	private int escreverRegistroE14(RelatorioMfdDTO mfd, XSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(mfd.getTipoRegistroE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(this.conversorData.transformarData(mfd.getDataInicioEmissaoE14()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorTotalDoDocumentoE14()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorDoDescontoE14()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorAcrescimoPercAplicadoE14()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorTotalLiquidoE14()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getIndicadorDeCancelamentoE14()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorCancelamentoE14()), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalDoDocumentoE14(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorDoDescontoE14(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorAcrescimoPercAplicadoE14(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalLiquidoE14(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getIndicadorDeCancelamentoE14(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorCancelamentoE14(), linha, coluna);
 		return coluna;
 	}
 	
@@ -141,19 +143,19 @@ public class RelatorioMFD extends Relatorio {
 	
 	private int escreverRegistroE15(RelatorioMfdDTO mfd, XSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(mfd.getTipoRegistroE15(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getNumeroDoItemE15()), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getNumeroDoItemE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getCodigoDoProdutoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getDescricaoProdutoE15(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getQuantidadeComercializadaE15()), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getQuantidadeComercializadaE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getUnidadeMedidaE15(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorUnitarioE15()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorDescontoE15()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorAcrescimoE15()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorTotalLiquidoE15()), linha, coluna);
+		coluna = this.criaEEscreveNaCelulaValorUnitario(mfd.getValorUnitarioE15(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorDescontoE15(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorAcrescimoE15(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalLiquidoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getCodTotalizadorParcialE15(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getQuantidadeCanceladaE15()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorCanceladoE15()), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(String.valueOf(mfd.getValorCanceladoAcrescimoE15()), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getQuantidadeCanceladaE15(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorCanceladoE15(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorCanceladoAcrescimoE15(), linha, coluna);
 		return coluna;
 	}
 		
@@ -162,6 +164,34 @@ public class RelatorioMFD extends Relatorio {
 		
 		if(conteudo == null) celula.setCellValue(this.TEXTO_CONTEUDO_INEXISTENTE);
 		else celula.setCellValue(conteudo);
+		return ++coluna;
+	}
+	
+	private int criaEEscreveNaCelula(double conteudo, XSSFRow linha, int coluna) {
+		XSSFCell celula = linha.createCell(coluna);
+		celula.setCellValue(conteudo);
+		return ++coluna;
+	}
+	
+	private int criaEEscreveNaCelulaComFormatacaoMonetaria(double conteudo, XSSFRow linha, int coluna) {
+		XSSFCell celula = linha.createCell(coluna);
+		XSSFCellStyle cellStyle = this.workbook.createCellStyle();
+
+		XSSFDataFormat dataFormat = this.workbook.createDataFormat();
+		cellStyle.setDataFormat(dataFormat.getFormat("(#,##0_);[Red](#,##0)"));
+		
+		celula.setCellStyle(cellStyle);
+
+		celula.setCellValue(conteudo);
+		return ++coluna;
+	}
+	
+	// O valor unitario vem sem separacao de casas decimais
+	// sendo assim é necessário andar uma casa a esquerda
+	private int criaEEscreveNaCelulaValorUnitario(double conteudo, XSSFRow linha, int coluna) {
+		XSSFCell celula = linha.createCell(coluna);
+		double novoValor = conteudo/10;
+		celula.setCellValue(novoValor);
 		return ++coluna;
 	}
 	

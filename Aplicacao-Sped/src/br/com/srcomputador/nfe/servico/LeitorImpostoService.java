@@ -5,7 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.srcomputador.nfe.entidade.detalheProduto.Cofins;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Imposto;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Ipi;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Pis;
 import br.com.srcomputador.nfe.entidade.detalheProduto.dto.ImpostoDto;
 
 @Service
@@ -30,10 +33,22 @@ public class LeitorImpostoService {
 	 * */
 	public Imposto lerImposto(ImpostoDto impostoDto) throws IllegalAccessException, InvocationTargetException {
 		Imposto imposto = new Imposto();
-		imposto.setCofins(leitorCofins.lerCofins(impostoDto.getCofins()));
-		imposto.setPis(leitorPis.lerPis(impostoDto.getPis()));
+		if(impostoDto.getCofins() != null) {
+			imposto.setCofins(leitorCofins.lerCofins(impostoDto.getCofins()));
+		} else {
+			imposto.setCofins(new Cofins());
+		}
+		if(impostoDto.getPis() != null) {
+			imposto.setPis(leitorPis.lerPis(impostoDto.getPis()));
+		} else {
+			imposto.setPis(new Pis());
+		}
 		imposto.setIcms(leitorIcms.lerIcms(impostoDto.getIcms()));
-		imposto.setIpi(leitorIpi.lerIpi(impostoDto.getIpi()));
+		if(impostoDto.getIpi() != null) {
+			imposto.setIpi(leitorIpi.lerIpi(impostoDto.getIpi()));
+		} else {
+			imposto.setIpi(new Ipi());
+		}
 		return imposto;
 	}
 		

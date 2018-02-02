@@ -10,6 +10,9 @@ import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 
 @Service
 public class DadosDestinatarioNFe {
+	
+	private final String MSG_ERRO="Campo relacionado ao destinatário inexistente";
+	
 	@SuppressWarnings("serial")
 	public CabecalhoRelatorioExcel getCabecalhoDestinatario() {
 		CabecalhoRelatorioExcel cabecalhoRelatorioExcel = new CabecalhoRelatorioExcel();
@@ -30,18 +33,26 @@ public class DadosDestinatarioNFe {
 	public List<String> getDadosDestinatarioNFe(NotaFiscalEletronica nfe){
 		Destinatario destinatario = nfe.getInfNfe().getDest();
 		List<String> lista = new ArrayList<>();
-		
-		if(destinatario.getCnpj() != null) {
-			lista.add(destinatario.getCnpj());
+		if(destinatario != null) {
+			if(destinatario.getCnpj() != null) {
+				lista.add(destinatario.getCnpj());
+			} else {
+				lista.add(destinatario.getCpf());
+			}
+			
+			lista.add(destinatario.getxNome());
+			lista.add(destinatario.getIe());
+			lista.add(destinatario.getEnderDest().getUf());
+			lista.add(String.valueOf(destinatario.getIndIeDest()));
+			lista.add(String.valueOf(nfe.getInfNfe().getIde().getIndFinal()));
 		} else {
-			lista.add(destinatario.getCpf());
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
 		}
-		
-		lista.add(destinatario.getxNome());
-		lista.add(destinatario.getIe());
-		lista.add(destinatario.getEnderDest().getUf());
-		lista.add(String.valueOf(destinatario.getIndIeDest()));
-		lista.add(String.valueOf(nfe.getInfNfe().getIde().getIndFinal()));
 		return lista;
 	}
 	
@@ -63,10 +74,17 @@ public class DadosDestinatarioNFe {
 	public List<String> getDadosDestinatarioNFeAdicional(NotaFiscalEletronica nfe){
 		Destinatario destinatario = nfe.getInfNfe().getDest();
 		List<String> lista = new ArrayList<>();
-		lista.add(destinatario.getEnderDest().getxMun());
-		lista.add(destinatario.getEnderDest().getxPais());
-		lista.add(String.valueOf(destinatario.getIndIeDest()));
-		lista.add(String.valueOf(destinatario.getIsuf()));
+		if(destinatario != null) {
+			lista.add(destinatario.getEnderDest().getxMun());
+			lista.add(destinatario.getEnderDest().getxPais());
+			lista.add(String.valueOf(destinatario.getIndIeDest()));
+			lista.add(String.valueOf(destinatario.getIsuf()));
+		} else {
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
+			lista.add(this.MSG_ERRO);
+		}
 		return lista;
 	}
 	
