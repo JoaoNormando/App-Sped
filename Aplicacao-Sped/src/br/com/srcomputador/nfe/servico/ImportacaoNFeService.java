@@ -56,7 +56,7 @@ public class ImportacaoNFeService {
 
 	public void salvarImportacao(String descricao, MultipartFile[] arquivos, Cliente cliente, String path)
 			throws IllegalStateException, IOException, IllegalAccessException, InvocationTargetException,
-			ConteudoVazioException, ZipException {
+			ConteudoVazioException, ZipException{
 
 		Importacao importacao = new Importacao();
 		importacao.setDescricao(descricao);
@@ -89,7 +89,7 @@ public class ImportacaoNFeService {
 		}
 		this.operacaoDiretorioService.apagarArquivos(destino);
 		if (importacao.getListaNfe().isEmpty()) {
-			throw new ConteudoVazioException("Arquivos importados sem conteudo válido");
+			throw new ConteudoVazioException("Arquivos importados sem conteudo valido");
 		}
 		this.dao.salvar(importacao);
 	}

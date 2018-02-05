@@ -61,7 +61,16 @@ public class IcmsTotal {
 	@Column(name = PREFIXO + "valor_tot_trib")
 	@XStreamAlias("vTotTrib")
 	private double vTotTrib; // Valor aproximado total de tributos federais, estaduais e municipais.
-
+	@Column(name = PREFIXO + "valor_fcp_uf_dest")
+	@XStreamAlias("vFCPUFDest")
+	private double vFcpUfDest; // Valor fundo combate a pobreza uf destinatario.
+	@Column(name = PREFIXO + "valor_icms_uf_dest")
+	@XStreamAlias("vICMSUFDest")
+	private double vIcmsUfDest;
+	@Column(name = PREFIXO + "valor_icms_uf_remet")
+	@XStreamAlias("vICMSUFRemet")
+	private double vIcmsUfRemet;
+	
 	public double getvBc() {
 		return vBc;
 	}
@@ -194,4 +203,29 @@ public class IcmsTotal {
 		return PREFIXO;
 	}
 
+	public double getvFcpUfDest() {
+		return vFcpUfDest;
+	}
+
+	public void setvFcpUfDest(double vFcpUfDest) {
+		this.vFcpUfDest = vFcpUfDest;
+	}
+
+	public double getvIcmsUfDest() {
+		return vIcmsUfDest;
+	}
+
+	public void setvIcmsUfDest(double vIcmsUfDest) {
+		this.vIcmsUfDest = vIcmsUfDest;
+	}
+
+	public double getvIcmsUfRemet() {
+		return vIcmsUfRemet;
+	}
+
+	public void setvIcmsUfRemet(double vIcmsUfRemet) {
+		this.vIcmsUfRemet = vIcmsUfRemet;
+	}
+
+	
 }

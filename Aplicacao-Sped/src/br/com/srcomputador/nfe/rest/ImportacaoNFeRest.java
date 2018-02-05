@@ -24,6 +24,7 @@ import br.com.srcomputador.cliente.service.ClienteService;
 import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.entidade.ModulosImportacao;
 import br.com.srcomputador.exception.ConteudoVazioException;
+import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.rest.dtorequest.RequestImportacao;
 import br.com.srcomputador.nfe.servico.ImportacaoNFeService;
 import net.lingala.zip4j.exception.ZipException;
@@ -35,11 +36,13 @@ public class ImportacaoNFeRest {
 
 	private ImportacaoNFeService importacaoService;
 	private ClienteService clienteService;
+	private ImportacaoDao importacaoDao;
 
 	@Autowired
-	public ImportacaoNFeRest(ImportacaoNFeService importacaoService, ClienteService clienteService) {
+	public ImportacaoNFeRest(ImportacaoNFeService importacaoService, ClienteService clienteService, ImportacaoDao importacaoDao) {
 		this.importacaoService = importacaoService;
 		this.clienteService = clienteService;
+		this.importacaoDao = importacaoDao;
 	}
 
 	@GetMapping
@@ -61,13 +64,16 @@ public class ImportacaoNFeRest {
 			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente, MultipartHttpServletRequest request) {
 		
 		if (multiPart.length == 0)
-			return ResponseEntity.badRequest().body(new MensagemErro("Deve existir algum arquivo para importação"));
+			return ResponseEntity.badRequest().body("Deve existir algum arquivo para importação");
 		
 		Cliente cliente = this.clienteService.recuperarPeloId(idCliente);
 
 		if (cliente == null) {
-			return ResponseEntity.badRequest().body(new MensagemErro("Cliente informado nao encontrado"));
+			return ResponseEntity.badRequest().body("Cliente informado nao encontrado");
 		}
+		
+		if(this.importacaoDao.verificarExistenciaDeDescricao(descricao))
+			return ResponseEntity.badRequest().body("Descrição já existente no banco");
 		
 		String path = request.getServletContext().getRealPath("/");
 		try {
@@ -78,7 +84,8 @@ public class ImportacaoNFeRest {
 			return ResponseEntity.notFound().build();
 		} catch (ConteudoVazioException e) {
 			e.printStackTrace();
-			return ResponseEntity.badRequest().body(e.getMessage());
+			return ResponseEntity.badRequest().body("Ocorreu um erro na importação: Formato de arquivo inválido.");
+
 		}
 		return ResponseEntity.ok().build();
 	}

@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFDataFormat;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.srcomputador.mfd.entidade.RelatorioMfdDTO;
@@ -34,7 +34,7 @@ public class RelatorioMFD extends Relatorio {
 	}
 	
 	private void criarCabecalho() {
-		XSSFSheet folha = this.criaFolha(this.NOME_FOLHA);
+		SXSSFSheet folha = this.criaFolha(this.NOME_FOLHA);
 		this.geraCabecalho(folha, this.getCabecalhoE01());
 		this.geraCabecalho(folha, this.getCabecalhoE02());
 		this.geraCabecalho(folha, this.getCabecalhoE14());
@@ -43,10 +43,10 @@ public class RelatorioMFD extends Relatorio {
 	
 	private Cabecalho getCabecalhoE01() {
 		Cabecalho cabecalhoE01 = new Cabecalho();
-		cabecalhoE01.definirTitulo("E01 - Identificação do ECF");
+		cabecalhoE01.definirTitulo("E01 -ï¿½Identificaï¿½ï¿½o do ECF");
 		cabecalhoE01
 			.adicionarTexto("Tipo do registro")
-			.adicionarTexto("Número de fabricação")
+			.adicionarTexto("Nï¿½mero de fabricaï¿½ï¿½o")
 			.adicionarTexto("MF adicional")
 			.adicionarTexto("Tipo do ECF")
 			.adicionarTexto("Marca")
@@ -60,7 +60,7 @@ public class RelatorioMFD extends Relatorio {
 		return cabecalhoE01;
 	}
 	
-	private int escreverRegistroE01(RelatorioMfdDTO mfd, XSSFRow linha, int coluna) {
+	private int escreverRegistroE01(RelatorioMfdDTO mfd, SXSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(mfd.getTipoRegistroE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getNumeroFabricacaoE01(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getMfAdicionalE01(), linha, coluna);
@@ -78,15 +78,15 @@ public class RelatorioMFD extends Relatorio {
 	
 	private Cabecalho getCabecalhoE02() {
 		Cabecalho cabecalhoE02 = new Cabecalho();
-		cabecalhoE02.definirTitulo("E02 - Identificação do atual contribuinte usuário do ECF");
+		cabecalhoE02.definirTitulo("E02 - Identificaï¿½ï¿½o do atual contribuinte usuï¿½rio do ECF");
 		cabecalhoE02
 			.adicionarTexto("CNPJ")
-			.adicionarTexto("Inscrição Estadual")
+			.adicionarTexto("Inscriï¿½ï¿½o Estadual")
 			.adicionarTexto("Nome do contribuinte");
 		return cabecalhoE02;
 	}
 	
-	private int escreverRegistroE02(RelatorioMfdDTO mfd, XSSFRow linha, int coluna) {
+	private int escreverRegistroE02(RelatorioMfdDTO mfd, SXSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(mfd.getCnpjE02(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getInscricaoEstadualE02(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getNomeContribuinteE02(), linha, coluna);
@@ -98,23 +98,23 @@ public class RelatorioMFD extends Relatorio {
 		cabecalhoE14.definirTitulo("E14 - Cupom Fiscal, Nota Fiscal de Venda a Consumidor ou Bilhete de Passagem");
 		cabecalhoE14
 			.adicionarTexto("Tipo do registro")
-			.adicionarTexto("Data de início da emissão")
+			.adicionarTexto("Data de inï¿½cio da emissï¿½o")
 			.adicionarTexto("Subtotal do documento")
 			.adicionarTexto("Desconto sobre subtotal")
-			.adicionarTexto("Acréscimo sobre subtotal")
-			.adicionarTexto("Valor Total Líquido")
+			.adicionarTexto("Acrï¿½scimo sobre subtotal")
+			.adicionarTexto("Valor Total Lï¿½quido")
 			.adicionarTexto("Indicador de cancelamento")
-			.adicionarTexto("Cancelamento de Acréscimo no Subtotal");
+			.adicionarTexto("Cancelamento de Acrï¿½scimo no Subtotal");
 		return cabecalhoE14;
 	}
 	
-	private int escreverRegistroE14(RelatorioMfdDTO mfd, XSSFRow linha, int coluna) {
+	private int escreverRegistroE14(RelatorioMfdDTO mfd, SXSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(mfd.getTipoRegistroE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(this.conversorData.transformarData(mfd.getDataInicioEmissaoE14()), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalDoDocumentoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorDoDescontoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorAcrescimoPercAplicadoE14(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalLiquidoE14(), linha, coluna);
+		coluna = this.criaEEscreveNaCelulaComFormatacaoMonetaria(mfd.getValorTotalLiquidoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getIndicadorDeCancelamentoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorCancelamentoE14(), linha, coluna);
 		return coluna;
@@ -125,30 +125,30 @@ public class RelatorioMFD extends Relatorio {
 		cabecalhoE15.definirTitulo("E15 -  Detalhe do Cupom Fiscal, da Nota Fiscal de Venda a Consumidor ou do Bilhete de Passagem");
 		cabecalhoE15
 			.adicionarTexto("Tipo do registro")
-			.adicionarTexto("Número do item")
-			.adicionarTexto("Código do produto ou serviço")
-			.adicionarTexto("Descrição")
+			.adicionarTexto("Numero do item")
+			.adicionarTexto("Cudigo do produto ou servico")
+			.adicionarTexto("Descricao")
 			.adicionarTexto("Quantidade")
 			.adicionarTexto("Unidade")
-			.adicionarTexto("Valor unitário")
+			.adicionarTexto("Valor unitario")
 			.adicionarTexto("Desconto sobre item")
-			.adicionarTexto("Acréscimo sobre item")
-			.adicionarTexto("Valor total líquido")
+			.adicionarTexto("Acrascimo sobre item")
+			.adicionarTexto("Valor total liquido")
 			.adicionarTexto("Totalizador parcial")
 			.adicionarTexto("Quantidade cancelada")
 			.adicionarTexto("Valor cancelado")
-			.adicionarTexto("Cancelamento de Acréscimo no Item");
+			.adicionarTexto("Cancelamento de Acrescimo no Item");
 		return cabecalhoE15;
 	}
 	
-	private int escreverRegistroE15(RelatorioMfdDTO mfd, XSSFRow linha, int coluna) {
+	private int escreverRegistroE15(RelatorioMfdDTO mfd, SXSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(mfd.getTipoRegistroE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getNumeroDoItemE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getCodigoDoProdutoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getDescricaoProdutoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getQuantidadeComercializadaE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getUnidadeMedidaE15(), linha, coluna);
-		coluna = this.criaEEscreveNaCelulaValorUnitario(mfd.getValorUnitarioE15(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorUnitarioE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorDescontoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorAcrescimoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalLiquidoE15(), linha, coluna);
@@ -159,25 +159,25 @@ public class RelatorioMFD extends Relatorio {
 		return coluna;
 	}
 		
-	private int criaEEscreveNaCelula(String conteudo, XSSFRow linha, int coluna) {
-		XSSFCell celula = linha.createCell(coluna);
+	private int criaEEscreveNaCelula(String conteudo, SXSSFRow linha, int coluna) {
+		SXSSFCell celula = linha.createCell(coluna);
 		
 		if(conteudo == null) celula.setCellValue(this.TEXTO_CONTEUDO_INEXISTENTE);
 		else celula.setCellValue(conteudo);
 		return ++coluna;
 	}
 	
-	private int criaEEscreveNaCelula(double conteudo, XSSFRow linha, int coluna) {
-		XSSFCell celula = linha.createCell(coluna);
+	private int criaEEscreveNaCelula(double conteudo, SXSSFRow linha, int coluna) {
+		SXSSFCell celula = linha.createCell(coluna);
 		celula.setCellValue(conteudo);
 		return ++coluna;
 	}
 	
-	private int criaEEscreveNaCelulaComFormatacaoMonetaria(double conteudo, XSSFRow linha, int coluna) {
-		XSSFCell celula = linha.createCell(coluna);
-		XSSFCellStyle cellStyle = this.workbook.createCellStyle();
+	private int criaEEscreveNaCelulaComFormatacaoMonetaria(double conteudo, SXSSFRow linha, int coluna) {
+		SXSSFCell celula = linha.createCell(coluna);
+		CellStyle cellStyle = this.workbook.createCellStyle();
 
-		XSSFDataFormat dataFormat = this.workbook.createDataFormat();
+		DataFormat dataFormat = this.workbook.createDataFormat();
 		cellStyle.setDataFormat(dataFormat.getFormat("(#,##0_);[Red](#,##0)"));
 		
 		celula.setCellStyle(cellStyle);
@@ -187,20 +187,20 @@ public class RelatorioMFD extends Relatorio {
 	}
 	
 	// O valor unitario vem sem separacao de casas decimais
-	// sendo assim é necessário andar uma casa a esquerda
-	private int criaEEscreveNaCelulaValorUnitario(double conteudo, XSSFRow linha, int coluna) {
-		XSSFCell celula = linha.createCell(coluna);
+	// sendo assim ï¿½ necessï¿½rio andar uma casa a esquerda
+	private int criaEEscreveNaCelulaValorUnitario(double conteudo, SXSSFRow linha, int coluna) {
+		SXSSFCell celula = linha.createCell(coluna);
 		double novoValor = conteudo/10;
 		celula.setCellValue(novoValor);
 		return ++coluna;
 	}
 	
 	private void escreve(List<RelatorioMfdDTO> lista) {
-		XSSFSheet folha = this.recuperarFolha(this.NOME_FOLHA);
+		SXSSFSheet folha = this.recuperarFolha(this.NOME_FOLHA);
 		int inicioLinhaDados = 2;
 		for(int i = 0; i < lista.size(); i++) {
 			int coluna = 0;
-			XSSFRow linha = folha.createRow(inicioLinhaDados + i);
+			SXSSFRow linha = folha.createRow(inicioLinhaDados + i);
 			coluna = this.escreverRegistroE01(lista.get(i), linha, coluna);
 			coluna = this.escreverRegistroE02(lista.get(i), linha, coluna);
 			coluna = this.escreverRegistroE14(lista.get(i), linha, coluna);

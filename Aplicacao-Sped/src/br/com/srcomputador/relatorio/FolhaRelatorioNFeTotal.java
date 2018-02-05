@@ -1,21 +1,35 @@
 package br.com.srcomputador.relatorio;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
+import java.util.List;
+
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.srcomputador.nfe.entidade.Destinatario;
 import br.com.srcomputador.nfe.entidade.Emitente;
 import br.com.srcomputador.nfe.entidade.IcmsTotal;
 import br.com.srcomputador.nfe.entidade.IdentificacaoDaNfe;
+import br.com.srcomputador.nfe.entidade.InformacaoAdicional;
 import br.com.srcomputador.nfe.entidade.InformacaoDaNfe;
+import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
+import br.com.srcomputador.nfe.entidade.Total;
 import br.com.srcomputador.servico.ConversorDataService;
 
+@Component
 public class FolhaRelatorioNFeTotal {
 
 	private String nomeFolha = "Relatorio Total";
 	
 	private final String TEXTO_CONTEUDO_INEXISTENTE = "Conteudo inexistente.";
 	private ConversorDataService conversorData;
+	
+	@Autowired
+	public FolhaRelatorioNFeTotal(ConversorDataService conversorData) {
+		this.conversorData = conversorData;
+	}
 	
 	public String getNomeFolha() {
 		return this.nomeFolha;
@@ -34,7 +48,7 @@ public class FolhaRelatorioNFeTotal {
 		return cabecalhoDadosNFe;
 	}
 	
-	public int escreverDadosDaNFe(IdentificacaoDaNfe dados, IcmsTotal total, XSSFRow linha, int coluna) {
+	public int escreverDadosDaNFe(IdentificacaoDaNfe dados, IcmsTotal total, SXSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(dados.getnNf(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(dados.getSerie(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(dados.getMod(), linha, coluna);
@@ -45,8 +59,10 @@ public class FolhaRelatorioNFeTotal {
 		}
 		if(dados.getDhSaiEnt() != null) {
 			coluna = this.criaEEscreveNaCelula(this.conversorData.transformarData(dados.getDhSaiEnt()), linha, coluna);
-		} else {
+		} else if(dados.getdSaiEnt() != null){
 			coluna = this.criaEEscreveNaCelula(this.conversorData.transformarData(dados.getdSaiEnt()), linha, coluna);
+		} else {
+			coluna = this.criaEEscreveNaCelula(null, linha, coluna);
 		}
 		coluna = this.criaEEscreveNaCelula(total.getvNf(), linha, coluna);
 		return coluna;
@@ -61,7 +77,7 @@ public class FolhaRelatorioNFeTotal {
 		return cabecalhoChaveDeAcesso;
 	}
 	
-	public int escreverChaveDeAcesso(InformacaoDaNfe info, XSSFRow linha, int coluna) {
+	public int escreverChaveDeAcesso(InformacaoDaNfe info, SXSSFRow linha, int coluna) {
 		coluna = this.criaEEscreveNaCelula(info.getChaveAcesso(), linha, coluna);
 		return coluna;
 	}
@@ -76,8 +92,9 @@ public class FolhaRelatorioNFeTotal {
 			.adicionarTexto("UF");
 		return cabecalhoEmitente;
 	}
+
 	
-	public int escreverEmitente(Emitente emit, XSSFRow linha, int coluna) {
+	public int escreverEmitente(Emitente emit, SXSSFRow linha, int coluna) {
 		if(emit.getCnpj() != null) {
 			coluna = this.criaEEscreveNaCelula(emit.getCnpj(), linha, coluna);
 		} else {
@@ -102,7 +119,7 @@ public class FolhaRelatorioNFeTotal {
 		return cabecalhoDestinatario;
 	}
 	
-	public int escreverDestinatario(Destinatario dest, XSSFRow linha, int coluna) {
+	public int escreverDestinatario(Destinatario dest, SXSSFRow linha, int coluna) {
 		if(dest == null) {
 			return coluna += 6;
 		}
@@ -116,7 +133,7 @@ public class FolhaRelatorioNFeTotal {
 		if(dest.getEnderDest() != null) {
 			coluna = this.criaEEscreveNaCelula(dest.getEnderDest().getUf(), linha, coluna);
 		} else {
-			coluna = this.criaEEscreveNaCelula("UF não encontrado", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("UF nao encontrado", linha, coluna);
 		}
 		coluna = this.criaEEscreveNaCelula(dest.getIndIeDest(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(dest.getIdEstrangeiro(), linha, coluna);
@@ -132,11 +149,22 @@ public class FolhaRelatorioNFeTotal {
 		return cabecalhoEmissao;
 	}
 	
+	public int escreveEmissao(IdentificacaoDaNfe ide, SXSSFRow linha, int coluna) {
+		coluna = this.criaEEscreveNaCelula(ide.getNatOp(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(ide.getTpNf(), linha, coluna);
+		return coluna;
+	}
+	
 	public Cabecalho getCabecalhoSituacaoAtual() {
 		Cabecalho cabecalhoSituacaoAtual = new Cabecalho();
 		cabecalhoSituacaoAtual.definirTitulo("Situacao Atual");
-		cabecalhoSituacaoAtual.adicionarTexto("");
+		cabecalhoSituacaoAtual.adicionarTexto("Situacao Atual");
 		return cabecalhoSituacaoAtual;
+	}
+	
+	public int escreveSituacaoAtual(SXSSFRow linha, int coluna) {
+		coluna = this.criaEEscreveNaCelula(null, linha, coluna);
+		return coluna;
 	}
 	
 	public Cabecalho getCabecalhoDadosEmitenteAdicionais() {
@@ -149,6 +177,16 @@ public class FolhaRelatorioNFeTotal {
 		return cabecalho;
 	}
 	
+	public int escreveEmitenteAdicionais(Emitente emit, SXSSFRow linha, int coluna) {
+		if(emit.getEnderEmit() == null) {
+			coluna = this.criaEEscreveNaCelula(null, linha, coluna);
+		} else {
+			coluna = this.criaEEscreveNaCelula(emit.getEnderEmit().getxMun(), linha, coluna);
+		}
+		coluna = this.criaEEscreveNaCelula(emit.getCrt(), linha, coluna);
+		return coluna;
+	}
+	
 	public Cabecalho getCabecalhoDadosDestinatarioAdicionais() {
 		Cabecalho cabecalho = new Cabecalho();
 		cabecalho.definirTitulo("Dados do Destinatario");
@@ -159,6 +197,23 @@ public class FolhaRelatorioNFeTotal {
 			.adicionarTexto("Inscricao SUFRAMA");
 		return cabecalho;
 	}
+	
+	public int escreveDestinatarioAdicionais(Destinatario dest, SXSSFRow linha, int coluna) {
+		if(dest == null) {
+			coluna += 4;
+			return coluna;
+		}
+		if(dest.getEnderDest() == null) {
+			coluna = this.criaEEscreveNaCelula(null, linha, coluna);
+			coluna = this.criaEEscreveNaCelula(null, linha, coluna);
+		} else {
+			coluna = this.criaEEscreveNaCelula(dest.getEnderDest().getxMun(), linha, coluna);
+			coluna = this.criaEEscreveNaCelula(dest.getEnderDest().getxPais(), linha, coluna);
+		}
+		coluna = this.criaEEscreveNaCelula(dest.getIndIeDest(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(dest.getIsuf(), linha, coluna);
+		return coluna;
+	}
 
 	public Cabecalho getCabecalhoTotais() {
 		Cabecalho cabecalho = new Cabecalho();
@@ -168,7 +223,7 @@ public class FolhaRelatorioNFeTotal {
 			.adicionarTexto("Valor do ICMS")
 			.adicionarTexto("Valor do ICMS Desonerado")
 			.adicionarTexto("Base de calculo ICMS ST")
-			.adicionarTexto("Valor ICMS Substituição")
+			.adicionarTexto("Valor ICMS Substituicao")
 			.adicionarTexto("Valor Total dos Produtos")
 			.adicionarTexto("Valor do Frete")
 			.adicionarTexto("Valor do Seguro")
@@ -186,6 +241,29 @@ public class FolhaRelatorioNFeTotal {
 		return cabecalho;
 	}
 	
+	public int escreveTotais(Total total, SXSSFRow linha, int coluna) {
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvBc(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvIcms(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvIcmsDeson(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvBcSt(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvSt(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvProd(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvFrete(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvSeg(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvOutro(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvIpi(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvNf(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvDesc(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvII(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvPis(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvCofins(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvTotTrib(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvFcpUfDest(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvIcmsUfDest(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(total.getIcmsTot().getvIcmsUfRemet(), linha, coluna);
+		return coluna;
+	}
+	
 	public Cabecalho getCabecalhoInfoAdicional() {
 		Cabecalho cabecalho = new Cabecalho();
 		cabecalho.definirTitulo("Informacoes adicionais");
@@ -194,23 +272,47 @@ public class FolhaRelatorioNFeTotal {
 		return cabecalho;
 	}	
 	
-	private int criaEEscreveNaCelula(String conteudo, XSSFRow linha, int coluna) {
-		XSSFCell celula = linha.createCell(coluna);
+	public int escreveInfoAdicional(InformacaoAdicional info, SXSSFRow linha, int coluna) {
+		coluna = this.criaEEscreveNaCelula(info.getInfCpl(), linha, coluna);
+		return coluna;
+	}
+	
+	private int criaEEscreveNaCelula(String conteudo, SXSSFRow linha, int coluna) {
+		SXSSFCell celula = linha.createCell(coluna);
 		
 		if(conteudo == null) celula.setCellValue(this.TEXTO_CONTEUDO_INEXISTENTE);
 		else celula.setCellValue(conteudo);
 		return ++coluna;
 	}
 	
-	private int criaEEscreveNaCelula(int conteudo, XSSFRow linha, int coluna) {
-		XSSFCell celula = linha.createCell(coluna);
+	private int criaEEscreveNaCelula(int conteudo, SXSSFRow linha, int coluna) {
+		SXSSFCell celula = linha.createCell(coluna);
 		celula.setCellValue(conteudo);
 		return ++coluna;
 	}
 	
-	private int criaEEscreveNaCelula(double conteudo, XSSFRow linha, int coluna) {
-		XSSFCell celula = linha.createCell(coluna);
+	private int criaEEscreveNaCelula(double conteudo, SXSSFRow linha, int coluna) {
+		SXSSFCell celula = linha.createCell(coluna);
 		celula.setCellValue(conteudo);
 		return ++coluna;
 	}
+	
+	public void escreve(List<NotaFiscalEletronica> listaNFe, SXSSFSheet sxssfSheet) {
+		int inicioLinhaDados = 2;
+		for(int i = 0; i < listaNFe.size(); i++) {
+			int coluna = 0;
+			SXSSFRow linha = sxssfSheet.createRow(inicioLinhaDados + i);
+			coluna = this.escreverDadosDaNFe(listaNFe.get(i).getInfNfe().getIde(), listaNFe.get(i).getInfNfe().getTotal().getIcmsTot(), linha, coluna);
+			coluna = this.escreverChaveDeAcesso(listaNFe.get(i).getInfNfe(), linha, coluna);
+			coluna = this.escreverEmitente(listaNFe.get(i).getInfNfe().getEmit(), linha, coluna);
+			coluna = this.escreverDestinatario(listaNFe.get(i).getInfNfe().getDest(), linha, coluna);
+			coluna = this.escreveEmissao(listaNFe.get(i).getInfNfe().getIde(), linha, coluna);
+			coluna = this.escreveSituacaoAtual(linha, coluna);
+			coluna = this.escreveEmitenteAdicionais(listaNFe.get(i).getInfNfe().getEmit(), linha, coluna);
+			coluna = this.escreveDestinatarioAdicionais(listaNFe.get(i).getInfNfe().getDest(), linha, coluna);
+			coluna = this.escreveTotais(listaNFe.get(i).getInfNfe().getTotal(), linha, coluna);
+			coluna = this.escreveInfoAdicional(listaNFe.get(i).getInfNfe().getInfAdic(), linha, coluna);
+		}
+	}
+	
 }

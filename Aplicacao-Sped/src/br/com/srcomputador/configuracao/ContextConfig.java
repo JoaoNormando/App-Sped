@@ -21,7 +21,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 			"br.com.srcomputador.servico",
 			"br.com.srcomputador.mfd",
 			"br.com.srcomputador.nfe",
-			"br.com.srcomputador.cliente"
+			"br.com.srcomputador.cliente",
+			"br.com.srcomputador.relatorio"
 		})
 public class ContextConfig extends WebMvcConfigurerAdapter{
 	@Bean

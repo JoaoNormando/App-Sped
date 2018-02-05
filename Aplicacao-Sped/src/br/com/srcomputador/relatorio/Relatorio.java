@@ -1,41 +1,40 @@
 package br.com.srcomputador.relatorio;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xssf.usermodel.extensions.XSSFCellBorder.BorderSide;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+
 
 public class Relatorio {
 	
-	protected XSSFWorkbook workbook;
-	private XSSFCellStyle estiloCabecalho;
+	protected SXSSFWorkbook workbook;
+	private CellStyle estiloCabecalho;
 	private int numeroLinha = 0;
 	
 	private int inicioMerge = 0;
 	private int finalMerge = -1;
-	private XSSFRow linha;
+	private SXSSFRow linha;
 	
-	private XSSFRow linhaSubtitulo;
-	private XSSFCellStyle estiloSubtitulo;
+	private SXSSFRow linhaSubtitulo;
+	private CellStyle estiloSubtitulo;
 	
 	public Relatorio() {
-		this.workbook = new XSSFWorkbook();
-		estiloCabecalho = this.workbook.createCellStyle();
+		this.workbook = new SXSSFWorkbook(100);
+		this.estiloCabecalho = this.workbook.createCellStyle();
 		this.estiloSubtitulo = this.workbook.createCellStyle();
 		this.defineEstiloCabecalho();
 	}
@@ -50,7 +49,7 @@ public class Relatorio {
 		return file;
 	}
 
-	protected void geraCabecalho(XSSFSheet folha, Cabecalho cabecalho) {
+	protected void geraCabecalho(SXSSFSheet folha, Cabecalho cabecalho) {
 		this.defineEstiloCabecalho();
 	
 		if(linha == null)linha = folha.createRow(numeroLinha);
@@ -61,14 +60,14 @@ public class Relatorio {
 			if(cabecalho.ok().size() > 1)
 				folha.addMergedRegion(new CellRangeAddress(0, 0, inicioMerge, finalMerge));
 			
-			XSSFCell celula = linha.createCell(inicioMerge);
+			SXSSFCell celula = linha.createCell(inicioMerge);
 			celula.setCellStyle(estiloCabecalho);
 			celula.setCellValue(cabecalho.getTitulo());
 		}
 				
 		List<String> campos = cabecalho.getCampos();
 		for(int i = 0; i< campos.size(); i++) {
-			XSSFCell celula = linhaSubtitulo.createCell(i + inicioMerge);
+			SXSSFCell celula = linhaSubtitulo.createCell(i + inicioMerge);
 			celula.setCellStyle(this.estiloSubtitulo);
 			celula.setCellValue(campos.get(i));
 			folha.setColumnWidth(i + inicioMerge, (campos.get(i).length() * 340));
@@ -84,11 +83,19 @@ public class Relatorio {
 		this.finalMerge = -1;
 	}
 	
-	protected XSSFSheet recuperarFolha(String nomeFolha) {
+	protected void removerFolha(String nomeFolha) {
+		SXSSFSheet sheet = this.recuperarFolha(nomeFolha);
+
+		if(sheet != null) 
+			this.workbook.removeSheetAt(this.workbook.getSheetIndex(sheet));
+		
+	}
+	
+	protected SXSSFSheet recuperarFolha(String nomeFolha) {
 		return this.workbook.getSheet(nomeFolha);
 	}
 	
-	protected XSSFSheet criaFolha(String nomeFolha) {
+	protected SXSSFSheet criaFolha(String nomeFolha) {
 		return this.workbook.createSheet(nomeFolha);
 	}
 	
@@ -105,37 +112,36 @@ public class Relatorio {
 
 	private void definirCabecalhoTitulo() {
 		// Cor da letra no texto
-		XSSFFont font = this.workbook.createFont();
-		XSSFColor corLetra = new XSSFColor(Color.WHITE);
-		font.setColor(corLetra);
+		Font font = this.workbook.createFont();
+		font.setColor(IndexedColors.WHITE.getIndex());
 		font.setBold(true);
 		this.estiloCabecalho.setFont(font);
 		
 		// Cor do fundo do texto
-		XSSFColor color = new XSSFColor(Color.BLACK);
 		this.estiloCabecalho.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		this.estiloCabecalho.setFillBackgroundColor(color);
+		this.estiloCabecalho.setFillBackgroundColor(IndexedColors.BLACK.getIndex());
+		
 	}
 
 	private void definirCabecalhoSubitutlo() {
 		// Subtitulo
 		
 		// Cor da letra no texto subtitulo
-		XSSFFont fonteSubtitulo = this.workbook.createFont();
-		XSSFColor corLetraSubtitulo = new XSSFColor(Color.WHITE);
-		fonteSubtitulo.setColor(corLetraSubtitulo);
+		Font fonteSubtitulo = this.workbook.createFont();
+		
+		fonteSubtitulo.setColor(IndexedColors.WHITE.getIndex());
 		fonteSubtitulo.setBold(true);
 		this.estiloSubtitulo.setFont(fonteSubtitulo);
 		
 		// Cor do fundo do texto no subtitulo
-		XSSFColor corSubtitulo = new XSSFColor(new Color(89,89,89));
-		this.estiloSubtitulo.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		this.estiloSubtitulo.setFillForegroundColor(corSubtitulo);
 		
-		this.estiloSubtitulo.setBorderColor(BorderSide.BOTTOM, new XSSFColor(Color.WHITE));
-		this.estiloSubtitulo.setBorderColor(BorderSide.TOP, new XSSFColor(Color.WHITE));
-		this.estiloSubtitulo.setBorderColor(BorderSide.RIGHT, new XSSFColor(Color.WHITE));
-		this.estiloSubtitulo.setBorderColor(BorderSide.LEFT, new XSSFColor(Color.WHITE));
+		this.estiloSubtitulo.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		this.estiloSubtitulo.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
+		
+		this.estiloSubtitulo.setBottomBorderColor(IndexedColors.WHITE.getIndex());
+		this.estiloSubtitulo.setTopBorderColor(IndexedColors.WHITE.getIndex());
+		this.estiloSubtitulo.setRightBorderColor(IndexedColors.WHITE.getIndex());
+		this.estiloSubtitulo.setLeftBorderColor(IndexedColors.WHITE.getIndex());
 		
 		this.estiloSubtitulo.setBorderTop(BorderStyle.DOUBLE);
 		this.estiloSubtitulo.setBorderRight(BorderStyle.MEDIUM);

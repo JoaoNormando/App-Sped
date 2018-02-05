@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.junit.After;
 import org.junit.Test;
 
@@ -20,20 +20,20 @@ public class RelatorioTest {
 		this.relatorioMFD = new Relatorio();
 		this.relatorioMFD.criaFolha("Folha 01");
 		this.relatorioMFD.geraRelatorio(this.nomeRelatorio);
-		XSSFSheet folha = this.relatorioMFD.recuperarFolha("Folha 01");
+		SXSSFSheet folha = this.relatorioMFD.recuperarFolha("Folha 01");
 		assertTrue(folha != null);
 	}
 
 	/**
-	 * Os campos definidos nesse teste é com base no documento passado pelo cliente
-	 * no levantamendo de requisitos versão 1.0
+	 * Os campos definidos nesse teste ï¿½ com base no documento passado pelo cliente
+	 * no levantamendo de requisitos versï¿½o 1.0
 	 * 
 	 * @throws IOException
 	 */
 	@Test
 	public void deveriaEscreverOCabecalhoMFD() throws IOException {
 		relatorioMFD = new Relatorio();
-		XSSFSheet folha = relatorioMFD.criaFolha("Relatorio");
+		SXSSFSheet folha = relatorioMFD.criaFolha("Relatorio");
 		
 		Cabecalho c = new Cabecalho()
 					.adicionarTexto("Texto1")

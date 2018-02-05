@@ -2,18 +2,39 @@ package br.com.srcomputador.relatorio;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
+import br.com.srcomputador.nfe.entidade.detalheProduto.Detalhamento;
+
+@Service
 public class RelatorioNFe extends Relatorio{
 	
 	private FolhaRelatorioNFeTotal relatorioTotal;
 	private FolhaRelatorioNFeProduto relatorioProduto;
 	
-	public File geraRelatorio() throws IOException {
+	@Autowired
+	public RelatorioNFe(FolhaRelatorioNFeTotal relatorioTotal, FolhaRelatorioNFeProduto relatorioProduto) {
+		this.relatorioTotal = relatorioTotal;
+		this.relatorioProduto = relatorioProduto;
+	}
+	
+	public File geraRelatorio(List<NotaFiscalEletronica> listaNFe, List<Detalhamento> listaDet) throws IOException {
 		this.criaCabecalho();
 		this.defineEstiloCabecalho();
+		this.relatorioTotal.escreve(listaNFe, this.recuperarFolha(this.relatorioTotal.getNomeFolha()));
+		listaNFe = null;
+		System.gc();
+		this.relatorioProduto.escreve(listaDet, this.recuperarFolha(this.relatorioProduto.getNomeFolha()));
+		listaDet = null;
+		System.gc();
 		File relatorio = this.geraRelatorio("RelatorioNFe");
+		this.removerFolha(this.relatorioProduto.getNomeFolha());
+		this.removerFolha(this.relatorioTotal.getNomeFolha());
 		return relatorio;
 	}
 	
@@ -24,8 +45,7 @@ public class RelatorioNFe extends Relatorio{
 	}
 	
 	private void criaCabecalhoRelatorioTotal() {
-		this.relatorioTotal = new FolhaRelatorioNFeTotal();
-		XSSFSheet folha = this.criaFolha(this.relatorioTotal.getNomeFolha());
+		SXSSFSheet folha = this.criaFolha(this.relatorioTotal.getNomeFolha());
 		this.geraCabecalho(folha, this.relatorioTotal.getCabecalhoDadosDaNFe());
 		this.geraCabecalho(folha, this.relatorioTotal.getCabecalhoChaveDeAcesso());
 		this.geraCabecalho(folha, this.relatorioTotal.getCabecalhoEmitente());
@@ -39,8 +59,7 @@ public class RelatorioNFe extends Relatorio{
 	}
 	
 	private void criaCabecalhoRelatorioProduto() {
-		this.relatorioProduto = new FolhaRelatorioNFeProduto();
-		XSSFSheet folhaProduto = this.criaFolha(this.relatorioProduto.getNomeFolha());
+		SXSSFSheet folhaProduto = this.criaFolha(this.relatorioProduto.getNomeFolha());
 		this.geraCabecalho(folhaProduto, this.relatorioProduto.getCabecalhoDadosDaNFe());
 		this.geraCabecalho(folhaProduto, this.relatorioProduto.getCabecalhoEmitente());
 		this.geraCabecalho(folhaProduto, this.relatorioProduto.getCabecalhoDestinatario());
