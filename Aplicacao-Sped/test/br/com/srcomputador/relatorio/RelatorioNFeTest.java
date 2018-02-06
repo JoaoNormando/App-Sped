@@ -37,9 +37,9 @@ public class RelatorioNFeTest {
 	public void deveriaEscreverNoRelatorio() throws IOException {
 		FiltroRelatorio filtro = new FiltroRelatorio();
 		filtro.setCliente(clienteDao.buscarPeloId(1L));
-		filtro.setImportacao(importDao.buscarPeloId(3L));
+		filtro.setImportacao(importDao.buscarPeloId(11L));
 		
-		File file = relatorio.geraRelatorio(dao.recuperarPeloFiltro(filtro), detDao.recuperarTodosOsElementos(filtro));
+		File file = relatorio.geraRelatorio(filtro);
 		Assert.assertTrue(file.exists());
 	}
 	

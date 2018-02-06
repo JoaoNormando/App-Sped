@@ -114,7 +114,7 @@ public class RelatorioMFD extends Relatorio {
 		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalDoDocumentoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorDoDescontoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorAcrescimoPercAplicadoE14(), linha, coluna);
-		coluna = this.criaEEscreveNaCelulaComFormatacaoMonetaria(mfd.getValorTotalLiquidoE14(), linha, coluna);
+		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalLiquidoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getIndicadorDeCancelamentoE14(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorCancelamentoE14(), linha, coluna);
 		return coluna;
@@ -148,7 +148,7 @@ public class RelatorioMFD extends Relatorio {
 		coluna = this.criaEEscreveNaCelula(mfd.getDescricaoProdutoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getQuantidadeComercializadaE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getUnidadeMedidaE15(), linha, coluna);
-		coluna = this.criaEEscreveNaCelula(mfd.getValorUnitarioE15(), linha, coluna);
+		coluna = this.criaEEscreveNaCelulaValorUnitario(mfd.getValorUnitarioE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorDescontoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorAcrescimoE15(), linha, coluna);
 		coluna = this.criaEEscreveNaCelula(mfd.getValorTotalLiquidoE15(), linha, coluna);
@@ -205,6 +205,7 @@ public class RelatorioMFD extends Relatorio {
 			coluna = this.escreverRegistroE02(lista.get(i), linha, coluna);
 			coluna = this.escreverRegistroE14(lista.get(i), linha, coluna);
 			coluna = this.escreverRegistroE15(lista.get(i), linha, coluna);
+			System.out.println("Ecrevendo conteudo...");
 		}
 		
 	}

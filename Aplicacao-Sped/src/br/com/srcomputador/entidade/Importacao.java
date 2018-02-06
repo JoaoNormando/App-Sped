@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -24,14 +25,16 @@ import br.com.srcomputador.mfd.entidade.MFD;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
 
 @Entity
-@Table(name = "importacao")
+@Table(name = "importacao", uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"cliente_id", "descricao"})
+		})
 public class Importacao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(length = 100, unique = true)
+	@Column(length = 100)
 	private String descricao;
 
 	@OneToMany(mappedBy = "importacao", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -1,5 +1,6 @@
 package br.com.srcomputador.relatorio;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.xssf.streaming.SXSSFCell;
@@ -379,9 +380,12 @@ public class FolhaRelatorioNFeProduto {
 		return ++coluna;
 	}
 	
-	public void escreve(List<Detalhamento> listaDet, SXSSFSheet sxssfSheet) {
+	public void escreve(List<Detalhamento> listaDet, SXSSFSheet sxssfSheet) throws IOException {
 		int inicioLinhaDados = 2;
 		for(int i = 0; i < listaDet.size(); i++) {
+			if(i % 100 == 0) {
+				sxssfSheet.flushRows(100);
+			}
 			int coluna = 0;
 			NotaFiscalEletronica nfe = listaDet.get(i).getNfe();
 			SXSSFRow linha = sxssfSheet.createRow(inicioLinhaDados + i);

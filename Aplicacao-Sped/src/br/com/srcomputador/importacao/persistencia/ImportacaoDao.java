@@ -48,9 +48,11 @@ public class ImportacaoDao extends GenericDao<Importacao, Long>{
 		return query.getResultList();
 	}
 	
-	public boolean verificarExistenciaDeDescricao(String descricao) {
-		List<Importacao> lista = this.em.createQuery("from Importacao as i where i.descricao = :descricao", Importacao.class)
-			.setParameter("descricao", descricao).getResultList();
+	public boolean verificarExistenciaDeDescricaoComCliente(String descricao, Cliente cliente) {
+		List<Importacao> lista = this.em.createQuery("from Importacao as i where i.descricao = :descricao and i.cliente = :cliente", Importacao.class)
+			.setParameter("descricao", descricao)
+			.setParameter("cliente", cliente)
+			.getResultList();
 		return !lista.isEmpty();
 	}
 	

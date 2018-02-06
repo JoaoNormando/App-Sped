@@ -1,5 +1,6 @@
 package br.com.srcomputador.relatorio;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.poi.xssf.streaming.SXSSFCell;
@@ -121,7 +122,13 @@ public class FolhaRelatorioNFeTotal {
 	
 	public int escreverDestinatario(Destinatario dest, SXSSFRow linha, int coluna) {
 		if(dest == null) {
-			return coluna += 6;
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			return coluna;
 		}
 		if(dest.getCnpj() != null) {
 			coluna = this.criaEEscreveNaCelula(dest.getCnpj(), linha, coluna);
@@ -200,7 +207,10 @@ public class FolhaRelatorioNFeTotal {
 	
 	public int escreveDestinatarioAdicionais(Destinatario dest, SXSSFRow linha, int coluna) {
 		if(dest == null) {
-			coluna += 4;
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
+			coluna = this.criaEEscreveNaCelula("Destinatario inexistente", linha, coluna);
 			return coluna;
 		}
 		if(dest.getEnderDest() == null) {
@@ -297,9 +307,12 @@ public class FolhaRelatorioNFeTotal {
 		return ++coluna;
 	}
 	
-	public void escreve(List<NotaFiscalEletronica> listaNFe, SXSSFSheet sxssfSheet) {
+	public void escreve(List<NotaFiscalEletronica> listaNFe, SXSSFSheet sxssfSheet) throws IOException {
 		int inicioLinhaDados = 2;
 		for(int i = 0; i < listaNFe.size(); i++) {
+			if(i % 100 == 0) {
+				sxssfSheet.flushRows(100);
+			}
 			int coluna = 0;
 			SXSSFRow linha = sxssfSheet.createRow(inicioLinhaDados + i);
 			coluna = this.escreverDadosDaNFe(listaNFe.get(i).getInfNfe().getIde(), listaNFe.get(i).getInfNfe().getTotal().getIcmsTot(), linha, coluna);
@@ -313,6 +326,8 @@ public class FolhaRelatorioNFeTotal {
 			coluna = this.escreveTotais(listaNFe.get(i).getInfNfe().getTotal(), linha, coluna);
 			coluna = this.escreveInfoAdicional(listaNFe.get(i).getInfNfe().getInfAdic(), linha, coluna);
 		}
+		listaNFe = null;
+		System.gc();
 	}
 	
 }

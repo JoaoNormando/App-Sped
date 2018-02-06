@@ -25,6 +25,7 @@ import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.persistencia.FiltroRelatorio;
 import br.com.srcomputador.nfe.servico.RelatorioService;
+import br.com.srcomputador.relatorio.RelatorioNFe;
 
 @RestController
 @RequestMapping("relatorio/nfe")
@@ -33,13 +34,15 @@ public class RelatorioNFeRest {
 	private RelatorioService relatorioService;
 	private ClienteDao clienteDao;
 	private ImportacaoDao importacaoDao;
+	private RelatorioNFe relatorioNFe;
 	
 	
 	@Autowired
-	public RelatorioNFeRest(RelatorioService relatorioService, ClienteDao clienteDao, ImportacaoDao importacaoDao) {
+	public RelatorioNFeRest(RelatorioService relatorioService, ClienteDao clienteDao, ImportacaoDao importacaoDao, RelatorioNFe relatorioNFe) {
 		this.relatorioService = relatorioService;
 		this.clienteDao = clienteDao;
 		this.importacaoDao = importacaoDao;
+		this.relatorioNFe = relatorioNFe;
 	}
 	
 	@CrossOrigin
@@ -58,14 +61,15 @@ public class RelatorioNFeRest {
 		FiltroRelatorio filtroRelatorio = new FiltroRelatorio(cliente, importacao, dataInicial, dataFinal);
 				
 		try {
-			File relatorio = this.relatorioService.gerarRelatorio(filtroRelatorio);
+//			File relatorio = this.relatorioService.gerarRelatorio(filtroRelatorio); Relatorio XLS
+			File relatorio = this.relatorioNFe.geraRelatorio(filtroRelatorio);
 			this.relatorioService.fecharArquivo();
 			Path path = Paths.get(relatorio.getAbsolutePath());
 			ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
 			return ResponseEntity
 					.ok()
-					.header("Content-Disposition:","attachment; filename=\"Relatorio.xls\"")
-					.contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+					.header("Content-Disposition:","attachment; filename=\"Relatorio.xlsx\"")
+					.contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
 					.body(resource);
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -2,35 +2,39 @@ package br.com.srcomputador.relatorio;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
-import br.com.srcomputador.nfe.entidade.detalheProduto.Detalhamento;
+import br.com.srcomputador.cliente.persistencia.ClienteDao;
+import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
+import br.com.srcomputador.nfe.persistencia.DetalhamentoDao;
+import br.com.srcomputador.nfe.persistencia.FiltroRelatorio;
+import br.com.srcomputador.nfe.persistencia.NotaFiscalEletronicaDao;
 
 @Service
 public class RelatorioNFe extends Relatorio{
 	
 	private FolhaRelatorioNFeTotal relatorioTotal;
 	private FolhaRelatorioNFeProduto relatorioProduto;
-	
+	@Autowired
+	private NotaFiscalEletronicaDao dao;
+	@Autowired
+	private DetalhamentoDao detDao;
+
 	@Autowired
 	public RelatorioNFe(FolhaRelatorioNFeTotal relatorioTotal, FolhaRelatorioNFeProduto relatorioProduto) {
 		this.relatorioTotal = relatorioTotal;
 		this.relatorioProduto = relatorioProduto;
 	}
 	
-	public File geraRelatorio(List<NotaFiscalEletronica> listaNFe, List<Detalhamento> listaDet) throws IOException {
+	public File geraRelatorio(FiltroRelatorio filtro) throws IOException {
 		this.criaCabecalho();
 		this.defineEstiloCabecalho();
-		this.relatorioTotal.escreve(listaNFe, this.recuperarFolha(this.relatorioTotal.getNomeFolha()));
-		listaNFe = null;
-		System.gc();
-		this.relatorioProduto.escreve(listaDet, this.recuperarFolha(this.relatorioProduto.getNomeFolha()));
-		listaDet = null;
+		
+		this.relatorioTotal.escreve(dao.recuperarPeloFiltro(filtro), this.recuperarFolha(this.relatorioTotal.getNomeFolha()));
+		this.relatorioProduto.escreve(detDao.recuperarTodosOsElementos(filtro), this.recuperarFolha(this.relatorioProduto.getNomeFolha()));
 		System.gc();
 		File relatorio = this.geraRelatorio("RelatorioNFe");
 		this.removerFolha(this.relatorioProduto.getNomeFolha());
@@ -42,6 +46,7 @@ public class RelatorioNFe extends Relatorio{
 		this.criaCabecalhoRelatorioTotal();
 		this.limparIndices();
 		this.criaCabecalhoRelatorioProduto();
+		this.limparIndices();
 	}
 	
 	private void criaCabecalhoRelatorioTotal() {

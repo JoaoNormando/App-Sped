@@ -100,7 +100,7 @@ public class ImportacaoNFeService {
 		for (File arquivo : listaArquivos) {
 
 			if (!arquivo.isDirectory()) {
-
+				try {
 				if (this.definirTipoArquivo.definirTipoArquivo(arquivo).compareTo(TipoArquivo.XML) == 0) {
 					ModulosImportacao modulo = this.detectarArquivoService.detectar(arquivo);
 					NotaFiscalEletronica nfe;
@@ -123,7 +123,9 @@ public class ImportacaoNFeService {
 						}
 					}
 				}
-
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} else {
 				File[] lista = arquivo.listFiles();
 				this.salvar(lista, importacao, cliente);

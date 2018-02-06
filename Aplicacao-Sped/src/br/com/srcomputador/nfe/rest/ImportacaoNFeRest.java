@@ -5,17 +5,20 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -61,7 +64,7 @@ public class ImportacaoNFeRest {
 	@CrossOrigin
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> importar(@RequestParam("descricao") String descricao,
-			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente, MultipartHttpServletRequest request) {
+			@RequestParam("arquivo") MultipartFile[] multiPart, @RequestParam("cliente") Long idCliente, MultipartHttpServletRequest request) throws MaxUploadSizeExceededException, FileUploadException {
 		
 		if (multiPart.length == 0)
 			return ResponseEntity.badRequest().body("Deve existir algum arquivo para importação");
@@ -72,8 +75,8 @@ public class ImportacaoNFeRest {
 			return ResponseEntity.badRequest().body("Cliente informado nao encontrado");
 		}
 		
-		if(this.importacaoDao.verificarExistenciaDeDescricao(descricao))
-			return ResponseEntity.badRequest().body("Descrição já existente no banco");
+		if(this.importacaoDao.verificarExistenciaDeDescricaoComCliente(descricao, cliente))
+			return ResponseEntity.badRequest().body("Essa descrição já existe para este cliente");
 		
 		String path = request.getServletContext().getRealPath("/");
 		try {
@@ -99,6 +102,11 @@ public class ImportacaoNFeRest {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok().build();
+	}
+	
+	@ExceptionHandler({MaxUploadSizeExceededException.class, FileUploadException.class})
+	public ResponseEntity<?> handleMaxFileSizeException() {
+		return ResponseEntity.badRequest().body("Tamanho da importação excede o limite máximo");
 	}
 
 }
