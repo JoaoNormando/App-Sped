@@ -14,8 +14,8 @@ import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.cliente.persistencia.ClienteDao;
 import br.com.srcomputador.configuracao.PersistenceConfig;
 import br.com.srcomputador.entidade.Importacao;
-import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;
+import br.com.srcomputador.persistencia.ImportacaoDao;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -31,7 +32,7 @@ public class DetalhamentoDao extends GenericDao<Detalhamento, Long>{
 		CriteriaQuery<Detalhamento> query = builder.createQuery(Detalhamento.class);
 		Root<Detalhamento> fromDetalhamento = query.from(Detalhamento.class);
 		List<Predicate> predicados = new ArrayList<Predicate>();
-		predicados.add(builder.equal(fromDetalhamento.get("nfe").get("importacao"), filtro.getImportacao()));
+		predicados.add(builder.equal((Expression<?>) fromDetalhamento.fetch("nfe").fetch("importacao"), filtro.getImportacao()));
 		predicados.add(builder.equal(fromDetalhamento.get("nfe").get("importacao").get("cliente"), filtro.getCliente()));
 		
 		if(filtro.getDataInicial() != null && filtro.getDataFinal() != null) {
@@ -39,6 +40,12 @@ public class DetalhamentoDao extends GenericDao<Detalhamento, Long>{
 		}
 		query.select(fromDetalhamento).where(predicados.toArray(new Predicate[]{}));
 		return this.em.createQuery(query).getResultList();
+	}
+	
+	
+	public List<Detalhamento> recuperarTodosOsElementos2(FiltroRelatorio filtro) {
+		TypedQuery<Detalhamento> typedQuery = this.em.createQuery("from Detalhamento as d join fetch d.nfe where d.nfe.", Detalhamento.class);
+		return typedQuery.getResultList();
 	}
 	
 }

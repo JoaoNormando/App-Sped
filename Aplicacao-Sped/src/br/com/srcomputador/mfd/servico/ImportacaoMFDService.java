@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.entidade.ModulosImportacao;
 import br.com.srcomputador.exception.ConteudoVazioException;
-import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.mfd.entidade.MFD;
+import br.com.srcomputador.persistencia.ImportacaoDao;
 import br.com.srcomputador.servico.DefinirTipoArquivoService;
 import br.com.srcomputador.servico.OperacaoDiretorioService;
 import br.com.srcomputador.servico.OperacaoZipService;
@@ -89,6 +90,10 @@ public class ImportacaoMFDService {
 		}
 		
 		this.operacaoDiretorioService.apagarArquivos(destino);
+	}
+	
+	public List<Importacao> recuperarImportacoesMFD() {
+		return this.importacaoDao.listarImportacoesPorModulo(ModulosImportacao.MFD);
 	}
 	
 }

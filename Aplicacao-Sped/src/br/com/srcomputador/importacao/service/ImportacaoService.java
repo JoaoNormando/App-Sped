@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.importacao.dto.ConsultaImportacao;
 import br.com.srcomputador.importacao.exception.ImportacaoInexistenteException;
-import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
+import br.com.srcomputador.persistencia.ImportacaoDao;
 
 @Service
 public class ImportacaoService {

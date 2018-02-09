@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.srcomputador.cliente.persistencia.ClienteDao;
-import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.persistencia.DetalhamentoDao;
 import br.com.srcomputador.nfe.persistencia.FiltroRelatorio;
 import br.com.srcomputador.nfe.persistencia.NotaFiscalEletronicaDao;
+import br.com.srcomputador.persistencia.ImportacaoDao;
 
 @Service
 public class RelatorioNFe extends Relatorio{

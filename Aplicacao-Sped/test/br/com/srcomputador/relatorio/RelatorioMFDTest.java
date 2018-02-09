@@ -2,7 +2,7 @@ package br.com.srcomputador.relatorio;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +24,8 @@ public class RelatorioMFDTest {
 	@Test
 	public void deveriaEscreverNoRelatorio() throws IOException {
 		RelatorioMFD relatorio = new RelatorioMFD(new ConversorDataService());
-		List<RelatorioMfdDTO> lista = dao.recuperarTodos();
-		File relatorioFinal = relatorio.gerarRelatorio(lista);
+//		List<RelatorioMfdDTO> lista = dao.recuperarTodos();
+		File relatorioFinal = relatorio.gerarRelatorio(new ArrayList<RelatorioMfdDTO>());
 	}
 	
 }

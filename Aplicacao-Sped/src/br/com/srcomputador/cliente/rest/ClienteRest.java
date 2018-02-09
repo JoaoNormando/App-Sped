@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.cliente.service.ClienteService;
+import br.com.srcomputador.entidade.Importacao;
+import br.com.srcomputador.entidade.ModulosImportacao;
 import br.com.srcomputador.nfe.rest.MensagemErro;
 import br.com.srcomputador.nfe.rest.dtorequest.ImportacaoClienteRequest;
+import br.com.srcomputador.persistencia.ImportacaoDao;
 
 @CrossOrigin
 @RestController
@@ -30,10 +34,12 @@ import br.com.srcomputador.nfe.rest.dtorequest.ImportacaoClienteRequest;
 public class ClienteRest {
 
 	private ClienteService clienteService;
-
+	private ImportacaoDao importacaoDao;
+	
 	@Autowired
-	public ClienteRest(ClienteService clienteService) {
+	public ClienteRest(ClienteService clienteService, ImportacaoDao importacaoDao) {
 		this.clienteService = clienteService;
+		this.importacaoDao = importacaoDao;
 	}
 	@CrossOrigin
 	@GetMapping
@@ -47,13 +53,26 @@ public class ClienteRest {
 		List<ImportacaoClienteRequest> lista = this.clienteService.listarImportacoesDoCliente(cliente);
 		return ResponseEntity.ok(lista);
 	}
+
+	@GetMapping("{id}/importacao/mfd")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<Importacao> recuperarImportacoesMFD(@PathVariable("id") Long id) {
+		Cliente cliente = this.clienteService.recuperarPeloId(id);
+		List<Importacao> importacao = this.importacaoDao.recuperarImportacoesPeloClienteEPeloModulo(cliente, ModulosImportacao.MFD);
+		importacao.iterator().forEachRemaining(i -> {
+			i.setCliente(null);
+			i.setListaMFD(null);
+			i.setListaNfe(null);
+		});
+		return importacao;
+	}
 	
 	@GetMapping("{id}")
 	public ResponseEntity<?> getClienteById(@PathVariable("id") Long id)
 			throws IllegalAccessException, InvocationTargetException {
 		GetClienteRestDto cliente = this.clienteService.recuperarClienteRestPeloId(id);
 		if (cliente == null) {
-			return new ResponseEntity<>(new MensagemErro("Cliente não encontrado"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MensagemErro("Cliente nï¿½o encontrado"), HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.ok(cliente);
 	}
@@ -75,11 +94,11 @@ public class ClienteRest {
 		Cliente cliente = this.clienteService.recuperarPeloId(id);
 
 		if (cliente == null) {
-			return new ResponseEntity<>(new MensagemErro("Cliente não encontrado"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MensagemErro("Cliente nï¿½o encontrado"), HttpStatus.NOT_FOUND);
 		}
 
 		if(!cliente.getImportacoes().isEmpty()) {
-			return new ResponseEntity<>(new MensagemErro("O cliente não pode ser removido devido a suas dependencias"), HttpStatus.CONFLICT);
+			return new ResponseEntity<>(new MensagemErro("O cliente nï¿½o pode ser removido devido a suas dependencias"), HttpStatus.CONFLICT);
 		}
 		this.clienteService.excluirPeloId(id);
 

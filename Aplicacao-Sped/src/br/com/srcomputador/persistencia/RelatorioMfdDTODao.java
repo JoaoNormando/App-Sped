@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import br.com.srcomputador.mfd.entidade.RelatorioMfdDTO;
+import br.com.srcomputador.nfe.persistencia.FiltroRelatorio;
 
 @Repository
 public class RelatorioMfdDTODao {
@@ -20,6 +21,15 @@ public class RelatorioMfdDTODao {
 		TypedQuery<RelatorioMfdDTO> typedQuery = this.em.createQuery(this.stringQuery(), RelatorioMfdDTO.class);
 		
 		return typedQuery.getResultList();
+	}
+	
+	public List<RelatorioMfdDTO> recuperarTodosPeloFiltro(FiltroRelatorio filtro) {
+		String query = this.stringQuery() + " where mfd.importacao = :importacao and mfd.importacao.cliente = :cliente";
+		
+		return this.em.createQuery(query, RelatorioMfdDTO.class)
+			.setParameter("importacao", filtro.getImportacao())
+			.setParameter("cliente", filtro.getCliente())
+			.getResultList();
 	}
 
 	private String stringQuery() {

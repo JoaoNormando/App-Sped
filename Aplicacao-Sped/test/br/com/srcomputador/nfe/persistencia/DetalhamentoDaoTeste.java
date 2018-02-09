@@ -13,8 +13,8 @@ import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.cliente.persistencia.ClienteDao;
 import br.com.srcomputador.configuracao.PersistenceConfig;
 import br.com.srcomputador.entidade.Importacao;
-import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.entidade.detalheProduto.Detalhamento;
+import br.com.srcomputador.persistencia.ImportacaoDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {DetalhamentoDao.class, PersistenceConfig.class, ImportacaoDao.class, ClienteDao.class})

@@ -1,4 +1,4 @@
-package br.com.srcomputador.importacao.rest;
+package br.com.srcomputador.rest;
 
 import java.util.List;
 
@@ -34,6 +34,7 @@ public class ImportacaoRest {
 	public List<ConsultaImportacao> listar() {
 		return this.importacaoService.recuperarImportacoes();
 	}
+	
 	
 	@CrossOrigin
 	@DeleteMapping("{id}")

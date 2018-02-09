@@ -1,13 +1,19 @@
 package br.com.srcomputador.mfd.rest;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.cliente.persistencia.ClienteDao;
+import br.com.srcomputador.entidade.Importacao;
 import br.com.srcomputador.exception.ConteudoVazioException;
 import br.com.srcomputador.mfd.servico.ImportacaoMFDService;
 import net.lingala.zip4j.exception.ZipException;
@@ -34,6 +41,20 @@ public class ImportacaoMFDRest {
 	public ImportacaoMFDRest(ClienteDao clienteDao, ImportacaoMFDService importacaoService) {
 		this.clienteDao = clienteDao;
 		this.importacaoService = importacaoService;
+	}
+
+	@CrossOrigin
+	@GetMapping(produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<Importacao> recuperar() {
+		List<Importacao> importacoes = this.importacaoService.recuperarImportacoesMFD();
+		importacoes.iterator().forEachRemaining(e -> {
+			e.setCliente(null);
+			e.setListaMFD(null);
+			e.setListaNfe(null);
+		});
+	        
+		return importacoes;
 	}
 	
 	@CrossOrigin

@@ -1,4 +1,4 @@
-package br.com.srcomputador.importacao.persistencia;
+package br.com.srcomputador.persistencia;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ import br.com.srcomputador.entidade.ModulosImportacao;
 import br.com.srcomputador.importacao.dto.ConsultaImportacao;
 import br.com.srcomputador.nfe.persistencia.Filtro;
 import br.com.srcomputador.nfe.rest.dtorequest.ImportacaoClienteRequest;
-import br.com.srcomputador.persistencia.GenericDao;
 
 @Repository
 public class ImportacaoDao extends GenericDao<Importacao, Long>{
@@ -27,6 +26,13 @@ public class ImportacaoDao extends GenericDao<Importacao, Long>{
 		return query.getResultList();
 	}
 
+	public List<Importacao> recuperarImportacoesPeloClienteEPeloModulo(Cliente cliente, ModulosImportacao modulo) {
+		return this.em.createQuery("from Importacao as i where i.modulo = :modulo and i.cliente = :cliente", Importacao.class)
+					.setParameter("modulo", modulo)
+					.setParameter("cliente", cliente)
+					.getResultList();
+	}
+	
 	public Importacao listarImportacoesPeloFiltro(Filtro filtro){
 		Query query = this.em.createQuery("from Importacao as i join fetch i.cliente as c where c = :cliente and i.descricao = :descricao");
 		query.setParameter("cliente", filtro.getCliente());

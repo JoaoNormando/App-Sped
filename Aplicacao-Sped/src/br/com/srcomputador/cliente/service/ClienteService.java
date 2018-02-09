@@ -15,8 +15,8 @@ import br.com.srcomputador.cliente.rest.AtualizacaoRestDto;
 import br.com.srcomputador.cliente.rest.ClienteEnderecoRestDto;
 import br.com.srcomputador.cliente.rest.GetClienteRestDto;
 import br.com.srcomputador.cliente.rest.PostClienteRestDto;
-import br.com.srcomputador.importacao.persistencia.ImportacaoDao;
 import br.com.srcomputador.nfe.rest.dtorequest.ImportacaoClienteRequest;
+import br.com.srcomputador.persistencia.ImportacaoDao;
 
 @Service
 public class ClienteService {

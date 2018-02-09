@@ -10,10 +10,12 @@ import org.apache.poi.xssf.streaming.SXSSFCell;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.srcomputador.mfd.entidade.RelatorioMfdDTO;
 import br.com.srcomputador.servico.ConversorDataService;
 
+@Service
 public class RelatorioMFD extends Relatorio {
 
 	private final String NOME_FOLHA = "Relatorio";
