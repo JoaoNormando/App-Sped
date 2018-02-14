@@ -17,9 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import br.com.srcomputador.cliente.entidade.Cliente;
 import br.com.srcomputador.mfd.entidade.MFD;
 import br.com.srcomputador.nfe.entidade.NotaFiscalEletronica;

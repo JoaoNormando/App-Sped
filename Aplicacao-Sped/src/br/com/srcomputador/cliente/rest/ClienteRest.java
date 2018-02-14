@@ -83,8 +83,8 @@ public class ClienteRest {
 		try {
 			Cliente cliente = this.clienteService.salvar(post);
 			return ResponseEntity.created(URI.create("cliente/" + cliente.getId())).build();
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
+		} catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
+			e.printStackTrace(); 
 			return ResponseEntity.badRequest().build();
 		}
 	}
